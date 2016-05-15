@@ -20,5 +20,5 @@ public class BillBehaviour : MonoBehaviour {
 		}
 
 	}
-	// mooooooooooooooooooooooooooooooo
+
 }

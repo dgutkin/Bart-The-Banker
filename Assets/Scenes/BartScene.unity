@@ -151,6 +151,8 @@ GameObject:
   - 61: {fileID: 1119655390}
   - 114: {fileID: 1119655391}
   - 50: {fileID: 1119655389}
+  - 111: {fileID: 1119655393}
+  - 95: {fileID: 1119655392}
   m_Layer: 0
   m_Name: Bart
   m_TagString: Player
@@ -184,7 +186,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 19d65712349c00f4185ae8b4a0d73156, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4e1452d48fc00e647941fce8c5890ac2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -249,6 +251,37 @@ MonoBehaviour:
   jump: 0
   groundCheck: {fileID: 1436733959}
   playerRespawn: {fileID: 1982302182}
+--- !u!95 &1119655392
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1119655386}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc0e3129264200a4eba28a92251f63f9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!111 &1119655393
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1119655386}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1213874461
 GameObject:
   m_ObjectHideFlags: 0

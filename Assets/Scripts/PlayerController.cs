@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform groundCheck;
 
 	private Rigidbody2D playerRigidbody;
+	private Animator playerAnimator;
 	private bool grounded = true;
 
 	public GameObject playerRespawn;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
+		playerAnimator = GetComponent<Animator> ();
 	}
 		
 	// Update is called once per frame
@@ -35,9 +37,11 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate() {
 
 		if (jump) {
+			playerAnimator.SetTrigger ("Jump");
 			playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
 			jump = false;
 			grounded = false;
+
 		} else if (grounded) {
 			playerRigidbody.velocity = new Vector2 (moveSpeed, playerRigidbody.velocity.y);
 		}
