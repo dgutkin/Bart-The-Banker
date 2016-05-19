@@ -8,7 +8,12 @@ public class GavelGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		GenerateGavelPositions ();
 		SpawnGavels ();
+	}
+
+	void GenerateGavelPositions() {
+		
 	}
 	
 	void SpawnGavels() {
