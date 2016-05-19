@@ -85,60 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &490500652
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 490500653}
-  m_Layer: 0
-  m_Name: GavelSpawn1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &490500653
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 490500652}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: -3.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
---- !u!1 &681571183
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 681571184}
-  m_Layer: 0
-  m_Name: BillSpawn2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &681571184
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 681571183}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14, y: -0.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
 --- !u!1 &966581004
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +143,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1.05, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
 --- !u!114 &966581007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,7 +359,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 4
 --- !u!114 &1180572548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,60 +375,6 @@ MonoBehaviour:
   hasRight: 0
   hasLeft: 0
   reverseScale: 0
---- !u!1 &1213874461
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1213874462}
-  m_Layer: 0
-  m_Name: BillSpawn1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1213874462
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1213874461}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: -3.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
---- !u!1 &1248795929
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1248795930}
-  m_Layer: 0
-  m_Name: GavelSpawn2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1248795930
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1248795929}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: -3.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
 --- !u!1 &1500186006
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +388,7 @@ GameObject:
   - 114: {fileID: 1500186008}
   - 114: {fileID: 1500186007}
   - 114: {fileID: 1500186012}
+  - 114: {fileID: 1500186013}
   m_Layer: 8
   m_Name: Sidewalk
   m_TagString: Ground
@@ -509,14 +402,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1500186006}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d313f18e18c99b54e8240ce023dd5ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gavelSpawnPoints:
-  - {fileID: 490500653}
-  - {fileID: 1248795930}
+  - {fileID: 0}
+  - {fileID: 0}
   gavel: {fileID: 129410, guid: 0b603dd5a4e3c0241aa1bdd553617bde, type: 2}
 --- !u!114 &1500186008
 MonoBehaviour:
@@ -524,14 +417,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1500186006}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28d006e086c5de94cab61d277ae5af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   billSpawnPoints:
-  - {fileID: 1213874462}
-  - {fileID: 681571184}
+  - {fileID: 0}
+  - {fileID: 0}
   bill: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}
 --- !u!61 &1500186009
 BoxCollider2D:
@@ -588,7 +481,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 5
 --- !u!114 &1500186012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,6 +497,19 @@ MonoBehaviour:
   hasRight: 0
   hasLeft: 0
   reverseScale: 0
+--- !u!114 &1500186013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1500186006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96230930a03d1443196f4f95b6122443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gavel: {fileID: 129410, guid: 0b603dd5a4e3c0241aa1bdd553617bde, type: 2}
+  bill: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}
 --- !u!1 &1982302182
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +536,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
 --- !u!1 &2110150588
 GameObject:
   m_ObjectHideFlags: 0
