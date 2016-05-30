@@ -3,14 +3,14 @@ using System.Collections;
 
  [RequireComponent (typeof(SpriteRenderer))]
 
-public class Tiling : MonoBehaviour { // attach as component to foreground
-
+public class Tiling : MonoBehaviour { // attach as component to foreground/background object
+	
 	public int offsetX = 2;
 
 	public bool hasRight = false;
 	public bool hasLeft = false;
 
-	public bool reverseScale = false; // if object not tilale
+	public bool reverseScale = false; // if object not tilable
 
 	private float spriteWidth = 2f;
 	private Camera cam;
@@ -38,10 +38,11 @@ public class Tiling : MonoBehaviour { // attach as component to foreground
 				makeNewGround (1);
 				hasRight = true;
 			} else if (cam.transform.position.x <= edgeVisiblePositionLeft - offsetX && hasLeft == false) {
-				makeNewGround (1);
+				makeNewGround (0);
 				hasLeft = true;
 			}
-		}
+		} // only need to make new ground in one direction
+
 	}
 
 	void makeNewGround (int direction) {
@@ -53,10 +54,13 @@ public class Tiling : MonoBehaviour { // attach as component to foreground
 		}
 
 		newGround.parent = myTransform.parent;
+
 		if (direction > 0) {
 			newGround.GetComponent<Tiling> ().hasLeft = true;
+			hasLeft = true;
 		} else {
 			newGround.GetComponent<Tiling> ().hasRight = true;
+			hasRight = true;
 		}
 	}
 }

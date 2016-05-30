@@ -62,9 +62,6 @@ public class PlayerController : MonoBehaviour {
 	//	}
 	//}
 
-	//  need camera tracker script ... safer than just making camera child of player
-	//  actually having the camera as a child of the player is ok as long as the ground always persists (can't fall off)
-
 	public void hitGavel() {
 		
 		transform.position = playerRespawn.transform.position;
