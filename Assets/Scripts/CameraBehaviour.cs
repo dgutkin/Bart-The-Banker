@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraBehaviour : MonoBehaviour {
 
 	public Transform player;
+	public int distanceFromCenter = 6;
 
 	// Use this for initialization
 	void Start () {
@@ -12,8 +13,9 @@ public class CameraBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		
-		this.gameObject.transform.position = new Vector3(player.position.x, this.gameObject.transform.position.y,
+
+		this.gameObject.transform.position = new Vector3(player.position.x + distanceFromCenter, 
+			this.gameObject.transform.position.y,
 			this.gameObject.transform.position.z);
 
 	}

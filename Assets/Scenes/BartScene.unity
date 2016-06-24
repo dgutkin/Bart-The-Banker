@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ef4384cc9cc4943b81983aa4956402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxScale: 5
+  parallaxScale: 7
   smoothing: 1
 --- !u!1 &1119655386
 GameObject:
@@ -416,7 +416,6 @@ GameObject:
   - 114: {fileID: 1500186008}
   - 114: {fileID: 1500186007}
   - 114: {fileID: 1500186012}
-  - 114: {fileID: 1500186013}
   m_Layer: 8
   m_Name: Sidewalk
   m_TagString: Ground
@@ -525,19 +524,6 @@ MonoBehaviour:
   hasRight: 0
   hasLeft: 0
   reverseScale: 0
---- !u!114 &1500186013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1500186006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96230930a03d1443196f4f95b6122443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gavel: {fileID: 129410, guid: 0b603dd5a4e3c0241aa1bdd553617bde, type: 2}
-  bill: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}
 --- !u!1 &1982302182
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +564,7 @@ GameObject:
   - 124: {fileID: 2110150590}
   - 81: {fileID: 2110150589}
   - 114: {fileID: 2110150594}
+  - 114: {fileID: 2110150595}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -647,7 +634,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2110150588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 2, y: 0, z: -10}
   m_LocalScale: {x: 0.7, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -664,3 +651,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1119655388}
+--- !u!114 &2110150595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2110150588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96230930a03d1443196f4f95b6122443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gavel: {fileID: 129410, guid: 0b603dd5a4e3c0241aa1bdd553617bde, type: 2}
+  bill: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}

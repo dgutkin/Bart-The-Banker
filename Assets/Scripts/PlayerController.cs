@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float moveSpeed = 1f;
 	public float jumpYForce = 600f;
-	public float jumpXForce = 100f;
+	public float jumpXForce = 0f;
 	public bool jump = false;
 
 	public Transform groundCheck;
