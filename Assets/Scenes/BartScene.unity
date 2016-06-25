@@ -651,6 +651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1119655388}
+  distanceFromCenter: 6
 --- !u!114 &2110150595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,3 +665,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gavel: {fileID: 129410, guid: 0b603dd5a4e3c0241aa1bdd553617bde, type: 2}
   bill: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}
+  box: {fileID: 173610, guid: f6dd3f5ed4b164e01a5c61b9d0e198d7, type: 2}
