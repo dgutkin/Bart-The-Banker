@@ -264,9 +264,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.002802372}
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.3}
+  m_Size: {x: 0.25, y: 0.2943952}
 --- !u!114 &1119655391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ Animation:
   m_GameObject: {fileID: 1119655386}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: 2b915628c86040c44b8f412c60683119, type: 2}
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
@@ -464,9 +464,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -3.1}
+  m_Offset: {x: 0, y: -3.1504424}
   serializedVersion: 2
-  m_Size: {x: 16, y: 0.5}
+  m_Size: {x: 16, y: 0.3991146}
 --- !u!212 &1500186010
 SpriteRenderer:
   m_ObjectHideFlags: 0

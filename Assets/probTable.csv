@@ -1,0 +1,11 @@
+,No Block,Floor Block,Mid Block,High Block,Sky Block,Floor Block,Mid Block,High Block,Cop,Judge
+No Block,20,19,15,5,1,9,8,3,10,10
+Floor Block,80,0,0,0,20,0,0,0,0,0
+Mid Block,40,0,30,20,0,0,0,10,0,0
+High Block,40,0,15,10,10,0,15,10,0,0
+Sky Block,10,28,10,0,2,20,10,0,10,10
+Floor Block,80,0,0,0,20,0,0,0,0,0
+Mid Block,40,0,30,20,0,0,0,10,0,0
+High Block,40,0,15,10,10,0,15,10,0,0
+Cop,80,0,0,0,20,0,0,0,0,0
+Judge,80,0,0,0,20,0,0,0,0,0

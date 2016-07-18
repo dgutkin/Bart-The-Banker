@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
 		playerAnimator = GetComponent<Animator> ();
+		playerRigidbody.freezeRotation = true;
 	}
 		
 	// Update is called once per frame
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
 	// FixedUpdate is called every time the physics changes
 	void FixedUpdate() {
-
+		
 		if (jump) {
 			playerAnimator.SetTrigger ("Jump");
 			playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));

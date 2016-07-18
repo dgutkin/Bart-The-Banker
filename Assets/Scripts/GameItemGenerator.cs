@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 public class GameItemGenerator : MonoBehaviour {
 
@@ -13,12 +15,128 @@ public class GameItemGenerator : MonoBehaviour {
 	void Start () {
 		originPosition = transform.position;
 		originPosition += new Vector2 (5f, -3.72f);
-		SpawnObjects ();
+		SpawnObjects2 ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	/*Dictionary<string, Dictionary<string, float> > loadProbTable() {
+		var reader = new StreamReader(File.OpenRead(@"../probTable.csv"));
+		Dictionary<string, Dictionary<string, float> > probTable = new Dictionary<string, Dictionary<string, float> > ();
+
+		var line = reader.ReadLine();
+		var keys = line.Split(',');
+		while (!reader.EndOfStream)
+		{
+			line = reader.ReadLine();
+			var values = line.Split(',');
+
+			for (int i = 1; i < keys.Length; ++i) {
+				probTable [values [0]] [keys [i]] = values [i];
+			}
+				
+		}
+		return probTable;
+	}*/
+
+	float[,] LoadProbTable() {
+		// probTable csv saved in Assets folder of the project
+		StreamReader reader = new StreamReader(File.OpenRead(@Application.dataPath + "/probTable.csv"));
+		float[,] probTable = new float[10,10];
+
+		int i = 0;
+		string line = reader.ReadLine(); // read first line that contains labels before looping
+		while (!reader.EndOfStream)
+		{
+			line = reader.ReadLine();
+			string[] values = line.Split(',');
+
+			int cumu = 0;
+			for (int j = 0; j < values.Length-1; ++j) {
+				cumu += int.Parse(values[j+1]);
+				probTable [i,j] = cumu;
+			}
+			++i;
+		}
+		return probTable;
+	}
+
+	void SpawnObjects2() {
+
+		float[,] probTable = new float[10,10];
+		// fill in the table with cumulative transition probabilities
+		probTable = LoadProbTable();
+		Vector2 blockPosition = originPosition;
+		float blockHeight = 1.2f;
+		float blockWidth = 1.2f;
+		int previousBlockType = 0;
+		int currentBlockType = 0;
+
+		float midBlockHeightFactor = 3;
+		float highBlockHeightFactor = 4;
+		float skyBlockHeightFactor = 5;
+
+		// in fixed length loop (level)
+		for (int blocks = 0; blocks < 30; blocks++) {
+
+			int randomNumber = Random.Range(0,100);
+			for (int i = 0; i < 10; i++) {
+				if (randomNumber > probTable [previousBlockType,i]) {
+					currentBlockType = i+1;
+				}
+			}
+
+			blockPosition = new Vector2 (blockPosition.x, originPosition.y); // reset the height but keep distance
+
+			switch (currentBlockType) {
+			case 0: // no block
+				blockPosition += new Vector2(blockWidth, 0);
+				break;
+			case 1: // floor death block
+				blockPosition += new Vector2(blockWidth, 0);
+				Instantiate(box, blockPosition, Quaternion.identity);
+				break;
+			case 2: // mid death block
+				blockPosition += new Vector2(blockWidth, midBlockHeightFactor * blockHeight);
+				Instantiate(box, blockPosition, Quaternion.identity);
+				break;
+			case 3: // high death blocks
+				blockPosition += new Vector2(blockWidth, highBlockHeightFactor * blockHeight);
+				Instantiate(box, blockPosition, Quaternion.identity);
+				break;
+			case 4: // sky death blocks
+				blockPosition += new Vector2(blockWidth, skyBlockHeightFactor * blockHeight);
+				Instantiate(box, blockPosition, Quaternion.identity);
+				break;
+			case 5: // floor tax block
+				blockPosition += new Vector2(blockWidth, 0);
+				Instantiate(box, blockPosition, Quaternion.identity);
+				// change transform being initiated
+				break;
+			case 6: // mid tax block
+				blockPosition += new Vector2(blockWidth, midBlockHeightFactor * blockHeight);
+				Instantiate(box, blockPosition, Quaternion.identity);
+				break;
+			case 7: // high tax block
+				blockPosition += new Vector2(blockWidth, highBlockHeightFactor * blockHeight);
+				Instantiate(box, blockPosition, Quaternion.identity);
+				break;
+			case 8: // cop
+				blockPosition += new Vector2(blockWidth, 0);
+				break;
+			case 9: // judge
+				blockPosition += new Vector2(blockWidth, 0);
+				break;
+			}
+
+			previousBlockType = currentBlockType;
+			currentBlockType = 0;
+
+		}
+			
 	}
 		
 	void SpawnObjects() {
