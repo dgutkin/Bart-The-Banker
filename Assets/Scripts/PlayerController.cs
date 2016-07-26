@@ -63,8 +63,16 @@ public class PlayerController : MonoBehaviour {
 	//	}
 	//}
 
-	public void hitGavel() {
-		
+//	public void hitGavel() {
+//		
+//		transform.position = playerRespawn.transform.position;
+//		transform.rotation = Quaternion.identity;
+//		playerRigidbody.velocity = Vector2.zero;
+//
+//	}
+
+	public void hitDeathBlock() {
+
 		transform.position = playerRespawn.transform.position;
 		transform.rotation = Quaternion.identity;
 		playerRigidbody.velocity = Vector2.zero;
