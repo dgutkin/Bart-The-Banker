@@ -231,7 +231,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1119655386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.55, z: 0}
+  m_LocalPosition: {x: 0, y: -3.45, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -665,4 +665,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gavel: {fileID: 129410, guid: 0b603dd5a4e3c0241aa1bdd553617bde, type: 2}
   bill: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}
-  box: {fileID: 173610, guid: f6dd3f5ed4b164e01a5c61b9d0e198d7, type: 2}
+  box: {fileID: 170330, guid: 928bda7d1c970944fbae1d4af72aa96d, type: 2}

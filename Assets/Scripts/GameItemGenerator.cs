@@ -10,16 +10,30 @@ public class GameItemGenerator : MonoBehaviour {
 	public GameObject box;
 
 	private Vector2 originPosition;
+	private Vector2 lastItemPosition;
+	private Camera cam;
+	private int offSetX = 9;
+	private int blocksPerTile = 15;
+
+	void Awake() {
+		cam = Camera.main;
+	}
 
 	// Use this for initialization
 	void Start () {
 		originPosition = transform.position;
 		originPosition += new Vector2 (5f, -3.72f);
-		SpawnObjects2 ();
+		lastItemPosition = originPosition;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		// tiling of game items
+		// get position of last game item and if camera.x exceeds it then call spawnobjects2 again
+		if (cam.transform.position.x >= lastItemPosition.x - offSetX) {
+			SpawnObjects2 ();
+		}
 	
 	}
 
@@ -69,18 +83,24 @@ public class GameItemGenerator : MonoBehaviour {
 		float[,] probTable = new float[10,10];
 		// fill in the table with cumulative transition probabilities
 		probTable = LoadProbTable();
-		Vector2 blockPosition = originPosition;
+		Vector2 blockPosition = lastItemPosition;
+		Vector2 billPosition = lastItemPosition;
+
 		float blockHeight = 1.2f;
-		float blockWidth = 1.2f;
-		int previousBlockType = 0;
-		int currentBlockType = 0;
+		float blockWidth = 1.8f;
 
 		float midBlockHeightFactor = 3;
 		float highBlockHeightFactor = 4;
 		float skyBlockHeightFactor = 5;
 
+		int previousBlockType = 0;
+		int currentBlockType = 0;
+
+		bool createBill = false;
+		int billFrequency = 20; // percent of the time a bill appears in a column slot
+
 		// in fixed length loop (level)
-		for (int blocks = 0; blocks < 30; blocks++) {
+		for (int blocks = 0; blocks < blocksPerTile; blocks++) { // destroy previous game items to save space
 
 			int randomNumber = Random.Range(0,100);
 			for (int i = 0; i < 10; i++) {
@@ -89,19 +109,39 @@ public class GameItemGenerator : MonoBehaviour {
 				}
 			}
 
+			int randomNumber2 = Random.Range (0, 100); // max exclusive
+			createBill = false;
+			billFrequency += 5;
+			if (randomNumber2 > (100-billFrequency)) {
+				createBill = true;
+				billFrequency = 20;
+			}
+
 			blockPosition = new Vector2 (blockPosition.x, originPosition.y); // reset the height but keep distance
 
 			switch (currentBlockType) {
 			case 0: // no block
-				blockPosition += new Vector2(blockWidth, 0);
+				blockPosition += new Vector2 (blockWidth, 0);
+				billPosition = blockPosition;
+				if (createBill) {
+					Instantiate (bill, blockPosition, Quaternion.identity);
+				}
 				break;
 			case 1: // floor death block
-				blockPosition += new Vector2(blockWidth, 0);
-				Instantiate(box, blockPosition, Quaternion.identity);
+				blockPosition += new Vector2 (blockWidth, 0);
+				Instantiate (box, blockPosition, Quaternion.identity);
+				billPosition = blockPosition + new Vector2 (0, midBlockHeightFactor * blockHeight);
+				if (createBill) {
+					Instantiate (bill, billPosition, Quaternion.identity);
+				}
 				break;
 			case 2: // mid death block
-				blockPosition += new Vector2(blockWidth, midBlockHeightFactor * blockHeight);
-				Instantiate(box, blockPosition, Quaternion.identity);
+				blockPosition += new Vector2 (blockWidth, midBlockHeightFactor * blockHeight);
+				Instantiate (box, blockPosition, Quaternion.identity);
+				billPosition = blockPosition - new Vector2 (0, midBlockHeightFactor * blockHeight);
+				if (createBill) {
+					Instantiate (bill, billPosition, Quaternion.identity);
+				}
 				break;
 			case 3: // high death blocks
 				blockPosition += new Vector2(blockWidth, highBlockHeightFactor * blockHeight);
@@ -136,6 +176,8 @@ public class GameItemGenerator : MonoBehaviour {
 			currentBlockType = 0;
 
 		}
+
+		lastItemPosition = blockPosition;
 			
 	}
 		
