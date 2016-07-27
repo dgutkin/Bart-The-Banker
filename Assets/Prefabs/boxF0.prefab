@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 472656}
   - 212: {fileID: 21220906}
   - 61: {fileID: 6104096}
+  - 114: {fileID: 11478486}
   m_Layer: 0
   m_Name: boxF0
   m_TagString: Ground
@@ -38,11 +39,22 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: -0.3372975, y: -0.043424703}
   serializedVersion: 2
   m_Size: {x: 0.32540396, y: 0.32129368}
+--- !u!114 &11478486
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80be812eb079544509cf8a5ce252ae44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21220906
 SpriteRenderer:
   m_ObjectHideFlags: 1

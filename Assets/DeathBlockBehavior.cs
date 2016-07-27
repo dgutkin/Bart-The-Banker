@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BillBehaviour : MonoBehaviour {
+public class DeathBlockBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -13,13 +13,12 @@ public class BillBehaviour : MonoBehaviour {
 	
 	}
 
+	// Kill player on collision
 	void OnTriggerEnter2D(Collider2D other) {
 
 		if (other.gameObject.CompareTag ("Player")) {
-			Destroy (gameObject);
-			other.SendMessage ("hitBill", SendMessageOptions.DontRequireReceiver);
+			other.SendMessage ("hitDeathBlock", SendMessageOptions.DontRequireReceiver);
 		}
 
 	}
-
 }

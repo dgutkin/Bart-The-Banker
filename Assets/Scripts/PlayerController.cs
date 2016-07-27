@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
@@ -16,11 +17,16 @@ public class PlayerController : MonoBehaviour {
 
 	public GameObject playerRespawn;
 
+	public Text scoreText;
+	private int score;
+
 	// Use this for initialization
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
 		playerAnimator = GetComponent<Animator> ();
 		playerRigidbody.freezeRotation = true;
+
+		updateScore (0);
 	}
 		
 	// Update is called once per frame
@@ -63,12 +69,29 @@ public class PlayerController : MonoBehaviour {
 	//	}
 	//}
 
-	public void hitGavel() {
-		
+//	public void hitGavel() {
+//		
+//		transform.position = playerRespawn.transform.position;
+//		transform.rotation = Quaternion.identity;
+//		playerRigidbody.velocity = Vector2.zero;
+//
+//	}
+
+	private void updateScore(int newScore) {
+		score = newScore;
+		scoreText.text = "Score: " + score.ToString();
+	}
+
+	public void hitBill() {
+		updateScore (score + 10);
+	}
+
+	public void hitDeathBlock() {
 		transform.position = playerRespawn.transform.position;
 		transform.rotation = Quaternion.identity;
 		playerRigidbody.velocity = Vector2.zero;
 
+		updateScore (0);
 	}
 
 }
