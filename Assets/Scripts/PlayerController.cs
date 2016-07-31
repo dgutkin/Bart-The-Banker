@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
-	public float moveSpeed = 1f;
-	public float jumpYForce = 600f;
+	public float moveSpeed = 3f;
+	public float jumpYForce = 700f;
 	public float jumpXForce = 0f;
-	public bool jump = false;
+	private bool jump = false;
 
 	public Transform groundCheck;
 
@@ -48,7 +49,6 @@ public class PlayerController : MonoBehaviour {
 			playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
 			jump = false;
 			grounded = false;
-
 		} else if (grounded) {
 			playerRigidbody.velocity = new Vector2 (moveSpeed, playerRigidbody.velocity.y);
 		}
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
-	
+		
 		if (other.gameObject.CompareTag("Ground")) {
 			grounded = true;
 		}
@@ -87,11 +87,12 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void hitDeathBlock() {
-		transform.position = playerRespawn.transform.position;
-		transform.rotation = Quaternion.identity;
-		playerRigidbody.velocity = Vector2.zero;
+		//transform.position = playerRespawn.transform.position;
+		//transform.rotation = Quaternion.identity;
+		//playerRigidbody.velocity = Vector2.zero;
 
-		updateScore (0);
+		//updateScore (0);
+		SceneManager.LoadScene(1);
 	}
 
 }

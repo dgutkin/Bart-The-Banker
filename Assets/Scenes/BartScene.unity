@@ -456,8 +456,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1119655386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.3, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalPosition: {x: 0, y: -3.55, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -472,7 +472,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 2.5
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -491,7 +491,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: -0.019420784}
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.33884153}
+  m_Size: {x: 0.2, y: 0.33884153}
 --- !u!114 &1119655391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,10 +503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f1cbda5193d044a9a885617ec87061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  jumpYForce: 600
-  jumpXForce: 100
-  jump: 0
+  moveSpeed: 3.5
+  jumpYForce: 650
+  jumpXForce: 0
   groundCheck: {fileID: 0}
   playerRespawn: {fileID: 1982302182}
   scoreText: {fileID: 526040543}
@@ -690,7 +689,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -3.1504424}
+  m_Offset: {x: 0, y: -3.12}
   serializedVersion: 2
   m_Size: {x: 16, y: 0.3991146}
 --- !u!212 &1500186010

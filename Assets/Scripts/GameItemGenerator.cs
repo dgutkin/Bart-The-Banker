@@ -15,6 +15,19 @@ public class GameItemGenerator : MonoBehaviour {
 	private int offSetX = 9;
 	private int blocksPerTile = 15;
 
+	float[,] probTable = new float[10,10];
+
+	float blockHeight = 1.2f;
+	float blockWidth = 1.2f;
+
+	float midBlockHeightFactor = 3;
+	float highBlockHeightFactor = 4;
+	float skyBlockHeightFactor = 5;
+
+	int beforePreviousBlockType = 0;
+	int previousBlockType = 0;
+	int currentBlockType = 0;
+
 	void Awake() {
 		cam = Camera.main;
 	}
@@ -24,6 +37,8 @@ public class GameItemGenerator : MonoBehaviour {
 		originPosition = transform.position;
 		originPosition += new Vector2 (5f, -3.72f);
 		lastItemPosition = originPosition;
+
+		probTable = LoadProbTable ();
 	}
 	
 	// Update is called once per frame
@@ -80,21 +95,11 @@ public class GameItemGenerator : MonoBehaviour {
 
 	void SpawnObjects2() {
 
-		float[,] probTable = new float[10,10];
+		//float[,] probTable = new float[10,10];
 		// fill in the table with cumulative transition probabilities
-		probTable = LoadProbTable();
+		//probTable = LoadProbTable();
 		Vector2 blockPosition = lastItemPosition;
 		Vector2 billPosition = lastItemPosition;
-
-		float blockHeight = 1.2f;
-		float blockWidth = 1.8f;
-
-		float midBlockHeightFactor = 3;
-		float highBlockHeightFactor = 4;
-		float skyBlockHeightFactor = 5;
-
-		int previousBlockType = 0;
-		int currentBlockType = 0;
 
 		bool createBill = false;
 		int billFrequency = 20; // percent of the time a bill appears in a column slot
@@ -109,9 +114,17 @@ public class GameItemGenerator : MonoBehaviour {
 				}
 			}
 
+			if ((beforePreviousBlockType == 1 || beforePreviousBlockType == 5) &&
+				(previousBlockType == 0 || previousBlockType == 4) &&
+				(currentBlockType == 1 || currentBlockType == 5)) {
+				// prevent undoable scenarios
+				blocks = blocks - 1;
+				continue;
+			}
+
 			int randomNumber2 = Random.Range (0, 100); // max exclusive
 			createBill = false;
-			billFrequency += 5;
+			billFrequency += 5;  // increase probability for every turn to achieve consitency
 			if (randomNumber2 > (100-billFrequency)) {
 				createBill = true;
 				billFrequency = 20;
@@ -129,7 +142,8 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			case 1: // floor death block
 				blockPosition += new Vector2 (blockWidth, 0);
-				Instantiate (box, blockPosition, Quaternion.identity);
+				GameObject floorBlock = Instantiate (box, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (floorBlock, 30.0f);
 				billPosition = blockPosition + new Vector2 (0, midBlockHeightFactor * blockHeight);
 				if (createBill) {
 					Instantiate (bill, billPosition, Quaternion.identity);
@@ -137,7 +151,8 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			case 2: // mid death block
 				blockPosition += new Vector2 (blockWidth, midBlockHeightFactor * blockHeight);
-				Instantiate (box, blockPosition, Quaternion.identity);
+				GameObject midBlock = Instantiate (box, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (midBlock, 30.0f);
 				billPosition = blockPosition - new Vector2 (0, midBlockHeightFactor * blockHeight);
 				if (createBill) {
 					Instantiate (bill, billPosition, Quaternion.identity);
@@ -145,24 +160,29 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			case 3: // high death blocks
 				blockPosition += new Vector2(blockWidth, highBlockHeightFactor * blockHeight);
-				Instantiate(box, blockPosition, Quaternion.identity);
+				GameObject highBlock = Instantiate(box, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (highBlock, 30.0f);
 				break;
 			case 4: // sky death blocks
 				blockPosition += new Vector2(blockWidth, skyBlockHeightFactor * blockHeight);
-				Instantiate(box, blockPosition, Quaternion.identity);
+				GameObject skyBlock = Instantiate(box, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (skyBlock, 30.0f);
 				break;
 			case 5: // floor tax block
 				blockPosition += new Vector2(blockWidth, 0);
-				Instantiate(box, blockPosition, Quaternion.identity);
+				GameObject floorTax = Instantiate(box, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (floorTax, 30.0f);
 				// change transform being initiated
 				break;
 			case 6: // mid tax block
 				blockPosition += new Vector2(blockWidth, midBlockHeightFactor * blockHeight);
-				Instantiate(box, blockPosition, Quaternion.identity);
+				GameObject midTax = Instantiate(box, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (midTax, 30.0f);
 				break;
 			case 7: // high tax block
 				blockPosition += new Vector2(blockWidth, highBlockHeightFactor * blockHeight);
-				Instantiate(box, blockPosition, Quaternion.identity);
+				GameObject highTax = Instantiate(box, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (highTax, 30.0f);
 				break;
 			case 8: // cop
 				blockPosition += new Vector2(blockWidth, 0);
@@ -172,6 +192,7 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			}
 
+			beforePreviousBlockType = previousBlockType;
 			previousBlockType = currentBlockType;
 			currentBlockType = 0;
 

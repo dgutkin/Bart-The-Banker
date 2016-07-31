@@ -49,6 +49,7 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 		Vector3 newPosition = new Vector3 (myTransform.position.x + spriteWidth * direction, myTransform.position.y);
 		Transform newGround = Instantiate (myTransform, newPosition, myTransform.rotation) as Transform;
 		Destroy (newGround.gameObject, 30.0f); // destroy the new ground after 30 seconds to save space
+		// when player loses all lives respawn and restart background tiling
 
 		if (reverseScale == true) {  // if not tileable reverse x scale
 			newGround.localScale = new Vector3 (newGround.localScale.x * -1, newGround.localScale.y, newGround.localScale.z);
