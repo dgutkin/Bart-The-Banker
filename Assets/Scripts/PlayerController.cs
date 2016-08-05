@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
-	public float moveSpeed = 3f;
-	public float jumpYForce = 700f;
-	public float jumpXForce = 0f;
-	private bool jump = false;
+	public float moveSpeed;
+	public float jumpYForce;
+	public float jumpXForce;
+	private bool jump;
 
 	public Transform groundCheck;
 
@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
 		playerAnimator = GetComponent<Animator> ();
 		playerRigidbody.freezeRotation = true;
+
+		moveSpeed = 3f;
+		jumpYForce = 650f;
+		jumpXForce = 0f;
+		jump = false;
 
 		updateScore (0);
 	}
