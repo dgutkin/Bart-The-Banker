@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D playerRigidbody;
 	private Animator playerAnimator;
+	private Renderer playerRenderer;
+	private Material mat;
 	private bool grounded = true;
 
 	public GameObject playerRespawn;
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
 		playerAnimator = GetComponent<Animator> ();
 		playerRigidbody.freezeRotation = true;
+		playerRenderer = GetComponent<Renderer> ();
+		mat = playerRenderer.material;
 
 		moveSpeed = 3f;
 		jumpYForce = 650f;
@@ -97,7 +101,18 @@ public class PlayerController : MonoBehaviour {
 		//playerRigidbody.velocity = Vector2.zero;
 
 		//updateScore (0);
-		SceneManager.LoadScene(1);
+		StartCoroutine("collideFlash");
+		//SceneManager.LoadScene(1);
+	}
+
+	IEnumerator collideFlash() {
+
+		for (int i = 0; i < 5; i++) {
+			playerRenderer.material = null;
+			yield return new  WaitForSeconds (0.1f);
+			playerRenderer.material = mat;
+			yield return new WaitForSeconds (0.1f);
+		}
 	}
 
 }

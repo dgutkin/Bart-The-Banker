@@ -138,6 +138,7 @@ public class GameItemGenerator : MonoBehaviour {
 				billPosition = blockPosition;
 				if (createBill) {
 					Instantiate (bill, blockPosition, Quaternion.identity);
+					// half probability of instantiating block position above
 				}
 				break;
 			case 1: // floor death block
