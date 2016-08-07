@@ -891,7 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f1cbda5193d044a9a885617ec87061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3.5
+  moveSpeed: 4
   jumpYForce: 650
   jumpXForce: 0
   groundCheck: {fileID: 0}
@@ -1457,7 +1457,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gavel: {fileID: 129410, guid: 0b603dd5a4e3c0241aa1bdd553617bde, type: 2}
   bill: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}
-  box: {fileID: 170330, guid: 928bda7d1c970944fbae1d4af72aa96d, type: 2}
+  deathBlock: {fileID: 170330, guid: 928bda7d1c970944fbae1d4af72aa96d, type: 2}
+  taxBlock: {fileID: 177660, guid: e10e81c64413448d3b8bde281125100b, type: 2}
 --- !u!114 &2110150596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1469,9 +1470,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8897ebfd2f48248ab82860565710b7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartPositions:
-  - {x: -1.9, y: 0.1}
-  - {x: -0.9, y: 0.1}
-  - {x: 0.1, y: 0.1}
-  heartRed: {fileID: 120322, guid: b4ed5c894b8524045881538c78ee06c3, type: 2}
-  heartGrey: {fileID: 102684, guid: b28f0f093a7ef4a37aa762a31ecb0825, type: 2}
