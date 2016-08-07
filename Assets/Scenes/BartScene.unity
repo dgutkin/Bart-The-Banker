@@ -714,7 +714,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 75b1b54eb2d1d86409c1c95b8234e0e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58dcc13cf7cd576419a4dfa42f473d4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -758,9 +758,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.019420784}
+  m_Offset: {x: 0.0026952655, y: -0.019420767}
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.33884153}
+  m_Size: {x: 0.15148555, y: 0.33884153}
 --- !u!114 &1119655391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,48 +1026,6 @@ MonoBehaviour:
   hasRight: 0
   hasLeft: 0
   reverseScale: 0
---- !u!1001 &1528591766
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 466224, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 466224, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -3.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 466224, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 466224, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 466224, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 466224, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 466224, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 466224, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1629638249
 Prefab:
   m_ObjectHideFlags: 0
@@ -1278,7 +1236,6 @@ GameObject:
   - 81: {fileID: 2110150589}
   - 114: {fileID: 2110150594}
   - 114: {fileID: 2110150595}
-  - 114: {fileID: 2110150596}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1382,14 +1339,4 @@ MonoBehaviour:
   bill: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}
   deathBlock: {fileID: 170330, guid: 928bda7d1c970944fbae1d4af72aa96d, type: 2}
   taxBlock: {fileID: 177660, guid: e10e81c64413448d3b8bde281125100b, type: 2}
---- !u!114 &2110150596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2110150588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8897ebfd2f48248ab82860565710b7f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  cop: {fileID: 116612, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}

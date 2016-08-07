@@ -4,6 +4,7 @@ using System.Collections;
 public class CopBehaviour : MonoBehaviour {
 
 	public float walkingSpeed  = 0.5f;
+	public float turnAroundTime = 5.0f;
 	private bool _walkingLeft = true;
 	private float _distanceWalked;
 
@@ -18,7 +19,7 @@ public class CopBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		if (_distanceWalked >= 3.0f) {
+		if (_distanceWalked >= turnAroundTime) {
 			_distanceWalked = 0f;
 			switchDirections ();
 		}

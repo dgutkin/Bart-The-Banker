@@ -9,6 +9,7 @@ public class GameItemGenerator : MonoBehaviour {
 	public GameObject bill;
 	public GameObject deathBlock;
 	public GameObject taxBlock;
+	public GameObject cop;
 
 	private Vector2 originPosition;
 	private Vector2 lastItemPosition;
@@ -187,7 +188,9 @@ public class GameItemGenerator : MonoBehaviour {
 				Destroy (highTax, 30.0f);
 				break;
 			case 8: // cop
-				blockPosition += new Vector2(blockWidth, 0);
+				blockPosition += new Vector2 (blockWidth * 4, 0);
+				GameObject copDude = Instantiate (cop, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (copDude, 30.0f);
 				break;
 			case 9: // judge
 				blockPosition += new Vector2(blockWidth, 0);
