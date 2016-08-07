@@ -22,7 +22,7 @@ public class GameItemGenerator : MonoBehaviour {
 	float blockHeight = 1.2f;
 	float blockWidth = 1.2f;
 
-	float midBlockHeightFactor = 3;
+	float midBlockHeightFactor = 2;
 	float highBlockHeightFactor = 4;
 	float skyBlockHeightFactor = 5;
 
