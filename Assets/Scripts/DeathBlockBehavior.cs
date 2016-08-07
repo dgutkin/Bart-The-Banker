@@ -17,7 +17,7 @@ public class DeathBlockBehavior : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 
 		if (other.gameObject.CompareTag ("Player")) {
-			other.SendMessage ("hitDeathBlock", SendMessageOptions.DontRequireReceiver);
+			other.SendMessage ("HitObstacle", SendMessageOptions.DontRequireReceiver);
 		}
 
 	}

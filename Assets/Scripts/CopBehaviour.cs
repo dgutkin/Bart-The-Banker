@@ -60,5 +60,11 @@ public class CopBehaviour : MonoBehaviour {
 
 	}
 
+	void OnTriggerEnter2D(Collider2D otherObj) {
+		if (otherObj.gameObject.CompareTag("Player")) {
+			otherObj.SendMessage ("HitObstacle", SendMessageOptions.DontRequireReceiver);
+		}
+	}
+
 
 }

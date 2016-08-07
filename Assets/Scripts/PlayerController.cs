@@ -120,6 +120,9 @@ public class PlayerController : MonoBehaviour {
 				redHearts [i].SetActive (false);
 				greyHearts [i].SetActive (true);
 			}
+
+			//end game
+			SceneManager.LoadScene(1);
 			break;
 		}
 	}
@@ -128,7 +131,7 @@ public class PlayerController : MonoBehaviour {
 		UpdateScore (_score + 10);
 	}
 
-	public void hitDeathBlock() {
+	public void HitObstacle() {
 		//transform.position = playerRespawn.transform.position;
 		//transform.rotation = Quaternion.identity;
 		//_playerRigidbody.velocity = Vector2.zero;
@@ -138,10 +141,7 @@ public class PlayerController : MonoBehaviour {
 
 		//Lose a life
 		UpdateLives (_lives - 1);
-		if (_lives == 0) {
-			//end game
-			SceneManager.LoadScene(1);
-		}
+
 	}
 
 	IEnumerator collideFlash() {
