@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
 			jump = false;
 			grounded = false;
 		} else if (grounded) {
-			playerRigidbody.velocity = new Vector2 (moveSpeed, playerRigidbody.velocity.y);
+			//playerRigidbody.velocity = new Vector2 (moveSpeed, playerRigidbody.velocity.y);
 		}
 
 	}
