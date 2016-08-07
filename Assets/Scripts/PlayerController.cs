@@ -8,44 +8,46 @@ public class PlayerController : MonoBehaviour {
 	public float moveSpeed;
 	public float jumpYForce;
 	public float jumpXForce;
-	private bool jump;
-
 	public Transform groundCheck;
-
-	private Rigidbody2D playerRigidbody;
-	private Animator playerAnimator;
-	private Renderer playerRenderer;
-	private Material mat;
-	private bool grounded = true;
-
 	public GameObject playerRespawn;
-
 	public Text scoreText;
-	private int score;
+	public GameObject[] redHearts;
+	public GameObject[] greyHearts;
+
+	private Rigidbody2D _playerRigidbody;
+	private Animator _playerAnimator;
+	private Renderer _playerRenderer;
+	private Material _mat;
+	private bool _grounded = true;
+	private int _score;
+	private bool _jump;
+	private int _lives;
+	private Vector2[] _heartPositions;
 
 	// Use this for initialization
 	void Start () {
-		playerRigidbody = GetComponent<Rigidbody2D> ();
-		playerAnimator = GetComponent<Animator> ();
-		playerRigidbody.freezeRotation = true;
-		playerRenderer = GetComponent<Renderer> ();
-		mat = playerRenderer.material;
-
 		moveSpeed = 3f;
 		jumpYForce = 650f;
 		jumpXForce = 0f;
-		jump = false;
 
-		updateScore (0);
+		_playerRigidbody = GetComponent<Rigidbody2D> ();
+		_playerAnimator = GetComponent<Animator> ();
+		_playerRigidbody.freezeRotation = true;
+		_playerRenderer = GetComponent<Renderer> ();
+		_mat = _playerRenderer.material;
+		_jump = false;
+
+		UpdateScore (0);
+		UpdateLives (3);
 	}
 		
 	// Update is called once per frame
 	void Update () 	{
 	
-		//grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
-		//grounded = Physics2D.Raycast (transform.position, -Vector2.up, distToGround);
-		if (Input.GetMouseButtonDown (0) && grounded) {
-			jump = true;
+		//_grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
+		//_grounded = Physics2D.Raycast (transform.position, -Vector2.up, distToGround);
+		if (Input.GetMouseButtonDown (0) && _grounded) {
+			_jump = true;
 		}
 
 	}
@@ -53,13 +55,13 @@ public class PlayerController : MonoBehaviour {
 	// FixedUpdate is called every time the physics changes
 	void FixedUpdate() {
 		
-		if (jump) {
-			playerAnimator.SetTrigger ("Jump");
-			playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
-			jump = false;
-			grounded = false;
-		} else if (grounded) {
-			//playerRigidbody.velocity = new Vector2 (moveSpeed, playerRigidbody.velocity.y);
+		if (_jump) {
+			_playerAnimator.SetTrigger ("Jump");
+			_playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
+			_jump = false;
+			_grounded = false;
+		} else if (_grounded) {
+			_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 		}
 
 	}
@@ -67,14 +69,14 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other) {
 		
 		if (other.gameObject.CompareTag("Ground")) {
-			grounded = true;
+			_grounded = true;
 		}
 
 	}
 
 	//void OnCollision2DExit(Collision2D other) {
 	//	if (other.gameObject.tag == "Ground") {
-	//		grounded = false;
+	//		_grounded = false;
 	//	}
 	//}
 
@@ -82,35 +84,72 @@ public class PlayerController : MonoBehaviour {
 //		
 //		transform.position = playerRespawn.transform.position;
 //		transform.rotation = Quaternion.identity;
-//		playerRigidbody.velocity = Vector2.zero;
+//		_playerRigidbody.velocity = Vector2.zero;
 //
 //	}
 
-	private void updateScore(int newScore) {
-		score = newScore;
-		scoreText.text = "Score: " + score.ToString();
+	private void UpdateScore(int newScore) {
+		_score = newScore;
+		scoreText.text = "$" + _score.ToString();
+	}
+
+	private void UpdateLives(int newLives) {
+		_lives = newLives;
+		switch (_lives) {
+		case 3:
+			for (int i = 0; i < greyHearts.Length; ++i) {
+				redHearts [i].SetActive (true);
+				greyHearts [i].SetActive (false);
+			}
+			break;
+		case 2:
+			redHearts [0].SetActive (true);
+			redHearts [1].SetActive (true);
+			redHearts [2].SetActive (false);
+			greyHearts [2].SetActive (true);
+			break;
+		case 1:
+			redHearts [0].SetActive (true);
+			redHearts [1].SetActive (false);
+			redHearts [2].SetActive (false);
+			greyHearts [1].SetActive (true);
+			greyHearts [2].SetActive (true);
+			break;
+		case 0:
+			for (int i = 0; i < greyHearts.Length; ++i) {
+				redHearts [i].SetActive (false);
+				greyHearts [i].SetActive (true);
+			}
+			break;
+		}
 	}
 
 	public void hitBill() {
-		updateScore (score + 10);
+		UpdateScore (_score + 10);
 	}
 
 	public void hitDeathBlock() {
 		//transform.position = playerRespawn.transform.position;
 		//transform.rotation = Quaternion.identity;
-		//playerRigidbody.velocity = Vector2.zero;
+		//_playerRigidbody.velocity = Vector2.zero;
 
 		//updateScore (0);
 		StartCoroutine("collideFlash");
-		//SceneManager.LoadScene(1);
+
+		//Lose a life
+		UpdateLives (_lives - 1);
+		if (_lives == 0) {
+			//end game
+			SceneManager.LoadScene(1);
+		}
 	}
 
 	IEnumerator collideFlash() {
 
 		for (int i = 0; i < 5; i++) {
-			playerRenderer.material = null;
+			_playerRenderer.material = null;
 			yield return new  WaitForSeconds (0.1f);
-			playerRenderer.material = mat;
+			_playerRenderer.material = _mat;
 			yield return new WaitForSeconds (0.1f);
 		}
 	}
