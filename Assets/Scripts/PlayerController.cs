@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	private bool _jump;
 	private int _lives;
 	private Vector2[] _heartPositions;
+	private bool _immortality;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 		_playerRenderer = GetComponent<Renderer> ();
 		_mat = _playerRenderer.material;
 		_jump = false;
+		_immortality = false;
 
 		UpdateScore (0);
 		UpdateLives (3);
@@ -127,7 +129,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void hitBill() {
+	public void HitBill() {
 		UpdateScore (_score + 10);
 	}
 
@@ -136,26 +138,27 @@ public class PlayerController : MonoBehaviour {
 		//transform.rotation = Quaternion.identity;
 		//_playerRigidbody.velocity = Vector2.zero;
 
-		//updateScore (0);
-		StartCoroutine("collideFlash");
-
 		//Lose a life
-		UpdateLives (_lives - 1);
+		if (!_immortality) {
+			UpdateLives (_lives - 1);
+		}
 
+		StartCoroutine("CollideFlash");
 	}
 
 	public void HitTaxBlock() {
 		UpdateScore (Mathf.RoundToInt(_score * 0.8f));
 	}
 
-	IEnumerator collideFlash() {
-
+	IEnumerator CollideFlash() {
+		_immortality = true;
 		for (int i = 0; i < 5; i++) {
 			_playerRenderer.material = null;
-			yield return new  WaitForSeconds (0.1f);
+			yield return new WaitForSeconds (0.1f);
 			_playerRenderer.material = _mat;
 			yield return new WaitForSeconds (0.1f);
 		}
+		_immortality = false;
 	}
 
 }
