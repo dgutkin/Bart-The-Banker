@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 479236}
   - 212: {fileID: 21275472}
+  - 61: {fileID: 6103742}
+  - 114: {fileID: 11453670}
   m_Layer: 0
   m_Name: boxF0C_Tax
   m_TagString: Untagged
@@ -28,6 +30,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!61 &6103742
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177660}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.04712597, y: -0.03141705}
+  serializedVersion: 2
+  m_Size: {x: 0.3195274, y: 0.3299994}
+--- !u!114 &11453670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1875b2e2d52214c1eb27c5d0b2a167d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21275472
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -53,7 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: c1f4c4516624f4189bcb701ea493665c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

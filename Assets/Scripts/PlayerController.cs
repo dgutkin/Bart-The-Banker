@@ -144,6 +144,10 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+	public void HitTaxBlock() {
+		UpdateScore (Mathf.RoundToInt(_score * 0.8f));
+	}
+
 	IEnumerator collideFlash() {
 
 		for (int i = 0; i < 5; i++) {
