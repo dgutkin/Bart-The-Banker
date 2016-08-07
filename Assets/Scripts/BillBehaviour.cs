@@ -17,7 +17,7 @@ public class BillBehaviour : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("Player")) {
 			Destroy (gameObject);
-			other.SendMessage ("hitBill", SendMessageOptions.DontRequireReceiver);
+			other.SendMessage ("HitBill", SendMessageOptions.DontRequireReceiver);
 		}
 
 	}
