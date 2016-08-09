@@ -46,7 +46,7 @@ public class CopBehaviour : MonoBehaviour {
 	void updateWalkOrientation() {
 		
 		Vector3 localScale = transform.localScale;
-		Debug.Log (localScale.ToString ());
+
 		if (_walkingLeft) {
 			if (localScale.x < 0.0f) {
 				localScale.x = localScale.x * -1.0f;

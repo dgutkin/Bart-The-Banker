@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody2D _playerRigidbody;
 	private Animator _playerAnimator;
 	private Renderer _playerRenderer;
+	private Transform _playerTransform;
+	private BoxCollider2D _playerCollider;
 	private Material _mat;
 	private bool _grounded = true;
 	private int _score;
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 	private int _lives;
 	private Vector2[] _heartPositions;
 	private bool _immortality;
+	private bool _slide;
 
 	// Use this for initialization
 	void Start () {
@@ -35,9 +38,12 @@ public class PlayerController : MonoBehaviour {
 		_playerAnimator = GetComponent<Animator> ();
 		_playerRigidbody.freezeRotation = true;
 		_playerRenderer = GetComponent<Renderer> ();
+		_playerTransform = GetComponent<Transform> ();
+		_playerCollider = GetComponent<BoxCollider2D> ();
 		_mat = _playerRenderer.material;
 		_jump = false;
 		_immortality = false;
+		_slide = false;
 
 		UpdateScore (0);
 		UpdateLives (3);
@@ -48,8 +54,10 @@ public class PlayerController : MonoBehaviour {
 	
 		//_grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 		//_grounded = Physics2D.Raycast (transform.position, -Vector2.up, distToGround);
-		if (Input.GetMouseButtonDown (0) && _grounded) {
+		if (Input.GetKeyDown(KeyCode.UpArrow) && _grounded) {
 			_jump = true;
+		} else if (Input.GetKeyDown(KeyCode.DownArrow) && _grounded) {
+			_slide = true;
 		}
 
 	}
@@ -62,7 +70,10 @@ public class PlayerController : MonoBehaviour {
 			_playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
 			_jump = false;
 			_grounded = false;
-		} else if (_grounded) {
+		} else if (_slide) {
+			StartCoroutine (Slide ());
+			_slide = false;
+	    } else if (_grounded) {
 			_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 		}
 
@@ -159,6 +170,17 @@ public class PlayerController : MonoBehaviour {
 			yield return new WaitForSeconds (0.1f);
 		}
 		_immortality = false;
+	}
+
+	IEnumerator Slide() {
+
+		_playerCollider.size = new Vector2 (0.3f, 0.15f);
+		_playerTransform.Translate (0f, -0.5f, 0f);
+		_playerAnimator.SetTrigger ("Slide");
+		yield return new WaitForSeconds (1.0f);  //need animation time of slide
+		_playerCollider.size = new Vector2(0.15f, 0.3f);
+		_playerTransform.Translate (0f, +0.5f, 0f);
+
 	}
 
 }
