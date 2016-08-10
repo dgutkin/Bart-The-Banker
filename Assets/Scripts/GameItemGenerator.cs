@@ -116,9 +116,15 @@ public class GameItemGenerator : MonoBehaviour {
 				}
 			}
 
-			if ((beforePreviousBlockType == 1 || beforePreviousBlockType == 5) &&
+			if (((beforePreviousBlockType == 1 || beforePreviousBlockType == 5) &&
 				(previousBlockType == 0 || previousBlockType == 4) &&
-				(currentBlockType == 1 || currentBlockType == 5)) {
+				(currentBlockType == 1 || currentBlockType == 5)) ||
+				((beforePreviousBlockType == 1 || beforePreviousBlockType == 5) &&
+					(previousBlockType == 0 || previousBlockType == 4) &&
+					(currentBlockType == 2 || currentBlockType == 6)) ||
+				((beforePreviousBlockType == 2 || beforePreviousBlockType == 6) &&
+					(previousBlockType == 0 || previousBlockType == 4) &&
+					(currentBlockType == 1 || currentBlockType == 5))) {
 				// prevent undoable scenarios
 				blocks = blocks - 1;
 				continue;
@@ -137,9 +143,15 @@ public class GameItemGenerator : MonoBehaviour {
 			switch (currentBlockType) {
 			case 0: // no block
 				blockPosition += new Vector2 (blockWidth, 0);
-				billPosition = blockPosition;
+				int randomNumber3 = Random.Range (0, 2);
+
 				if (createBill) {
-					Instantiate (bill, blockPosition, Quaternion.identity);
+					if (randomNumber3 == 0) { // half probability having to jump for bill instead of running into it
+						billPosition = blockPosition;
+					} else {
+						billPosition = blockPosition + new Vector2 (0, midBlockHeightFactor * blockHeight);
+					}
+					Instantiate (bill, billPosition, Quaternion.identity);
 					// half probability of instantiating block position above
 				}
 				break;
@@ -188,8 +200,9 @@ public class GameItemGenerator : MonoBehaviour {
 				Destroy (highTax, 30.0f);
 				break;
 			case 8: // cop
-				blockPosition += new Vector2 (blockWidth * 4, 0);
+				blockPosition += new Vector2 (blockWidth * 2, 0);
 				GameObject copDude = Instantiate (cop, blockPosition, Quaternion.identity) as GameObject;
+				blockPosition += new Vector2 (blockWidth * 2, 0); // create more space after the cop
 				Destroy (copDude, 30.0f);
 				break;
 			case 9: // judge

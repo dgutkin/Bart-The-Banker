@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 	private Vector2[] _heartPositions;
 	private bool _immortality;
 	private bool _slide;
+	private bool _unslide;
 
 	// Use this for initialization
 	void Start () {
@@ -54,10 +55,12 @@ public class PlayerController : MonoBehaviour {
 	
 		//_grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 		//_grounded = Physics2D.Raycast (transform.position, -Vector2.up, distToGround);
-		if (Input.GetKeyDown(KeyCode.UpArrow) && _grounded) {
+		if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded) {
 			_jump = true;
-		} else if (Input.GetKeyDown(KeyCode.DownArrow) && _grounded) {
+		} else if (Input.GetKeyDown (KeyCode.DownArrow) && _grounded) {
 			_slide = true;
+		} else if (Input.GetKeyUp (KeyCode.DownArrow) && _grounded) {
+			_unslide = true;
 		}
 
 	}
@@ -71,8 +74,16 @@ public class PlayerController : MonoBehaviour {
 			_jump = false;
 			_grounded = false;
 		} else if (_slide) {
-			StartCoroutine (Slide ());
+			//StartCoroutine (Slide ());
+			_playerCollider.size = new Vector2 (0.3f, 0.15f);
+			_playerTransform.Translate (0f, -0.5f, 0f);
+			_playerAnimator.SetTrigger ("Slide");
 			_slide = false;
+		} else if (_unslide) {
+			_playerCollider.size = new Vector2(0.15f, 0.3f);
+			_playerTransform.Translate (0f, 0.5f, 0f);
+			_playerAnimator.SetTrigger ("UnSlide");
+			_unslide = false;
 	    } else if (_grounded) {
 			_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 		}
@@ -172,15 +183,15 @@ public class PlayerController : MonoBehaviour {
 		_immortality = false;
 	}
 
-	IEnumerator Slide() {
-
-		_playerCollider.size = new Vector2 (0.3f, 0.15f);
-		_playerTransform.Translate (0f, -0.5f, 0f);
-		_playerAnimator.SetTrigger ("Slide");
-		yield return new WaitForSeconds (1.0f);  //need animation time of slide
-		_playerCollider.size = new Vector2(0.15f, 0.3f);
-		_playerTransform.Translate (0f, +0.5f, 0f);
-
-	}
+//	IEnumerator Slide() {
+//
+//		_playerCollider.size = new Vector2 (0.3f, 0.15f);
+//		_playerTransform.Translate (0f, -0.5f, 0f);
+//		_playerAnimator.SetTrigger ("Slide");
+//		yield return new WaitForSeconds (1.0f);  //need animation time of slide
+//		_playerCollider.size = new Vector2(0.15f, 0.3f);
+//		_playerTransform.Translate (0f, +0.5f, 0f);
+//
+//	}
 
 }
