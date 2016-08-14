@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
@@ -165,8 +167,29 @@ public class PlayerController : MonoBehaviour {
 				greyHearts [i].SetActive (true);
 			}
 
-			//end game
-			SceneManager.LoadScene(1);
+			//Save highscore if top 20
+			if (PlayerPrefs.HasKey ("leaderboards")) {
+				List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split(';'));
+
+				for (int i = 1; i < leaderboards.Count; i += 2) {
+					if (_score >= Int32.Parse (leaderboards [i])) {
+						i--;
+						leaderboards.Insert (i, _score.ToString ());
+						leaderboards.Insert (i, System.DateTime.Now.ToString ("MM/dd/yyyy"));
+						break;
+					}
+				}
+
+				int endRange = leaderboards.Count > 40 ? 40 : leaderboards.Count;
+				PlayerPrefs.SetString ("leaderboards", String.Join (";", leaderboards.GetRange(0, endRange).ToArray ()));
+			} else {
+				//Add to playerprefs
+				PlayerPrefs.SetString ("leaderboards", System.DateTime.Now.ToString ("MM/dd/yyyy") + ";" + _score.ToString ());
+			}
+			PlayerPrefs.Save ();
+
+			//End game
+			SceneManager.LoadScene("Menu");
 			break;
 		}
 	}
