@@ -231,7 +231,7 @@ GameObject:
   - 61: {fileID: 451497868}
   - 114: {fileID: 451497867}
   m_Layer: 0
-  m_Name: Credits
+  m_Name: CreditsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 1970239269}
+  menuItem: {fileID: 451497865}
 --- !u!61 &451497868
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -318,7 +319,7 @@ GameObject:
   - 61: {fileID: 639972073}
   - 114: {fileID: 639972072}
   m_Layer: 0
-  m_Name: Leaderboards
+  m_Name: LeaderboardsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 1970239269}
+  menuItem: {fileID: 639972070}
 --- !u!61 &639972073
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -402,6 +404,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1218635932}
   - 212: {fileID: 1218635933}
+  - 114: {fileID: 1218635934}
   m_Layer: 0
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -420,7 +423,7 @@ Transform:
   m_LocalScale: {x: 186.0071, y: 186.0071, z: 186.0071}
   m_Children: []
   m_Father: {fileID: 1365115422}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!212 &1218635933
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -451,6 +454,19 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!114 &1218635934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1218635931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dba15ca8e224457a601ba29b1f1183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateManager: {fileID: 1970239269}
+  menuItem: {fileID: 1218635931}
 --- !u!1 &1238899966
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +534,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1302179527}
   - 212: {fileID: 1302179528}
+  - 114: {fileID: 1302179529}
   m_Layer: 0
   m_Name: AboutButton
   m_TagString: Untagged
@@ -536,7 +553,7 @@ Transform:
   m_LocalScale: {x: 186.0071, y: 186.0071, z: 186.0071}
   m_Children: []
   m_Father: {fileID: 1365115422}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!212 &1302179528
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -567,6 +584,19 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!114 &1302179529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302179526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dba15ca8e224457a601ba29b1f1183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateManager: {fileID: 1970239269}
+  menuItem: {fileID: 1302179526}
 --- !u!1 &1365115421
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,9 +625,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
+  - {fileID: 2005919478}
   - {fileID: 1302179527}
   - {fileID: 1218635932}
-  - {fileID: 2005919478}
   - {fileID: 1766446724}
   - {fileID: 1739705722}
   - {fileID: 639972071}
@@ -853,6 +883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 1970239269}
+  menuItem: {fileID: 1739705721}
 --- !u!61 &1739705724
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -970,6 +1001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 1970239269}
+  menuItem: {fileID: 1766446723}
 --- !u!61 &1766446727
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1184,11 +1216,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1365115422}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: 392}
-  m_SizeDelta: {x: 1849, y: 216}
+  m_AnchoredPosition: {x: 5.3025246, y: 392}
+  m_SizeDelta: {x: 1959.6, y: 216}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2005919479
 MonoBehaviour:

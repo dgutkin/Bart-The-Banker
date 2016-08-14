@@ -147,19 +147,21 @@ public class PlayerController : MonoBehaviour {
 				greyHearts [i].SetActive (true);
 			}
 
-			//Save highscore
+			//Save highscore if top 20
 			if (PlayerPrefs.HasKey ("leaderboards")) {
 				List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split(';'));
 
 				for (int i = 1; i < leaderboards.Count; i += 2) {
 					if (_score >= Int32.Parse (leaderboards [i])) {
 						i--;
-						leaderboards.Insert (i, System.DateTime.Now.ToString ("MM/dd/yyyy") + ";" + _score.ToString ());
+						leaderboards.Insert (i, _score.ToString ());
+						leaderboards.Insert (i, System.DateTime.Now.ToString ("MM/dd/yyyy"));
 						break;
 					}
 				}
 
-				PlayerPrefs.SetString ("leaderboards", String.Join (";", leaderboards.ToArray ()));
+				int endRange = leaderboards.Count > 40 ? 40 : leaderboards.Count;
+				PlayerPrefs.SetString ("leaderboards", String.Join (";", leaderboards.GetRange(0, endRange).ToArray ()));
 			} else {
 				//Add to playerprefs
 				PlayerPrefs.SetString ("leaderboards", System.DateTime.Now.ToString ("MM/dd/yyyy") + ";" + _score.ToString ());
@@ -167,7 +169,7 @@ public class PlayerController : MonoBehaviour {
 			PlayerPrefs.Save ();
 
 			//End game
-			SceneManager.LoadScene(0);
+			SceneManager.LoadScene("Menu");
 			break;
 		}
 	}

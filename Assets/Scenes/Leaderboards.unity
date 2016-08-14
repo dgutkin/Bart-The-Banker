@@ -689,6 +689,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1363424405}
   - 212: {fileID: 1363424404}
+  - 114: {fileID: 1363424406}
+  - 61: {fileID: 1363424407}
   m_Layer: 0
   m_Name: BackButton
   m_TagString: Untagged
@@ -739,6 +741,33 @@ Transform:
   - {fileID: 1918026646}
   m_Father: {fileID: 158836145}
   m_RootOrder: 2
+--- !u!114 &1363424406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1363424403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dba15ca8e224457a601ba29b1f1183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateManager: {fileID: 0}
+  menuItem: {fileID: 1363424403}
+--- !u!61 &1363424407
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1363424403}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.0000071525574, y: -0.0000019073486}
+  serializedVersion: 2
+  m_Size: {x: 0.71999997, y: 0.71999997}
 --- !u!1 &1467616644
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +779,7 @@ GameObject:
   - 222: {fileID: 1467616647}
   - 114: {fileID: 1467616646}
   - 114: {fileID: 1467616648}
+  - 114: {fileID: 1467616649}
   m_Layer: 5
   m_Name: Date/Score
   m_TagString: Untagged
@@ -826,6 +856,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1467616649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1467616644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c2f7ab8077d478687c07a3a3ad75a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1522614628
 GameObject:
   m_ObjectHideFlags: 0
