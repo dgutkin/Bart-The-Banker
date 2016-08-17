@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
 	private Material _mat;
 	private bool _grounded = true;
 	private int _score;
+	private int _cash;
+	private int _tax;
 	private bool _jump;
 	private int _lives;
 	private Vector2[] _heartPositions;
@@ -47,6 +49,9 @@ public class PlayerController : MonoBehaviour {
 		_jump = false;
 		_immortality = false;
 		_slide = false;
+
+		_cash = 0;
+		_tax = 0;
 
 		UpdateScore (0);
 		UpdateLives (3);
@@ -173,8 +178,9 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			//Save highscore if top 20
+			int highscore = 0;
 			if (PlayerPrefs.HasKey ("leaderboards")) {
-				List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split(';'));
+				List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
 
 				for (int i = 1; i < leaderboards.Count; i += 2) {
 					if (_score >= Int32.Parse (leaderboards [i])) {
@@ -186,21 +192,27 @@ public class PlayerController : MonoBehaviour {
 				}
 
 				int endRange = leaderboards.Count > 40 ? 40 : leaderboards.Count;
-				PlayerPrefs.SetString ("leaderboards", String.Join (";", leaderboards.GetRange(0, endRange).ToArray ()));
+				PlayerPrefs.SetString ("leaderboards", String.Join (";", leaderboards.GetRange (0, endRange).ToArray ()));
+				highscore = Int32.Parse (leaderboards [1]);
 			} else {
 				//Add to playerprefs
 				PlayerPrefs.SetString ("leaderboards", System.DateTime.Now.ToString ("MM/dd/yyyy") + ";" + _score.ToString ());
+				highscore = _score;
 			}
+			PlayerPrefs.SetInt ("score", _score);
+			PlayerPrefs.SetInt ("cash", _cash);
+			PlayerPrefs.SetInt ("tax", _tax);
 			PlayerPrefs.Save ();
 
-			//End game
-			SceneManager.LoadScene("Menu");
+			//End game screen
+			SceneManager.LoadScene("GameOver");
 			break;
 		}
 	}
 
 	public void HitBill() {
 		UpdateScore (_score + 10);
+		_cash += 10;
 	}
 
 	public void HitObstacle() {
@@ -218,6 +230,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void HitTaxBlock() {
 		UpdateScore (Mathf.RoundToInt(_score * 0.8f));
+		_tax += Mathf.RoundToInt (_score * 0.2f);
 	}
 
 	IEnumerator CollideFlash() {
