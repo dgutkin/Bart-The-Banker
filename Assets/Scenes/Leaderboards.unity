@@ -778,8 +778,8 @@ GameObject:
   - 224: {fileID: 1467616645}
   - 222: {fileID: 1467616647}
   - 114: {fileID: 1467616646}
-  - 114: {fileID: 1467616648}
   - 114: {fileID: 1467616649}
+  - 114: {fileID: 1467616648}
   m_Layer: 5
   m_Name: Date/Score
   m_TagString: Untagged
@@ -801,7 +801,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 68.920044, y: 0.0008239746}
+  m_AnchoredPosition: {x: 68.920044, y: 0.0008544922}
   m_SizeDelta: {x: 829, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1467616646
@@ -836,7 +836,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "12/20/2016\t\t\t\t3000\n01/20/2016\t\t\t\t30\n12/20/2016\t\t\t\t30\n01/20/2016\t\t\t\t30\n12/20/2016\t\t\t\t30\n01/20/2016\t\t\t\t30\n12/20/2016\t\t\t\t30\n01/20/2016\t\t\t\t30\n12/20/2016\t\t\t\t30\n01/20/2016\t\t\t\t30\n12/20/2016\t\t\t\t30\n01/20/2016\t\t\t\t30"
+  m_Text: 
 --- !u!222 &1467616647
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -867,6 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c2f7ab8077d478687c07a3a3ad75a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leaderboardsText: {fileID: 1467616646}
 --- !u!1 &1522614628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,8 +1149,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 869921755}
   m_HandleRect: {fileID: 869921754}
   m_Direction: 2
-  m_Value: 0.4999989
-  m_Size: 0.5212
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

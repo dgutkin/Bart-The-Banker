@@ -35,6 +35,13 @@ public class MenuBehaviour : MonoBehaviour {
 		case "BackButton":
 			SceneManager.LoadScene ("Menu");
 			break;
+		case "MenuButton":
+			SceneManager.LoadScene ("Menu");
+			break;
+		case "RetryButton":
+			//_startActivated = true;
+			SceneManager.LoadScene ("BartScene");
+			break;
 		}
 	}
 }
