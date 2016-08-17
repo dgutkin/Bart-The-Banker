@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour {
 	private bool _immortality;
 	private bool _slide;
 	private bool _unslide;
-	private bool _inslide;
 
 	// Use this for initialization
 	void Start () {
@@ -48,7 +47,6 @@ public class PlayerController : MonoBehaviour {
 		_jump = false;
 		_immortality = false;
 		_slide = false;
-		_inslide = false;
 
 		UpdateScore (0);
 		UpdateLives (3);
@@ -60,54 +58,46 @@ public class PlayerController : MonoBehaviour {
 		//_grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 		//_grounded = Physics2D.Raycast (transform.position, -Vector2.up, distToGround);
 		if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded) {
-			if (_inslide) {
-				_unslide = true;
-				_inslide = false;
-			}
 			_jump = true;
 			_grounded = false;
-		} else if (Input.GetKeyDown (KeyCode.DownArrow)) { // dont need _grounded so slide can be queued mid jump (wait)
+		} else if (Input.GetKey (KeyCode.DownArrow)) { // while user holds down the key
 			_slide = true;
-			_inslide = true;
 		} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
 			_unslide = true;
-			_inslide = false;
-		}
-
-		if (_inslide && _grounded && (_playerCollider.size.x != 0.37f || _playerCollider.size.y != 0.15f)) {
-			_playerCollider.size = new Vector2 (0.37f, 0.17f);
-			// ensure collider is right size when sliding and grounded
 		}
 
 	}
 
 	// FixedUpdate is called every time the physics changes
-	void FixedUpdate() { // slide then jump then slide produces bug (try to use direct animation from jump to slide)
-		
+	void FixedUpdate() {
+
 		if (_jump) {
+
+			_jump = false;
 			_playerAnimator.SetTrigger ("Jump");
 			_playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
-			_jump = false;
-			//_grounded = false;
+			ChangeCollider (false);
+
 		} else if (_slide) {
-			//StartCoroutine (Slide ());
-			_playerAnimator.SetTrigger ("Slide");
-			if (_grounded) {
-				_playerCollider.size = new Vector2 (0.37f, 0.17f);
-				_playerTransform.Translate (0f, -0.0f, 0f);
-			}
 
 			_slide = false;
-		} else if (_unslide) {
-			_playerAnimator.SetTrigger ("UnSlide");
+			_playerAnimator.SetBool("UnSlide", false);
+			_playerAnimator.SetBool ("Slide", true);
+
 			if (_grounded) {
-				_playerCollider.size = new Vector2 (0.17f, 0.37f);
-				_playerTransform.Translate (0f, 0.0f, 0f);
+				ChangeCollider (true);
 			}
+		} else if (_unslide) {
+
 			_unslide = false;
-			Debug.Log ("UNSLIDE!");
+			_playerAnimator.SetBool ("Slide", false);
+			_playerAnimator.SetBool ("UnSlide", true);
+			ChangeCollider (false);
+
 	    } else if (_grounded) {
+
 			_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
+
 		}
 
 	}
@@ -117,6 +107,21 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag("Ground")) {
 			_grounded = true;
 		}
+
+	}
+
+	void ChangeCollider(bool slide) {
+		
+		float x = 0f;
+		float y = 0f;
+		if (slide) {
+			x = 0.33f;
+			y = 0.17f;
+		} else {
+			x = 0.11f;
+			y = 0.37f;
+		}
+		_playerCollider.size = new Vector2 (x, y);
 
 	}
 

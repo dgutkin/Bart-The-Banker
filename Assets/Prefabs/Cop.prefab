@@ -55,7 +55,7 @@ Animator:
   m_GameObject: {fileID: 116612}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 98d31ea6e11bab747ae473366b116b10, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9062e3cc67ba3d540900309a4810a7d4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -71,7 +71,7 @@ Animation:
   m_GameObject: {fileID: 116612}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: ada51476a5f3f5a449c931239c54bfd9, type: 2}
+  m_Animation: {fileID: 7400000, guid: 68a67e475145be64a8a0fedd1093c51c, type: 2}
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSpeed: 0.3
+  turnAroundTime: 5
 --- !u!212 &21289316
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -115,7 +116,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 932ee83bae850b4438e68113fc40e819, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d772ad1748ccb5447b45d8bb16c1b10d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,6 +131,19 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d772ad1748ccb5447b45d8bb16c1b10d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: 68a67e475145be64a8a0fedd1093c51c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9062e3cc67ba3d540900309a4810a7d4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 116612}
