@@ -16,19 +16,22 @@ public class GameItemGenerator : MonoBehaviour {
 	private Camera cam;
 	private int offSetX = 9;
 	private int blocksPerTile = 15;
+	private int[] _billProbabilities = new int[5]{90, 10, 0, 0, 0}; //Single Bill, Double Bill, Single Stack, Double Stack, Briefcase
 
-	float[,] probTable = new float[10,10];
+	private float[,] probTable = new float[10,10];
 
-	float blockHeight = 1.2f;
-	float blockWidth = 1.2f;
+	private float blockHeight = 1.2f;
+	private float blockWidth = 1.2f;
 
-	float midBlockHeightFactor = 1;
-	float highBlockHeightFactor = 4;
-	float skyBlockHeightFactor = 5;
+	private float midBlockHeightFactor = 1;
+	private float highBlockHeightFactor = 4;
+	private float skyBlockHeightFactor = 5;
 
-	int beforePreviousBlockType = 0;
-	int previousBlockType = 0;
-	int currentBlockType = 0;
+	private int _beforePreviousBlockType = 0;
+	private int _previousBlockType = 0;
+	private int _currentBlockType = 0;
+
+	private int _yIndex = 0;
 
 	void Awake() {
 		cam = Camera.main;
@@ -49,7 +52,7 @@ public class GameItemGenerator : MonoBehaviour {
 		// tiling of game items
 		// get position of last game item and if camera.x exceeds it then call spawnobjects2 again
 		if (cam.transform.position.x >= lastItemPosition.x - offSetX) {
-			SpawnObjects2 ();
+			SpawnObjects3 ();
 		}
 	
 	}
@@ -95,6 +98,221 @@ public class GameItemGenerator : MonoBehaviour {
 		return probTable;
 	}
 
+	//Checks for an bad sequence, true if it is bad, false if not
+	bool CheckBadSequence() {
+		if (((_beforePreviousBlockType == 1 || _beforePreviousBlockType == 5) &&
+		    	(_previousBlockType == 0 || _previousBlockType == 4) &&
+		    	(_currentBlockType == 1 || _currentBlockType == 5)) ||
+		    ((_beforePreviousBlockType == 1 || _beforePreviousBlockType == 5) &&
+		    	(_previousBlockType == 0 || _previousBlockType == 4) &&
+		    	(_currentBlockType == 2 || _currentBlockType == 6)) ||
+		    ((_beforePreviousBlockType == 2 || _beforePreviousBlockType == 6) &&
+		    	(_previousBlockType == 0 || _previousBlockType == 4) &&
+		    	(_currentBlockType == 1 || _currentBlockType == 5))) {
+			return true;
+		}
+
+		return false;
+	}
+
+	void SpawnObjects3() {
+
+		Vector2 blockPosition = lastItemPosition;
+		Vector2 billPosition = lastItemPosition;
+
+		int[] blocksGenerated = new int[blocksPerTile];
+		List<List<int> > billSpawnpoints = new List<List<int> > ();
+
+		// in fixed length loop (level)
+		for (int blocks = 0; blocks < blocksPerTile; blocks++) { // destroy previous game items to save space
+
+			int randomNumber = Random.Range(0,100);
+			for (int i = 0; i < 10; i++) {
+				if (randomNumber > probTable [_previousBlockType,i]) {
+					_currentBlockType = i+1;
+				}
+			}
+
+			//Check for bad sequence to skip
+			if(CheckBadSequence()) {
+				blocks = blocks - 1;
+				continue;
+			}
+
+			blockPosition = new Vector2 (blockPosition.x, originPosition.y); // reset the height but keep distance
+			blocksGenerated[blocks] = _currentBlockType;
+
+			//Generate block and note down the trivial bill spawn points
+			switch (_currentBlockType) {
+			case 0: // no block
+				blockPosition += new Vector2 (blockWidth, 0);
+				billSpawnpoints.Add(new List<int>{1, 2});
+				break;
+			case 1: // floor death block
+				blockPosition += new Vector2 (blockWidth, 0);
+				GameObject floorBlock = Instantiate (deathBlock, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (floorBlock, 30.0f);
+				billSpawnpoints.Add(new List<int>{2, 3});
+				break;
+			case 2: // mid death block
+				blockPosition += new Vector2 (blockWidth, midBlockHeightFactor * blockHeight);
+				GameObject midBlock = Instantiate (deathBlock, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (midBlock, 30.0f);
+				billSpawnpoints.Add(new List<int>{1});
+				break;
+			case 3: // high death blocks
+				blockPosition += new Vector2(blockWidth, highBlockHeightFactor * blockHeight);
+				GameObject highBlock = Instantiate(deathBlock, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (highBlock, 30.0f);
+				billSpawnpoints.Add(new List<int>{1, 2});
+				break;
+			case 4: // sky death blocks
+				blockPosition += new Vector2(blockWidth, skyBlockHeightFactor * blockHeight);
+				GameObject skyBlock = Instantiate(deathBlock, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (skyBlock, 30.0f);
+				billSpawnpoints.Add(new List<int>{1, 2});
+				break;
+			case 5: // floor tax block
+				blockPosition += new Vector2(blockWidth, 0);
+				GameObject floorTax = Instantiate(taxBlock, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (floorTax, 30.0f);
+				billSpawnpoints.Add(new List<int>{1, 2});
+				break;
+			case 6: // mid tax block
+				blockPosition += new Vector2(blockWidth, midBlockHeightFactor * blockHeight);
+				GameObject midTax = Instantiate(taxBlock, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (midTax, 30.0f);
+				billSpawnpoints.Add(new List<int>{2, 3});
+				break;
+			case 7: // high tax block
+				blockPosition += new Vector2(blockWidth, highBlockHeightFactor * blockHeight);
+				GameObject highTax = Instantiate(taxBlock, blockPosition, Quaternion.identity) as GameObject;
+				Destroy (highTax, 30.0f);
+				billSpawnpoints.Add(new List<int>{1, 2});
+				break;
+			case 8: // cop
+				blockPosition += new Vector2 (blockWidth * 2, 0);
+				GameObject copDude = Instantiate (cop, blockPosition, Quaternion.identity) as GameObject;
+				blockPosition += new Vector2 (blockWidth * 2, 0); // create more space after the cop
+				Destroy (copDude, 30.0f);
+				billSpawnpoints.Add(new List<int>{1, 2, 3});
+				break;
+			case 9: // judge
+				blockPosition += new Vector2(blockWidth, 0);
+				billSpawnpoints.Add(new List<int>{1});
+				break;
+			}
+
+			_beforePreviousBlockType = _previousBlockType;
+			_previousBlockType = _currentBlockType;
+			_currentBlockType = 0;
+
+		}
+
+		lastItemPosition = blockPosition;
+
+		//Generate bills
+		//Find all possible non-trivial spawn points (sequence of 3) and revise impossible sequences
+		for (int i = 0; i < blocksGenerated.Length - 2; ++i) {
+			//Create string encoded sequence
+			string sequence = blocksGenerated[i].ToString() + blocksGenerated[i+1].ToString() + blocksGenerated[i+2].ToString();
+
+			switch (sequence) {
+			case "202": //Mid, Empty, Mid
+				billSpawnpoints[i+1] = new List<int>{};
+				break;
+			case "000": //Empty, Empty, Empty
+			case "040": //Empty, Sky, Empty
+				billSpawnpoints[i+1] = new List<int>{1, 2, 3};
+				break;
+			}
+		}
+
+		//Set last 2 columns to invalid spawns
+		billSpawnpoints [billSpawnpoints.Count - 1] = new List<int>{ };
+		billSpawnpoints [billSpawnpoints.Count - 2] = new List<int>{ };
+
+		//Place bills into spawnpoints by probability
+		int billFrequency = 25; // percent of the time a bill appears in a column slot
+		for (int i = 0; i < billSpawnpoints.Count; ++i) {
+			//Skip if no possible spawn in the column slot
+			if (billSpawnpoints [i].Count == 0) {
+				billFrequency += 5;
+				continue;
+			}
+
+			//Generate random number
+			int randomNumber2 = Random.Range (0, 100);
+
+			// increase probability for every turn to achieve consistency, ie. see pseudo random distribution
+			billFrequency += 5;  
+
+			//Check if Bill will be generated 
+			if (randomNumber2 > (100 - billFrequency)) {
+				//Scale probabilities
+				AdjustBillProbabilities ();
+
+				//Get a bill from bill type distribution
+				int rng = Random.Range (0, 100);
+				int billType = 0;
+
+				int cumu = 0;
+				for (int j = 0; j < _billProbabilities.Length; ++j) {
+					cumu += _billProbabilities [j];
+					if (rng < cumu) {
+						billType = j;
+						break;
+					}
+
+				}
+
+				//RNG the location in the current column slot (yIndex)
+				int rng2 = Random.Range (0, billSpawnpoints [i].Count);
+
+				//Reset the height but keep distance
+				billPosition = new Vector2 (billPosition.x, originPosition.y); 
+
+				//Spawn bill
+				switch (billSpawnpoints [i] [rng2]) {
+				case 1: //Floor position
+					billPosition += new Vector2 (blockWidth, 0);
+					break;
+				case 2: //Mid position
+					billPosition += new Vector2 (blockWidth, midBlockHeightFactor * blockHeight);
+					break;
+				case 3: //High-1 position
+					billPosition += new Vector2 (blockWidth, (highBlockHeightFactor - 1) * blockHeight);
+					break;
+				}
+
+				switch(billType) {
+				case 0:	//Single bill
+					Instantiate (bill, billPosition, Quaternion.identity);
+					break;
+				case 1: //Double bill
+					Instantiate (bill, billPosition, Quaternion.identity);
+					break;
+				case 2: //Single stack
+					Instantiate (bill, billPosition, Quaternion.identity);
+					break;
+				case 3: //Double stack
+					Instantiate (bill, billPosition, Quaternion.identity);
+					break;
+				case 4: //Briefcase
+					Instantiate (bill, billPosition, Quaternion.identity);
+					break;
+				}
+
+				//Reset probability
+				billFrequency = 20;
+			} else {
+				billPosition += new Vector2 (blockWidth, 0);
+			}
+
+			_yIndex++;
+		}
+	}
+
 	void SpawnObjects2() {
 
 		//float[,] probTable = new float[10,10];
@@ -111,20 +329,20 @@ public class GameItemGenerator : MonoBehaviour {
 
 			int randomNumber = Random.Range(0,100);
 			for (int i = 0; i < 10; i++) {
-				if (randomNumber > probTable [previousBlockType,i]) {
-					currentBlockType = i+1;
+				if (randomNumber > probTable [_previousBlockType,i]) {
+					_currentBlockType = i+1;
 				}
 			}
 
-			if (((beforePreviousBlockType == 1 || beforePreviousBlockType == 5) &&
-				(previousBlockType == 0 || previousBlockType == 4) &&
-				(currentBlockType == 1 || currentBlockType == 5)) ||
-				((beforePreviousBlockType == 1 || beforePreviousBlockType == 5) &&
-					(previousBlockType == 0 || previousBlockType == 4) &&
-					(currentBlockType == 2 || currentBlockType == 6)) ||
-				((beforePreviousBlockType == 2 || beforePreviousBlockType == 6) &&
-					(previousBlockType == 0 || previousBlockType == 4) &&
-					(currentBlockType == 1 || currentBlockType == 5))) {
+			if (((_beforePreviousBlockType == 1 || _beforePreviousBlockType == 5) &&
+					(_previousBlockType == 0 || _previousBlockType == 4) &&
+					(_currentBlockType == 1 || _currentBlockType == 5)) ||
+				((_beforePreviousBlockType == 1 || _beforePreviousBlockType == 5) &&
+					(_previousBlockType == 0 || _previousBlockType == 4) &&
+					(_currentBlockType == 2 || _currentBlockType == 6)) ||
+				((_beforePreviousBlockType == 2 || _beforePreviousBlockType == 6) &&
+					(_previousBlockType == 0 || _previousBlockType == 4) &&
+					(_currentBlockType == 1 || _currentBlockType == 5))) {
 				// prevent undoable scenarios
 				blocks = blocks - 1;
 				continue;
@@ -140,7 +358,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 			blockPosition = new Vector2 (blockPosition.x, originPosition.y); // reset the height but keep distance
 
-			switch (currentBlockType) {
+			switch (_currentBlockType) {
 			case 0: // no block
 				blockPosition += new Vector2 (blockWidth, 0);
 				int randomNumber3 = Random.Range (0, 2);
@@ -210,14 +428,58 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			}
 
-			beforePreviousBlockType = previousBlockType;
-			previousBlockType = currentBlockType;
-			currentBlockType = 0;
-
+			_beforePreviousBlockType = _previousBlockType;
+			_previousBlockType = _currentBlockType;
+			_currentBlockType = 0;
 		}
 
 		lastItemPosition = blockPosition;
 			
+	}
+
+	void AdjustBillProbabilities() {
+		if (_yIndex > 500) {
+			return;
+		}
+
+		//Adjust probabilities
+		switch(_yIndex) {
+		case 50:
+			_billProbabilities [0] = 60;
+			_billProbabilities [1] = 30;
+			_billProbabilities [2] = 10;
+			_billProbabilities [3] = 0;
+			_billProbabilities [4] = 0;
+			break;
+		case 100:
+			_billProbabilities [0] = 35;
+			_billProbabilities [1] = 35;
+			_billProbabilities [2] = 20;
+			_billProbabilities [3] = 10;
+			_billProbabilities [4] = 0;
+			break;
+		case 200:
+			_billProbabilities [0] = 25;
+			_billProbabilities [1] = 30;
+			_billProbabilities [2] = 25;
+			_billProbabilities [3] = 15;
+			_billProbabilities [4] = 5;
+			break;
+		case 300:
+			_billProbabilities [0] = 15;
+			_billProbabilities [1] = 20;
+			_billProbabilities [2] = 35;
+			_billProbabilities [3] = 20;
+			_billProbabilities [4] = 10;
+			break;
+		case 500:
+			_billProbabilities [0] = 10;
+			_billProbabilities [1] = 15;
+			_billProbabilities [2] = 20;
+			_billProbabilities [3] = 20;
+			_billProbabilities [4] = 15;
+			break;
+		}
 	}
 		
 	void SpawnObjects() {
