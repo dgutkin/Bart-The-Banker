@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (_grounded) {
 				ChangeCollider (true);
+				_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 			}
 		} else if (_unslide) {
 
@@ -104,7 +105,7 @@ public class PlayerController : MonoBehaviour {
 			_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 
 		}
-
+			
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
