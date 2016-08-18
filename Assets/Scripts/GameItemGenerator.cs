@@ -233,7 +233,7 @@ public class GameItemGenerator : MonoBehaviour {
 		billSpawnpoints [billSpawnpoints.Count - 2] = new List<int>{ };
 
 		//Place bills into spawnpoints by probability
-		int billFrequency = 25; // percent of the time a bill appears in a column slot
+		int billFrequency = 30; // percent of the time a bill appears in a column slot
 		for (int i = 0; i < billSpawnpoints.Count; ++i) {
 			//Skip if no possible spawn in the column slot
 			if (billSpawnpoints [i].Count == 0) {
@@ -304,7 +304,7 @@ public class GameItemGenerator : MonoBehaviour {
 				}
 
 				//Reset probability
-				billFrequency = 20;
+				billFrequency = 30;
 			} else {
 				billPosition += new Vector2 (blockWidth, 0);
 			}
