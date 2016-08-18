@@ -176,13 +176,13 @@ public class GameItemGenerator : MonoBehaviour {
 				blockPosition += new Vector2(blockWidth, 0);
 				GameObject floorTax = Instantiate(taxBlock, blockPosition, Quaternion.identity) as GameObject;
 				Destroy (floorTax, 30.0f);
-				billSpawnpoints.Add(new List<int>{1, 2});
+				billSpawnpoints.Add(new List<int>{2, 3});
 				break;
 			case 6: // mid tax block
 				blockPosition += new Vector2(blockWidth, midBlockHeightFactor * blockHeight);
 				GameObject midTax = Instantiate(taxBlock, blockPosition, Quaternion.identity) as GameObject;
 				Destroy (midTax, 30.0f);
-				billSpawnpoints.Add(new List<int>{2, 3});
+				billSpawnpoints.Add(new List<int>{1});
 				break;
 			case 7: // high tax block
 				blockPosition += new Vector2(blockWidth, highBlockHeightFactor * blockHeight);
@@ -223,6 +223,9 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			case "000": //Empty, Empty, Empty
 			case "040": //Empty, Sky, Empty
+			case "404": //Sky, Empty, Sky
+			case "400": //Sky, Empty, Empty
+			case "004": //Empty, Empty, Sky
 				billSpawnpoints[i+1] = new List<int>{1, 2, 3};
 				break;
 			}
