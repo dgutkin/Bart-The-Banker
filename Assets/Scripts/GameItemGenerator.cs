@@ -5,8 +5,12 @@ using System.IO;
 
 public class GameItemGenerator : MonoBehaviour {
 
-	public GameObject gavel;
-	public GameObject bill;
+	public GameObject singleBill;
+	public GameObject doubleBill;
+	public GameObject singleStack;
+	public GameObject doubleStack;
+	public GameObject cashBriefcase;
+
 	public GameObject deathBlock;
 	public GameObject taxBlock;
 	public GameObject cop;
@@ -290,19 +294,19 @@ public class GameItemGenerator : MonoBehaviour {
 
 				switch(billType) {
 				case 0:	//Single bill
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (singleBill, billPosition, Quaternion.identity);
 					break;
 				case 1: //Double bill
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (doubleBill, billPosition, Quaternion.identity);
 					break;
 				case 2: //Single stack
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (singleStack, billPosition, Quaternion.identity);
 					break;
 				case 3: //Double stack
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (doubleStack, billPosition, Quaternion.identity);
 					break;
 				case 4: //Briefcase
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (cashBriefcase, billPosition, Quaternion.identity);
 					break;
 				}
 
@@ -372,7 +376,7 @@ public class GameItemGenerator : MonoBehaviour {
 					} else {
 						billPosition = blockPosition + new Vector2 (0, midBlockHeightFactor * blockHeight);
 					}
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (singleBill, billPosition, Quaternion.identity);
 					// half probability of instantiating block position above
 				}
 				break;
@@ -382,7 +386,7 @@ public class GameItemGenerator : MonoBehaviour {
 				Destroy (floorBlock, 30.0f);
 				billPosition = blockPosition + new Vector2 (0, midBlockHeightFactor * blockHeight);
 				if (createBill) {
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (singleBill, billPosition, Quaternion.identity);
 				}
 				break;
 			case 2: // mid death block
@@ -391,7 +395,7 @@ public class GameItemGenerator : MonoBehaviour {
 				Destroy (midBlock, 30.0f);
 				billPosition = blockPosition - new Vector2 (0, midBlockHeightFactor * blockHeight);
 				if (createBill) {
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (singleBill, billPosition, Quaternion.identity);
 				}
 				break;
 			case 3: // high death blocks
@@ -546,7 +550,7 @@ public class GameItemGenerator : MonoBehaviour {
 				if (noBlockBillP < 6) {
 					billPosition.x = originPosition.x + i * blockWidth;
 					billPosition.y = billPos2;
-					Instantiate (bill, billPosition, Quaternion.identity);
+					Instantiate (singleBill, billPosition, Quaternion.identity);
 				}
 				continue;
 			}
@@ -625,7 +629,7 @@ public class GameItemGenerator : MonoBehaviour {
 					billPosition.y = billPos3;
 					break;
 				}
-				Instantiate (bill, billPosition, Quaternion.identity);
+				Instantiate (singleBill, billPosition, Quaternion.identity);
 			}
 		}
 

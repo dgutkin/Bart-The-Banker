@@ -3,6 +3,13 @@ using System.Collections;
 
 public class BillBehaviour : MonoBehaviour {
 
+	//0 = singleBill
+	//1 = doubleBill
+	//2 = singleStack
+	//3 = doubleStack
+	//4 = cashBriefcase
+	public short billType;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -17,7 +24,24 @@ public class BillBehaviour : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("Player")) {
 			Destroy (gameObject);
-			other.SendMessage ("HitBill", SendMessageOptions.DontRequireReceiver);
+
+			switch(billType) {
+			case 0:	
+				other.SendMessage ("HitSingleBill", SendMessageOptions.DontRequireReceiver);
+				break;
+			case 1:
+				other.SendMessage ("HitDoubleBill", SendMessageOptions.DontRequireReceiver);
+				break;
+			case 2:
+				other.SendMessage ("HitSingleStack", SendMessageOptions.DontRequireReceiver);
+				break;
+			case 3:
+				other.SendMessage ("HitDoubleStack", SendMessageOptions.DontRequireReceiver);
+				break;
+			case 4:
+				other.SendMessage ("HitCashBriefcase", SendMessageOptions.DontRequireReceiver);
+				break;
+			}
 		}
 
 	}

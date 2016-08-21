@@ -1,0 +1,285 @@
+fileFormatVersion: 2
+guid: 864036bcc2da74ff29db5ac8bb8bb864
+timeCreated: 1471752725
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: DoubleBill_Sheet_0
+    21300002: DoubleBill_Sheet_1
+    21300004: DoubleBill_Sheet_2
+    21300006: DoubleBill_Sheet_3
+    21300008: DoubleBill_Sheet_4
+    21300010: DoubleBill_Sheet_5
+    21300012: DoubleBill_Sheet_6
+    21300014: DoubleBill_Sheet_7
+    21300016: DoubleBill_Sheet_8
+    21300018: DoubleBill_Sheet_9
+    21300020: DoubleBill_Sheet_10
+    21300022: DoubleBill_Sheet_11
+    21300024: DoubleBill_Sheet_12
+    21300026: DoubleBill_Sheet_13
+    21300028: DoubleBill_Sheet_14
+    21300030: DoubleBill_Sheet_15
+    21300032: DoubleBill_Sheet_16
+    21300034: DoubleBill_Sheet_17
+    21300036: DoubleBill_Sheet_18
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: DoubleBill_Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoubleBill_Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 6
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

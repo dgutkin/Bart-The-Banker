@@ -211,9 +211,29 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void HitBill() {
+	public void HitSingleBill() {
 		UpdateScore (_score + 10);
 		_cash += 10;
+	}
+
+	public void HitDoubleBill() {
+		UpdateScore (_score + 20);
+		_cash += 20;
+	}
+
+	public void HitSingleStack() {
+		UpdateScore (_score + 50);
+		_cash += 50;
+	}
+
+	public void HitDoubleStack() {
+		UpdateScore (_score + 100);
+		_cash += 100;
+	}
+
+	public void HitCashBriefcase() {
+		UpdateScore (_score + 500);
+		_cash += 500;
 	}
 
 	public void HitObstacle() {
