@@ -1340,7 +1340,7 @@ MonoBehaviour:
   doubleBill: {fileID: 128358, guid: 084646b99779c476db62d28df3a30382, type: 2}
   singleStack: {fileID: 144318, guid: ea06cd3113eb2494687d8a7965fccef3, type: 2}
   doubleStack: {fileID: 117018, guid: bd240263645d540e7a13ab8eee3d1711, type: 2}
-  cashBriefcase: {fileID: 180600, guid: 3e0c9e0ea65619e4dac0b07b26b2a479, type: 2}
+  cashBriefcase: {fileID: 169796, guid: 5c3e677cffc714fa4ae731598546efaa, type: 2}
   deathBlock: {fileID: 170330, guid: 928bda7d1c970944fbae1d4af72aa96d, type: 2}
   taxBlock: {fileID: 105074, guid: 7d1d13c74141a4f828b0d87779a5b794, type: 2}
   cop: {fileID: 116612, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}

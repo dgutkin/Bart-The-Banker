@@ -6,11 +6,13 @@ public class MenuBehaviour : MonoBehaviour {
 
 	public GameStates stateManager = null;
 	public GameObject menuItem; 
+	public AudioSource audio;
+
 	private bool _startActivated = false;
 
 	// Use this for initialization
 	void Start () {
-		
+		//audio = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -24,6 +26,7 @@ public class MenuBehaviour : MonoBehaviour {
 
 	void OnMouseDown() {
 		Debug.Log ("mouse_down");
+		//audio.Play ();
 		switch (menuItem.name) {
 		case "PlayButton":
 			_startActivated = true;
