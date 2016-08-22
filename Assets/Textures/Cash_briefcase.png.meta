@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 52ca0fedc1084425184fe4a30f11628c
-timeCreated: 1471901993
+timeCreated: 1471903487
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -35,10 +35,6 @@ TextureImporter:
     21300056: Cash_briefcase_28
     21300058: Cash_briefcase_29
     21300060: Cash_briefcase_30
-    21300062: Cash_briefcase_31
-    21300064: Cash_briefcase_32
-    21300066: Cash_briefcase_33
-    21300068: Cash_briefcase_34
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -274,7 +270,7 @@ TextureImporter:
         serializedVersion: 2
         x: 806
         y: 13
-        width: 36
+        width: 38
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -285,7 +281,7 @@ TextureImporter:
         serializedVersion: 2
         x: 856
         y: 13
-        width: 36
+        width: 41
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -296,7 +292,7 @@ TextureImporter:
         serializedVersion: 2
         x: 906
         y: 13
-        width: 38
+        width: 42
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -306,9 +302,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 956
-        y: 13
+        y: 12
         width: 41
-        height: 24
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -317,9 +313,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1006
-        y: 13
-        width: 42
-        height: 24
+        y: 11
+        width: 37
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,9 +324,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1056
-        y: 12
-        width: 41
-        height: 25
+        y: 10
+        width: 36
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,9 +335,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1106
-        y: 11
-        width: 37
-        height: 26
+        y: 9
+        width: 36
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -350,9 +346,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1156
-        y: 10
+        y: 8
         width: 36
-        height: 27
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -372,9 +368,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1256
-        y: 8
+        y: 11
         width: 36
-        height: 29
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,9 +379,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1306
-        y: 9
+        y: 13
         width: 36
-        height: 28
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -394,9 +390,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1356
-        y: 11
+        y: 13
         width: 36
-        height: 26
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -427,50 +423,6 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1506
-        y: 13
-        width: 36
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: Cash_briefcase_31
-      rect:
-        serializedVersion: 2
-        x: 1556
-        y: 13
-        width: 36
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: Cash_briefcase_32
-      rect:
-        serializedVersion: 2
-        x: 1606
-        y: 13
-        width: 36
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: Cash_briefcase_33
-      rect:
-        serializedVersion: 2
-        x: 1656
-        y: 13
-        width: 36
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: Cash_briefcase_34
-      rect:
-        serializedVersion: 2
-        x: 1706
         y: 13
         width: 36
         height: 24

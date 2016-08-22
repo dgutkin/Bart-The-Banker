@@ -1,17 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &169796
+--- !u!1 &149930
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 400864}
-  - 212: {fileID: 21238378}
-  - 95: {fileID: 9569746}
-  - 61: {fileID: 6133828}
-  - 114: {fileID: 11441614}
+  - 4: {fileID: 464256}
+  - 212: {fileID: 21232838}
+  - 95: {fileID: 9509152}
+  - 61: {fileID: 6117360}
+  - 114: {fileID: 11425412}
   m_Layer: 0
   m_Name: Cash_briefcase_0
   m_TagString: Untagged
@@ -19,24 +19,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &400864
+--- !u!4 &464256
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169796}
+  m_GameObject: {fileID: 149930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.011324, y: -0.39980227, z: 0}
+  m_LocalPosition: {x: -5.497292, y: -0.4283595, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6133828
+--- !u!61 &6117360
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169796}
+  m_GameObject: {fileID: 149930}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -45,16 +45,16 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.37, y: 0.24}
---- !u!95 &9569746
+--- !u!95 &9509152
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169796}
+  m_GameObject: {fileID: 149930}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ab10b16cd7adb426eae07cb934f1c6f5, type: 2}
+  m_Controller: {fileID: 9100000, guid: a175146934a374a8880e331fe6c26280, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -62,24 +62,24 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11441614
+--- !u!114 &11425412
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169796}
+  m_GameObject: {fileID: 149930}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba8846aa68e060246a357f735d8f73aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   billType: 4
---- !u!212 &21238378
+--- !u!212 &21232838
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169796}
+  m_GameObject: {fileID: 149930}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -113,5 +113,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 169796}
+  m_RootGameObject: {fileID: 149930}
   m_IsPrefabParent: 1
