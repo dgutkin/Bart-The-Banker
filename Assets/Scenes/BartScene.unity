@@ -676,11 +676,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 1119655388}
   - 212: {fileID: 1119655387}
-  - 61: {fileID: 1119655390}
   - 114: {fileID: 1119655391}
   - 50: {fileID: 1119655389}
   - 111: {fileID: 1119655393}
   - 95: {fileID: 1119655392}
+  - 58: {fileID: 1119655394}
+  - 61: {fileID: 1119655390}
   m_Layer: 0
   m_Name: Bart
   m_TagString: Player
@@ -760,7 +761,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.37}
+  m_Size: {x: 0.11, y: 0.33}
 --- !u!114 &1119655391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -817,6 +818,20 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!58 &1119655394
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1119655386}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -0, y: -0.13}
+  serializedVersion: 2
+  m_Radius: 0.07
 --- !u!1 &1180572545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,7 +1356,7 @@ MonoBehaviour:
   singleStack: {fileID: 144318, guid: ea06cd3113eb2494687d8a7965fccef3, type: 2}
   doubleStack: {fileID: 117018, guid: bd240263645d540e7a13ab8eee3d1711, type: 2}
   cashBriefcase: {fileID: 149930, guid: 5c3e677cffc714fa4ae731598546efaa, type: 2}
-  deathBlock: {fileID: 170330, guid: 928bda7d1c970944fbae1d4af72aa96d, type: 2}
+  deathBlock: {fileID: 160196, guid: 4f7146d459545e541b5e618627c77f6e, type: 2}
   taxBlock: {fileID: 105074, guid: 7d1d13c74141a4f828b0d87779a5b794, type: 2}
   cop: {fileID: 141138, guid: c3060cfabd8915442895fc3108e4ec1c, type: 2}
 --- !u!82 &2110150596

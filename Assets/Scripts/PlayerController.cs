@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 	private Renderer _playerRenderer;
 	private Transform _playerTransform;
 	private BoxCollider2D _playerCollider;
+	private CircleCollider2D _playerGroundCollider;
 	private Material _mat;
 	private bool _grounded = true;
 	private int _score;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 		_playerRenderer = GetComponent<Renderer> ();
 		_playerTransform = GetComponent<Transform> ();
 		_playerCollider = GetComponent<BoxCollider2D> ();
+		_playerGroundCollider = GetComponent<CircleCollider2D> ();
 		_mat = _playerRenderer.material;
 		_jump = false;
 		_immortality = false;
@@ -125,9 +127,16 @@ public class PlayerController : MonoBehaviour {
 			y = 0.17f;
 		} else {
 			x = 0.11f;
-			y = 0.37f;
+			y = 0.33f;
 		}
 		_playerCollider.size = new Vector2 (x, y);
+		if (slide) {
+			_playerGroundCollider.radius = 0f;
+			_playerGroundCollider.offset = new Vector2 (0f, -0.1f);
+		} else {
+			_playerGroundCollider.radius = 0.07f;
+			_playerGroundCollider.offset = new Vector2 (0f, -0.13f);
+		}
 
 	}
 
