@@ -3,37 +3,36 @@ using System.Collections;
 
 public class CopBehaviour : MonoBehaviour {
 
-	public float walkingSpeed  = 0.5f;
-	public float turnAroundTime = 5.0f;
-	private bool _walkingLeft = true;
+	public float walkingSpeed  = 0.0005f;
+	private bool _walkingLeft;
 	private float _distanceWalked;
+	private float _leftBound;
+	private float _rightBound;
 
 	// Use this for initialization
 	void Start () {
-	
+		
 		_distanceWalked = 0f;
+		_walkingLeft = true;
+		_leftBound = transform.position.x - 1.0f;
+		_rightBound = transform.position.x + 1.0f;
 		updateWalkOrientation ();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-		if (_distanceWalked >= turnAroundTime) {
-			_distanceWalked = 0f;
+
+		// Just walk in one direction since when flip direction, the direction will change accordingly
+		transform.Translate (Vector3.left * walkingSpeed * Time.deltaTime);
+
+		// Swap directions once past bounds
+		if (transform.position.x >= _rightBound || transform.position.x <= _leftBound) {
+			// Snap position back to just below before swapping directions
+			float newX = transform.position.x >= _rightBound ? _rightBound - 0.001f : _leftBound + 0.001f;
+			transform.position = new Vector3 (newX, transform.position.y, transform.position.z);
 			switchDirections ();
 		}
-
-		if (!_walkingLeft) {
-			transform.Translate (new Vector3 (walkingSpeed * Time.deltaTime, 0.0f, 0.0f));
-		} else {
-			transform.Translate (new Vector3 (walkingSpeed * Time.deltaTime * -1.0f, 0.0f, 0.0f));
-		}
-
-		_distanceWalked += Time.deltaTime;
-
-
-
 	}
 
 	public void switchDirections() {
@@ -45,18 +44,10 @@ public class CopBehaviour : MonoBehaviour {
 
 	void updateWalkOrientation() {
 		
-		Vector3 localScale = transform.localScale;
-
 		if (_walkingLeft) {
-			if (localScale.x < 0.0f) {
-				localScale.x = localScale.x * -1.0f;
-				transform.localScale = localScale;
-			}
+			transform.localRotation = Quaternion.Euler (0, 180, 0);
 		} else {
-			if (localScale.x > 0.0f) {
-				localScale.x = localScale.x * -1.0f;
-				transform.localScale = localScale;
-			}
+			transform.localRotation = Quaternion.Euler (0, 0, 0);
 		}
 
 	}

@@ -56,7 +56,7 @@ public class GameItemGenerator : MonoBehaviour {
 		// tiling of game items
 		// get position of last game item and if camera.x exceeds it then call spawnobjects2 again
 		if (cam.transform.position.x >= lastItemPosition.x - offSetX) {
-			//SpawnObjects3 ();
+			SpawnObjects3 ();
 		}
 	
 	}
