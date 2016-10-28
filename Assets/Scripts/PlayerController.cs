@@ -79,28 +79,27 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate() {
 
 		if (_jump) {
-
+			
 			_jump = false;
 			_playerAnimator.SetTrigger ("Jump");
 			_playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
-			ChangeCollider (false);
+			ChangeCollider (false, false);
 
 		} else if (_slide) {
 
 			_slide = false;
 			_playerAnimator.SetBool("UnSlide", false);
 			_playerAnimator.SetBool ("Slide", true);
-
 			if (_grounded) {
-				ChangeCollider (true);
+				ChangeCollider (true, true);
 				_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 			}
 		} else if (_unslide) {
-
+			
 			_unslide = false;
 			_playerAnimator.SetBool ("Slide", false);
 			_playerAnimator.SetBool ("UnSlide", true);
-			ChangeCollider (false);
+			ChangeCollider (false, true);
 
 	    } else if (_grounded) {
 
@@ -118,24 +117,28 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-	void ChangeCollider(bool slide) {
+	void ChangeCollider(bool slide, bool grounded) {
 		
 		float x = 0f;
 		float y = 0f;
+			
 		if (slide) {
-			x = 0.33f;
-			y = 0.17f;
+			x = 2.1f;
+			y = 1.2f;
 		} else {
-			x = 0.11f;
-			y = 0.33f;
+			x = 0.65f;
+			y = 2.2f;
 		}
+
 		_playerCollider.size = new Vector2 (x, y);
-		if (slide) {
+				
+		if (slide || !grounded) {
 			_playerGroundCollider.radius = 0f;
 			_playerGroundCollider.offset = new Vector2 (0f, -0.1f);
 		} else {
 			_playerGroundCollider.radius = 0.07f;
-			_playerGroundCollider.offset = new Vector2 (0f, -0.13f);
+			_playerGroundCollider.offset = new Vector2 (0f, -1.1f);
+			// issue with circle collider where collision on jump with ground cancels force
 		}
 
 	}

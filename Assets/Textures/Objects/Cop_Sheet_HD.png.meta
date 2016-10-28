@@ -1,0 +1,255 @@
+fileFormatVersion: 2
+guid: 2bd5f769ff659c44084bedadc9b8dc89
+timeCreated: 1477628309
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Cop_Sheet_HD_0
+    21300002: Cop_Sheet_HD_1
+    21300004: Cop_Sheet_HD_2
+    21300006: Cop_Sheet_HD_3
+    21300008: Cop_Sheet_HD_4
+    21300010: Cop_Sheet_HD_5
+    21300012: Cop_Sheet_HD_6
+    21300014: Cop_Sheet_HD_7
+    21300016: Cop_Sheet_HD_8
+    21300018: Cop_Sheet_HD_9
+    21300020: Cop_Sheet_HD_10
+    21300022: Cop_Sheet_HD_11
+    21300024: Cop_Sheet_HD_12
+    21300026: Cop_Sheet_HD_13
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_0
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 0
+        width: 118
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_1
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 0
+        width: 95
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_2
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 0
+        width: 83
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_3
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 141
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 75
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_5
+      rect:
+        serializedVersion: 2
+        x: 1317
+        y: 0
+        width: 88
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_6
+      rect:
+        serializedVersion: 2
+        x: 1601
+        y: 0
+        width: 112
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_7
+      rect:
+        serializedVersion: 2
+        x: 1906
+        y: 0
+        width: 118
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_8
+      rect:
+        serializedVersion: 2
+        x: 2217
+        y: 0
+        width: 95
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_9
+      rect:
+        serializedVersion: 2
+        x: 2518
+        y: 0
+        width: 83
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_10
+      rect:
+        serializedVersion: 2
+        x: 2818
+        y: 0
+        width: 81
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_11
+      rect:
+        serializedVersion: 2
+        x: 3117
+        y: 0
+        width: 88
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_12
+      rect:
+        serializedVersion: 2
+        x: 3401
+        y: 0
+        width: 112
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cop_Sheet_HD_13
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 129
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
