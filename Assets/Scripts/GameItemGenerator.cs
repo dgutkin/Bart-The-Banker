@@ -131,7 +131,7 @@ public class GameItemGenerator : MonoBehaviour {
 		for (int blocks = 0; blocks < blocksPerTile; blocks++) { // destroy previous game items to save space
 
 			int randomNumber = Random.Range(0,100);
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 9; i++) {
 				if (randomNumber > probTable [_previousBlockType,i]) {
 					_currentBlockType = i+1;
 				}
@@ -200,10 +200,6 @@ public class GameItemGenerator : MonoBehaviour {
 				blockPosition += new Vector2 (blockWidth * 2, 0); // create more space after the cop
 				Destroy (copDude, 30.0f);
 				billSpawnpoints.Add(new List<int>{1, 2, 3});
-				break;
-			case 9: // judge
-				blockPosition += new Vector2(blockWidth, 0);
-				billSpawnpoints.Add(new List<int>{1});
 				break;
 			}
 
