@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraBehaviour : MonoBehaviour {
 
 	public Transform player;
-	public int distanceFromCenter = 6;
+	public int distanceFromCenter = 3;
 
 	// Use this for initialization
 	void Start () {

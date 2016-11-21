@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour {
 		
 		//_grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 		//_grounded = Physics2D.Raycast (transform.position, -Vector2.up, distToGround);
+		#if UNITY_EDITOR
 		if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded) {
 			_jump = true;
 			_grounded = false;
@@ -72,6 +73,25 @@ public class PlayerController : MonoBehaviour {
 		} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
 			_unslide = true;
 		}
+		#endif
+
+		//for touch input
+		#if UNITY_ANDROID
+		if (Input.touchCount > 0) {
+			Touch touch = Input.GetTouch (0);
+			Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
+			Vector3 cameraPosition = Camera.main.gameObject.transform.position;
+			if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x) { // one tap on the right half of screen
+				_jump = true;
+				_grounded = false;
+			} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+			           && touchPosition.x < cameraPosition.x) {
+				_slide = true;
+			} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
+				_unslide = true;
+			}
+		}
+		#endif
 
 	}
 
@@ -133,7 +153,7 @@ public class PlayerController : MonoBehaviour {
 		_playerCollider.size = new Vector2 (x, y);
 				
 		if (slide || !grounded) {
-			_playerGroundCollider.radius = 0f;
+			_playerGroundCollider.radius = 0f; // need a collider on slide to avoid corner collision
 			_playerGroundCollider.offset = new Vector2 (0f, -0.1f);
 		} else {
 			_playerGroundCollider.radius = 0.07f;

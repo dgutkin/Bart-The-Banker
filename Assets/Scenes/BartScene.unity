@@ -125,8 +125,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -2.35, y: 0}
-  m_SizeDelta: {x: 1600, y: 950}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1600, y: 975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &147581620
 MonoBehaviour:
@@ -342,7 +342,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1432, y: -20}
+  m_AnchoredPosition: {x: 1080, y: -10}
   m_SizeDelta: {x: 470, y: 116}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &526040543
@@ -694,7 +694,7 @@ Transform:
   m_GameObject: {fileID: 966581004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.05, z: 1}
+  m_LocalScale: {x: 1, y: 1.08, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1612,7 +1612,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1987903560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -630, y: 420.02505, z: 0}
+  m_LocalPosition: {x: -600, y: 445, z: 0}
   m_LocalScale: {x: 100, y: 100.25063, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1687,7 +1687,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.798234
+  orthographic size: 4.7982345
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1708,8 +1708,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2110150588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: -10}
-  m_LocalScale: {x: 0.7, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 0.7, y: 0.98, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 147581619}
@@ -1727,7 +1727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1119655388}
-  distanceFromCenter: 6
+  distanceFromCenter: 3
 --- !u!114 &2110150595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1739,6 +1739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96230930a03d1443196f4f95b6122443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 966581004}
   singleBill: {fileID: 1000013733634726, guid: 6707113cc58dc2f41a92208c95e6419d, type: 2}
   doubleBill: {fileID: 1000014163050956, guid: b6ca19e5c33042941a7bcded1de2965b, type: 2}
   singleStack: {fileID: 1000011455224738, guid: 0012fe2e1180dae4d87b04acef1dfd61,

@@ -5,6 +5,8 @@ using System.IO;
 
 public class GameItemGenerator : MonoBehaviour {
 
+	public GameObject background;
+
 	public GameObject singleBill;
 	public GameObject doubleBill;
 	public GameObject singleStack;
@@ -46,6 +48,7 @@ public class GameItemGenerator : MonoBehaviour {
 		originPosition = transform.position;
 		originPosition += new Vector2 (5f, -3.72f);
 		lastItemPosition = originPosition;
+		Instantiate (background, Vector2.zero, Quaternion.identity);
 
 		probTable = LoadProbTable ();
 	}
@@ -81,8 +84,10 @@ public class GameItemGenerator : MonoBehaviour {
 	}*/
 
 	float[,] LoadProbTable() {
-		// probTable csv saved in Assets folder of the project
-		StreamReader reader = new StreamReader(File.OpenRead(@Application.dataPath + "/probTable.csv"));
+		
+		#if UNITY_EDITOR
+		StreamReader reader = new StreamReader(File.OpenRead(Application.dataPath + "/probTable.csv"));
+
 		float[,] probTable = new float[10,10];
 
 		int i = 0;
@@ -100,7 +105,44 @@ public class GameItemGenerator : MonoBehaviour {
 			++i;
 		}
 		return probTable;
+		#endif
+
+		#if UNITY_ANDROID
+		TextAsset textAsset = Resources.Load<TextAsset>("probTable");
+		string text = textAsset.text;
+		string[] lines = text.Split("\n"[0]);
+		for (int k = 1; k < lines.Length; ++k) { // start at the second line of csv to skip titles
+			string[] values = lines[k].Split(","[0]);
+			int cumu = 0;
+			for (int j = 0; j < values.Length-1; ++j) {
+				Debug.Log (values[j+1].ToString());
+				cumu += int.Parse(values[j+1]);
+				probTable [k-1,j] = cumu;
+			}
+		}
+		return probTable;
+		#endif
 	}
+
+//	private static string GetPath() {
+//		
+//		#if UNITY_EDITOR 
+//			Debug.Log("getting editor path");
+//			return Application.dataPath;
+//		#endif
+//
+//		#if UNITY_ANDROID
+//			Debug.Log("getting android path");
+//			return Application.persistentDataPath;
+//		#endif
+//
+//		#if UNITY_IOS
+//			string path = Application.dataPath.Substring(0, Application.dataPath.Length - 5);
+//			path = path.Substring(0, path.LastIndexOf('/'));
+//			return path + "/Documents";
+//		#endif
+//
+//	}
 
 	//Checks for an bad sequence, true if it is bad, false if not
 	bool CheckBadSequence() {
@@ -196,7 +238,8 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			case 8: // cop
 				blockPosition += new Vector2 (blockWidth * 2, 0);
-				GameObject copDude = Instantiate (cop, blockPosition, Quaternion.identity) as GameObject;
+				Vector2 copPosition = blockPosition + new Vector2 (0, 0.4f); // adjust for the height of the cop so he stands on ground
+				GameObject copDude = Instantiate (cop, copPosition, Quaternion.identity) as GameObject;
 				blockPosition += new Vector2 (blockWidth * 2, 0); // create more space after the cop
 				Destroy (copDude, 30.0f);
 				billSpawnpoints.Add(new List<int>{1, 2, 3});
