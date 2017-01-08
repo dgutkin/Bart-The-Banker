@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour {
 	private bool _slide;
 	private bool _unslide;
 
+	public GameObject background;
+
 	// Use this for initialization
 	void Start () {
 		moveSpeed = 3f;
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour {
 
 		UpdateScore (0);
 		UpdateLives (3);
+
 	}
 		
 	// Update is called once per frame
@@ -236,6 +239,9 @@ public class PlayerController : MonoBehaviour {
 			PlayerPrefs.SetInt ("cash", _cash);
 			PlayerPrefs.SetInt ("tax", _tax);
 			PlayerPrefs.Save ();
+
+			//Reset background to original position before ending game
+			background.transform.position = Vector3.zero;
 
 			//End game screen
 			SceneManager.LoadScene("GameOver");

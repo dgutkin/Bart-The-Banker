@@ -1044,6 +1044,7 @@ MonoBehaviour:
   - {fileID: 1853142305}
   - {fileID: 350540165}
   - {fileID: 972597470}
+  background: {fileID: 966581004}
 --- !u!95 &1119655392
 Animator:
   serializedVersion: 3
@@ -1748,8 +1749,8 @@ MonoBehaviour:
     type: 2}
   cashBriefcase: {fileID: 1000013505712504, guid: 9058826bbca486e4d87a8e831a11402b,
     type: 2}
-  deathBlock: {fileID: 160196, guid: 4f7146d459545e541b5e618627c77f6e, type: 2}
-  taxBlock: {fileID: 1000011548231402, guid: 2a71dbf9839696649b5f9ba4e66419ff, type: 2}
+  deathBlock: {fileID: 1000010036072548, guid: 3c15a1864332c0640a4e503b2b3d7b44, type: 2}
+  taxBlock: {fileID: 1000012677711834, guid: 13293995c64b14940b70bce9fce7c5f1, type: 2}
   cop: {fileID: 1000010636661956, guid: bb9963ae90428b84e9fd87476f5816f0, type: 2}
 --- !u!82 &2110150596
 AudioSource:
