@@ -107,7 +107,7 @@ public class GameItemGenerator : MonoBehaviour {
 		return probTable;
 		#endif
 
-		#if UNITY_ANDROID
+		#if UNITY_ANDROID || UNITY_IOS
 		TextAsset textAsset = Resources.Load<TextAsset>("probTable");
 		string text = textAsset.text;
 		string[] lines = text.Split("\n"[0]);
@@ -122,6 +122,7 @@ public class GameItemGenerator : MonoBehaviour {
 		}
 		return probTable;
 		#endif
+
 	}
 
 //	private static string GetPath() {

@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour {
 		#endif
 
 		//for touch input
-		#if UNITY_ANDROID
+		#if UNITY_ANDROID || UNITY_IOS
 		if (Input.touchCount > 0) {
 			Touch touch = Input.GetTouch (0);
 			Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
