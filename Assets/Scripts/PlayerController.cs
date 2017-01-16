@@ -156,8 +156,8 @@ public class PlayerController : MonoBehaviour {
 		_playerCollider.size = new Vector2 (x, y);
 				
 		if (slide || !grounded) {
-			_playerGroundCollider.radius = 0f; // need a collider on slide to avoid corner collision
-			_playerGroundCollider.offset = new Vector2 (0f, -0.1f);
+			_playerGroundCollider.radius = 0.07f; // need a collider on slide to avoid corner collision
+			_playerGroundCollider.offset = new Vector2 (0f, -0.6f);
 		} else {
 			_playerGroundCollider.radius = 0.07f;
 			_playerGroundCollider.offset = new Vector2 (0f, -1.1f);
@@ -239,9 +239,6 @@ public class PlayerController : MonoBehaviour {
 			PlayerPrefs.SetInt ("cash", _cash);
 			PlayerPrefs.SetInt ("tax", _tax);
 			PlayerPrefs.Save ();
-
-			//Reset background to original position before ending game
-			background.transform.position = Vector3.zero;
 
 			//End game screen
 			SceneManager.LoadScene("GameOver");

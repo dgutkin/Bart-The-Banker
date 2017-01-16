@@ -5,8 +5,6 @@ using System.IO;
 
 public class GameItemGenerator : MonoBehaviour {
 
-	public GameObject background;
-
 	public GameObject singleBill;
 	public GameObject doubleBill;
 	public GameObject singleStack;
@@ -46,10 +44,9 @@ public class GameItemGenerator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		originPosition = transform.position;
+		Debug.Log (originPosition.ToString ());
 		originPosition += new Vector2 (5f, -3.72f);
 		lastItemPosition = originPosition;
-		Instantiate (background, Vector2.zero, Quaternion.identity);
-
 		probTable = LoadProbTable ();
 	}
 	
