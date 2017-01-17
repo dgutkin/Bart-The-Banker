@@ -5,14 +5,14 @@ using System.Collections;
 
 public class Tiling : MonoBehaviour { // attach as component to foreground/background object
 	
-	public int offsetX = 2;
+	public float offsetX = 0.2f;
 
 	public bool hasRight = false;
 	public bool hasLeft = false;
 
 	public bool reverseScale = false; // if object not tilable
 
-	private float spriteWidth = 2f;
+	private float spriteWidth = 0f;
 	private Camera cam;
 	private Transform myTransform;
 
@@ -30,7 +30,7 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 	// Update is called once per frame
 	void Update () {
 		if (hasLeft == false || hasRight == false) {
-			float camHorizontalExtend = cam.orthographicSize * Screen.width / Screen.height;
+			float camHorizontalExtend = cam.orthographicSize * Screen.width / Screen.height;  // half of camera width
 			float edgeVisiblePositionRight = (myTransform.position.x + spriteWidth / 2) - camHorizontalExtend;
 			float edgeVisiblePositionLeft = (myTransform.position.x - spriteWidth / 2) + camHorizontalExtend;
 			Debug.Log ("Cam" + camHorizontalExtend.ToString ());

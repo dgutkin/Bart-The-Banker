@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour {
 			_jump = false;
 			_playerAnimator.SetTrigger ("Jump");
 			_playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
-			ChangeCollider (false, false);
+			ChangeCollider (false, false);  // vertical collider with no circle bottom
 
 		} else if (_slide) {
 
@@ -128,7 +128,9 @@ public class PlayerController : MonoBehaviour {
 	    } else if (_grounded) {
 
 			_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
-
+			if (!_playerAnimator.GetBool("Slide")) {
+				ChangeCollider (false, true); // on landing after jump make circle bottom
+			}
 		}
 			
 	}
@@ -162,7 +164,6 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			_playerGroundCollider.radius = 0.07f;
 			_playerGroundCollider.offset = new Vector2 (0f, -1.1f);
-			// issue with circle collider where collision on jump with ground cancels force
 		}
 
 	}
