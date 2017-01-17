@@ -717,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280c3f922ec6535428a70fcf6dd76ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetX: 2
+  offsetX: 0.2
   hasRight: 0
   hasLeft: 0
   reverseScale: 0
@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280c3f922ec6535428a70fcf6dd76ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetX: 2
+  offsetX: 0.2
   hasRight: 0
   hasLeft: 0
   reverseScale: 0
@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280c3f922ec6535428a70fcf6dd76ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetX: 2
+  offsetX: 0.2
   hasRight: 0
   hasLeft: 0
   reverseScale: 0
@@ -1868,7 +1868,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 221503b5b633e4405823d4d3c4ee6c98, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
