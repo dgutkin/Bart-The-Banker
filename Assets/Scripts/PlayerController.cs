@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour {
 	private bool _unslide;
 
 	public GameObject background;
+	public AudioClip painClip;
 
 	// Use this for initialization
 	void Start () {
@@ -278,6 +279,8 @@ public class PlayerController : MonoBehaviour {
 
 		//Lose a life
 		if (!_immortality) {
+			AudioSource audio = GetComponent<AudioSource> ();
+			audio.Play ();
 			UpdateLives (_lives - 1);
 		}
 

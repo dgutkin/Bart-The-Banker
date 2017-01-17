@@ -17,6 +17,9 @@ public class TaxBlockBehaviour : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 
 		if (other.gameObject.CompareTag ("Player")) {
+
+			AudioClip ding = GetComponent<AudioSource>().clip;
+			AudioSource.PlayClipAtPoint(ding, transform.position);
 			Destroy (gameObject);
 			other.SendMessage ("HitTaxBlock", SendMessageOptions.DontRequireReceiver);
 		}

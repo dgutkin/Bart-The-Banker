@@ -12,7 +12,7 @@ public class BillBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -23,10 +23,14 @@ public class BillBehaviour : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 
 		if (other.gameObject.CompareTag ("Player")) {
+			
+			AudioClip ting = GetComponent<AudioSource>().clip;
+			AudioSource.PlayClipAtPoint(ting, transform.position);
+			// use PlayClipAtPoint instead of Play because the game object is destroyed later
 			Destroy (gameObject);
 
 			switch(billType) {
-			case 0:	
+			case 0:
 				other.SendMessage ("HitSingleBill", SendMessageOptions.DontRequireReceiver);
 				break;
 			case 1:
@@ -42,6 +46,7 @@ public class BillBehaviour : MonoBehaviour {
 				other.SendMessage ("HitCashBriefcase", SendMessageOptions.DontRequireReceiver);
 				break;
 			}
+
 		}
 
 	}

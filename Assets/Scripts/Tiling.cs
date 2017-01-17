@@ -32,16 +32,18 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 		if (hasLeft == false || hasRight == false) {
 			float camHorizontalExtend = cam.orthographicSize * Screen.width / Screen.height;
 			float edgeVisiblePositionRight = (myTransform.position.x + spriteWidth / 2) - camHorizontalExtend;
-			float edgeVisiblePositionLeft = (myTransform.position.y - spriteWidth / 2) + camHorizontalExtend;
-
+			float edgeVisiblePositionLeft = (myTransform.position.x - spriteWidth / 2) + camHorizontalExtend;
+			Debug.Log ("Cam" + camHorizontalExtend.ToString ());
+			Debug.Log ("Left" + edgeVisiblePositionLeft.ToString());
+			Debug.Log ("Right" + edgeVisiblePositionRight.ToString());
 			if (cam.transform.position.x >= edgeVisiblePositionRight - offsetX && hasRight == false) {
 				makeNewGround (1);
 				hasRight = true;
-			} else if (cam.transform.position.x <= edgeVisiblePositionLeft - offsetX && hasLeft == false) {
+			} else if (cam.transform.position.x <= edgeVisiblePositionLeft + offsetX && hasLeft == false) {
 				makeNewGround (0);
 				hasLeft = true;
 			}
-		} // only need to make new ground in one direction
+		} // only need to make new ground in one direction at a time
 
 	}
 
@@ -59,10 +61,10 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 
 		if (direction > 0) {
 			newGround.GetComponent<Tiling> ().hasLeft = true;
-			hasLeft = true;
+			hasRight = true;
 		} else {
 			newGround.GetComponent<Tiling> ().hasRight = true;
-			hasRight = true;
+			hasLeft = true;
 		}
 	}
 }
