@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CopBehaviour : MonoBehaviour {
 
-	public float walkingSpeed  = 0.001f;
+	public float walkingSpeed  = 2f;
 	private bool _walkingLeft;
 	private float _distanceWalked;
 	private float _leftBound;
