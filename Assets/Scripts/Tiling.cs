@@ -33,9 +33,9 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 			float camHorizontalExtend = cam.orthographicSize * Screen.width / Screen.height;  // half of camera width
 			float edgeVisiblePositionRight = (myTransform.position.x + spriteWidth / 2) - camHorizontalExtend;
 			float edgeVisiblePositionLeft = (myTransform.position.x - spriteWidth / 2) + camHorizontalExtend;
-			Debug.Log ("Cam" + camHorizontalExtend.ToString ());
-			Debug.Log ("Left" + edgeVisiblePositionLeft.ToString());
-			Debug.Log ("Right" + edgeVisiblePositionRight.ToString());
+			//Debug.Log ("Cam" + camHorizontalExtend.ToString ());
+			//Debug.Log ("Left" + edgeVisiblePositionLeft.ToString());
+			//Debug.Log ("Right" + edgeVisiblePositionRight.ToString());
 			if (cam.transform.position.x >= edgeVisiblePositionRight - offsetX && hasRight == false) {
 				makeNewGround (1);
 				hasRight = true;
