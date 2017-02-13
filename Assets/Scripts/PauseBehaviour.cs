@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PauseBehaviour : MonoBehaviour {
 
 	private bool _isPaused = false;
 	private Rect windowRect;
+	private Renderer screenRenderer;
+	private Text textRenderer;
+
+	public GameObject pauseScreen;
+	public GameObject pauseText;
 
 	// Use this for initialization
 	void Start () {
-		windowRect = new Rect (Screen.width / 2 - 300, Screen.height / 2 - 150, 600, 300);
+		screenRenderer = pauseScreen.GetComponent<Renderer>();
+		screenRenderer.enabled = false;
+		textRenderer = pauseText.GetComponent<Text> ();
+		textRenderer.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -23,25 +32,15 @@ public class PauseBehaviour : MonoBehaviour {
 
 		_isPaused = !_isPaused;
 		if (_isPaused) {
+			screenRenderer.enabled = true;
+			textRenderer.enabled = true;
 			Time.timeScale = 0;
 		} else {
 			Time.timeScale = 1;
+			screenRenderer.enabled = false;
+			textRenderer.enabled = false;
 		}
 
 	}
 
-	private void OnGUI() {
-		if (_isPaused) {
-			// need to create a GUI skin to change the background colour so its not transparent
-			// need to cancel jump and slide if _isPaused
-			windowRect = GUI.Window (0, windowRect, windowFunc, "Pause");
-		}
-	}
-
-	private void windowFunc(int id) {
-		if (GUILayout.Button ("Resume")) {
-			_isPaused = false;
-			Time.timeScale = 1;
-		}
-	}
 }
