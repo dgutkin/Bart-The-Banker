@@ -5,11 +5,13 @@ public class CopBehaviour : MonoBehaviour {
 
 	public float walkingSpeed = 2.5f;
 	public float leftTurnAroundDelay = 1f;
-	private float leftTurnAroundTime;
+
+	private float _leftTurnAroundTime;
 	private bool _walkingLeft;
 	private float _distanceWalked;
 	private float _leftBound;
 	private float _rightBound;
+	private Animator _copAnimator;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +20,7 @@ public class CopBehaviour : MonoBehaviour {
 		_walkingLeft = true;
 		_leftBound = transform.position.x - 1.0f;
 		_rightBound = transform.position.x + 1.0f;
+		_copAnimator = GetComponent<Animator> ();
 		updateWalkOrientation ();
 
 	}
@@ -25,9 +28,12 @@ public class CopBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Time.time > leftTurnAroundTime) {
-			// Just walk in one direction since when flip direction, the direction will change accordingly
+		if (Time.time > _leftTurnAroundTime) { // start walking right after delay
+			// Just walk in one direction since when flip rotation, the direction will change accordingly
 			transform.Translate (Vector3.left * walkingSpeed * Time.deltaTime);
+			if (_copAnimator.speed == 0) {
+				_copAnimator.speed = 1; // resume animation
+			}
 		}
 		// Swap directions once past bounds
 		if (transform.position.x >= _rightBound || transform.position.x <= _leftBound) {
@@ -48,8 +54,9 @@ public class CopBehaviour : MonoBehaviour {
 	void updateWalkOrientation() {
 		
 		if (_walkingLeft) {
-			leftTurnAroundTime = Time.time + leftTurnAroundDelay;
 			transform.localRotation = Quaternion.Euler (0, 180, 0);
+			_leftTurnAroundTime = Time.time + leftTurnAroundDelay;
+			_copAnimator.speed = 0; // stop the animation
 		} else {
 			transform.localRotation = Quaternion.Euler (0, 0, 0);
 		}
