@@ -3,7 +3,9 @@ using System.Collections;
 
 public class CopBehaviour : MonoBehaviour {
 
-	public float walkingSpeed  = 2f;
+	public float walkingSpeed = 2.5f;
+	public float leftTurnAroundDelay = 1f;
+	private float leftTurnAroundTime;
 	private bool _walkingLeft;
 	private float _distanceWalked;
 	private float _leftBound;
@@ -23,9 +25,10 @@ public class CopBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// Just walk in one direction since when flip direction, the direction will change accordingly
-		transform.Translate (Vector3.left * walkingSpeed * Time.deltaTime);
-
+		if (Time.time > leftTurnAroundTime) {
+			// Just walk in one direction since when flip direction, the direction will change accordingly
+			transform.Translate (Vector3.left * walkingSpeed * Time.deltaTime);
+		}
 		// Swap directions once past bounds
 		if (transform.position.x >= _rightBound || transform.position.x <= _leftBound) {
 			// Snap position back to just below before swapping directions
@@ -45,6 +48,7 @@ public class CopBehaviour : MonoBehaviour {
 	void updateWalkOrientation() {
 		
 		if (_walkingLeft) {
+			leftTurnAroundTime = Time.time + leftTurnAroundDelay;
 			transform.localRotation = Quaternion.Euler (0, 180, 0);
 		} else {
 			transform.localRotation = Quaternion.Euler (0, 0, 0);

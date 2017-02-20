@@ -25,7 +25,7 @@ public class GameItemGenerator : MonoBehaviour {
 	private float[,] probTable = new float[10,10];
 
 	private float blockHeight = 1.2f;
-	private float blockWidth = 1.2f;
+	private float blockWidth = 1.4f;
 
 	private float midBlockHeightFactor = 1;
 	private float highBlockHeightFactor = 4;
@@ -142,7 +142,7 @@ public class GameItemGenerator : MonoBehaviour {
 //
 //	}
 
-	//Checks for an bad sequence, true if it is bad, false if not
+	//Checks for a bad sequence, true if it is bad, false if not
 	bool CheckBadSequence() {
 		if (((_beforePreviousBlockType == 1 || _beforePreviousBlockType == 5) &&
 		    	(_previousBlockType == 0 || _previousBlockType == 4) &&

@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour {
 			x = 2.1f;
 			y = 1.2f;
 		} else {
-			x = 0.65f;
+			x = 0.22f;  //change to public variable
 			y = 2.2f;
 		}
 
