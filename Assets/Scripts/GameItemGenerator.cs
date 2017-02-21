@@ -43,11 +43,13 @@ public class GameItemGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		originPosition = transform.position;
 		Debug.Log (originPosition.ToString ());
 		originPosition += new Vector2 (5f, -3.72f);
 		lastItemPosition = originPosition;
 		probTable = LoadProbTable ();
+
 	}
 	
 	// Update is called once per frame
