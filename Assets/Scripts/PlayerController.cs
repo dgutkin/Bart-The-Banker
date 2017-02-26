@@ -17,8 +17,10 @@ public class PlayerController : MonoBehaviour {
 	public Transform groundCheck;
 	public GameObject playerRespawn;
 	public Text scoreText;
+	public Text popUpText;
 	public GameObject[] redHearts;
 	public GameObject[] greyHearts;
+	public Canvas canvas;
 
 	private Rigidbody2D _playerRigidbody;
 	private Animator _playerAnimator;
@@ -67,7 +69,8 @@ public class PlayerController : MonoBehaviour {
 		_cash = 0;
 		_tax = 0;
 
-		UpdateScore (0);
+		_score = 0;
+		UpdateScore (0, false);
 		UpdateLives (3);
 
 	}
@@ -200,21 +203,38 @@ public class PlayerController : MonoBehaviour {
 //
 //	}
 
-	public IEnumerator ScoreChange(bool positive) {
-		Color flash = positive ? Color.green : Color.red;
+	public IEnumerator ScoreChange(int scoreChange) {
+		// Create a pop up of the score change
+		Text popUp = Instantiate (popUpText, _playerTransform.position, Quaternion.identity) as Text;
+		popUp.transform.SetParent (canvas.transform, false);
+		popUp.transform.position = new Vector3(_playerTransform.position.x - 3.5f, _playerTransform.position.y + 1, 0);
+
+		if (scoreChange > 0) {
+			popUp.text = "+$" + scoreChange.ToString ();
+			popUp.color = Color.green;
+		} else {
+			popUp.text = "-$" + Math.Abs(scoreChange).ToString ();
+			popUp.color = Color.red;
+		}
+
+		// Flash score in top right
+		Color flash = scoreChange > 0 ? Color.green : Color.red;
 		for(int i = 0; i < 6; ++i) {
 			scoreText.color = i % 2 == 0 ? flash : Color.white;
 			yield return new WaitForSeconds(0.1f);
 		}
+
+		// To Do: This can be object pooled!!
+		Destroy (popUp);
 	}
 
-	private void UpdateScore(int newScore) {
-		bool positive = newScore > _score ? true : false;
-		_score = newScore;
+	private void UpdateScore(int scoreChange, bool animate = true) {
+		_score += scoreChange;
 		scoreText.text = "$" + _score.ToString();
 
-		if (newScore != 0) {
-			StartCoroutine (ScoreChange (positive));
+		if (animate) {
+			// Flash score in top right and make popup
+			StartCoroutine (ScoreChange (scoreChange));
 		}
 	}
 
@@ -280,27 +300,27 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void HitSingleBill() {
-		UpdateScore (_score + 10);
+		UpdateScore (10);
 		_cash += 10;
 	}
 
 	public void HitDoubleBill() {
-		UpdateScore (_score + 20);
+		UpdateScore (20);
 		_cash += 20;
 	}
 
 	public void HitSingleStack() {
-		UpdateScore (_score + 50);
+		UpdateScore (50);
 		_cash += 50;
 	}
 
 	public void HitDoubleStack() {
-		UpdateScore (_score + 100);
+		UpdateScore (100);
 		_cash += 100;
 	}
 
 	public void HitCashBriefcase() {
-		UpdateScore (_score + 500);
+		UpdateScore (500);
 		_cash += 500;
 	}
 
@@ -320,7 +340,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void HitTaxBlock() {
-		UpdateScore (Mathf.RoundToInt(_score * 0.8f));
+		UpdateScore (Mathf.RoundToInt(-1 * _score * 0.2f));
 		_tax += Mathf.RoundToInt (_score * 0.2f);
 	}
 

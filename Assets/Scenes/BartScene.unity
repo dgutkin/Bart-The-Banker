@@ -1144,6 +1144,7 @@ MonoBehaviour:
   - {fileID: 1853142305}
   - {fileID: 350540165}
   - {fileID: 972597470}
+  popUp: {fileID: 1354652324952292, guid: c92a59df22da54a018b1d4dc4e980318, type: 2}
   background: {fileID: 966581004}
   painClip: {fileID: 0}
 --- !u!95 &1119655392
