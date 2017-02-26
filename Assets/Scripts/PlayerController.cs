@@ -200,9 +200,22 @@ public class PlayerController : MonoBehaviour {
 //
 //	}
 
+	public IEnumerator ScoreChange(bool positive) {
+		Color flash = positive ? Color.green : Color.red;
+		for(int i = 0; i < 6; ++i) {
+			scoreText.color = i % 2 == 0 ? flash : Color.white;
+			yield return new WaitForSeconds(0.1f);
+		}
+	}
+
 	private void UpdateScore(int newScore) {
+		bool positive = newScore > _score ? true : false;
 		_score = newScore;
 		scoreText.text = "$" + _score.ToString();
+
+		if (newScore != 0) {
+			StartCoroutine (ScoreChange (positive));
+		}
 	}
 
 	private void UpdateLives(int newLives) {
