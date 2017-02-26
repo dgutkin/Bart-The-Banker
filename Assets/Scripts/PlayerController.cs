@@ -126,10 +126,10 @@ public class PlayerController : MonoBehaviour {
 			if (_grounded) {
 				ChangeCollider (true, true);
 				_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
-				//if (_playerAnimator.IsInTransition (0) &&
-				  //  _playerAnimator.GetNextAnimatorStateInfo (0).shortNameHash == Animator.StringToHash ("Slide")) {
-					//_playerTransform.Translate (-1 * slideColliderWidth / 2, 0, 0);
-				//}
+				if (_playerAnimator.IsInTransition (0) &&
+				    _playerAnimator.GetNextAnimatorStateInfo (0).shortNameHash == Animator.StringToHash ("Slide")) {
+					_playerTransform.Translate (-1 * slideColliderWidth / 2, 0, 0);
+				}
 			}
 		} else if (_unslide) {
 			
