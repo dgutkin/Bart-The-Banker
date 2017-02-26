@@ -1136,6 +1136,8 @@ MonoBehaviour:
   groundCheck: {fileID: 0}
   playerRespawn: {fileID: 1982302182}
   scoreText: {fileID: 526040543}
+  popUpText: {fileID: 114806118599053058, guid: c92a59df22da54a018b1d4dc4e980318,
+    type: 2}
   redHearts:
   - {fileID: 1745726446}
   - {fileID: 710798572}
@@ -1144,7 +1146,7 @@ MonoBehaviour:
   - {fileID: 1853142305}
   - {fileID: 350540165}
   - {fileID: 972597470}
-  popUp: {fileID: 1354652324952292, guid: c92a59df22da54a018b1d4dc4e980318, type: 2}
+  canvas: {fileID: 147581622}
   background: {fileID: 966581004}
   painClip: {fileID: 0}
 --- !u!95 &1119655392
