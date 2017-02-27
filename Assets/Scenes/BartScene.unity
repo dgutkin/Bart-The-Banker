@@ -1137,6 +1137,10 @@ MonoBehaviour:
   standColliderOffsetY: 0
   slideColliderOffsetX: 0
   slideColliderOffsetY: 0
+  jumpColliderWidth: 0
+  jumpColliderHeight: 0
+  jumpColliderOffsetX: 0
+  jumpColliderOffsetY: 0
   groundCheck: {fileID: 0}
   playerRespawn: {fileID: 1982302182}
   scoreText: {fileID: 526040543}
