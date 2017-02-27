@@ -1075,7 +1075,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1119655386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.35, z: 0}
+  m_LocalPosition: {x: 0, y: -4.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1112,7 +1112,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.3, y: 1.1}
   serializedVersion: 2
   m_Size: {x: 0.21800348, y: 2.2}
 --- !u!114 &1119655391
@@ -1133,6 +1133,10 @@ MonoBehaviour:
   standColliderHeight: 0
   slideColliderWidth: 0
   slideColliderHeight: 0
+  standColliderOffsetX: 0
+  standColliderOffsetY: 0
+  slideColliderOffsetX: 0
+  slideColliderOffsetY: 0
   groundCheck: {fileID: 0}
   playerRespawn: {fileID: 1982302182}
   scoreText: {fileID: 526040543}
@@ -1191,7 +1195,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0, y: -1.1}
+  m_Offset: {x: -0.3, y: 0}
   serializedVersion: 2
   m_Radius: 0.07
 --- !u!82 &1119655395
@@ -1982,7 +1986,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1119655388}
   distanceFromCenter: 3
-  cameraSpeed: 2.8
   background: {fileID: 0}
 --- !u!114 &2110150595
 MonoBehaviour:

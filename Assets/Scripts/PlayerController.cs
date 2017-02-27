@@ -14,6 +14,14 @@ public class PlayerController : MonoBehaviour {
 	public float standColliderHeight;
 	public float slideColliderWidth;
 	public float slideColliderHeight;
+	public float standColliderOffsetX;
+	public float standColliderOffsetY;
+	public float slideColliderOffsetX;
+	public float slideColliderOffsetY;
+	public float jumpColliderWidth;
+	public float jumpColliderHeight;
+	public float jumpColliderOffsetX;
+	public float jumpColliderOffsetY;
 	public Transform groundCheck;
 	public GameObject playerRespawn;
 	public Text scoreText;
@@ -49,10 +57,18 @@ public class PlayerController : MonoBehaviour {
 		moveSpeed = 3f;
 		jumpYForce = 650f;
 		jumpXForce = 0f;
-		standColliderWidth = 0.22f;
+		standColliderWidth = 0.25f;
 		standColliderHeight = 2.2f;
-		slideColliderWidth = 2.2f;
-		slideColliderHeight = 1.2f;
+		slideColliderWidth = 2f;
+		slideColliderHeight = 1f;
+		standColliderOffsetX = -0.3f;
+		standColliderOffsetY = 1.1f;
+		slideColliderOffsetX = -1f;
+		slideColliderOffsetY = 0.5f;
+		jumpColliderWidth = 0.8f;
+		jumpColliderHeight = 1.75f;
+		jumpColliderOffsetX = -0.75f;
+		jumpColliderOffsetY = 0.87f;
 
 		_playerRigidbody = GetComponent<Rigidbody2D> ();
 		_playerAnimator = GetComponent<Animator> ();
@@ -119,33 +135,47 @@ public class PlayerController : MonoBehaviour {
 			_jump = false;
 			_playerAnimator.SetTrigger ("Jump");
 			_playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
-			ChangeCollider (false, false);  // vertical collider with no circle bottom
+			ChangeCollider (false, false);
 
 		} else if (_slide) {
 
 			_slide = false;
 			_playerAnimator.SetBool("UnSlide", false);
 			_playerAnimator.SetBool ("Slide", true);
+
 			if (_grounded) {
-				ChangeCollider (true, true);
+				
 				_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
+
 				if (_playerAnimator.IsInTransition (0) &&
-				    _playerAnimator.GetNextAnimatorStateInfo (0).shortNameHash == Animator.StringToHash ("Slide")) {
-					_playerTransform.Translate (-1 * slideColliderWidth / 2, 0, 0);
+				    _playerAnimator.GetNextAnimatorStateInfo (0).shortNameHash == Animator.StringToHash("Slide")) {
+
+					ChangeCollider (true, true);
+
 				}
 			}
+
 		} else if (_unslide) {
 			
 			_unslide = false;
 			_playerAnimator.SetBool ("Slide", false);
 			_playerAnimator.SetBool ("UnSlide", true);
-			ChangeCollider (false, true);
+
+			if (_playerAnimator.IsInTransition(0) && 
+				_playerAnimator.GetNextAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Run")) {
+
+				ChangeCollider (false, true);
+
+			}
 
 	    } else if (_grounded) {
 
 			_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
-			if (!_playerAnimator.GetBool("Slide")) {
-				ChangeCollider (false, true); // on landing after jump make circle bottom
+
+			if (!_playerAnimator.GetBool("Slide") && _playerAnimator.IsInTransition(0)) {
+
+				ChangeCollider (false, true);
+
 			}
 		}
 			
@@ -161,32 +191,39 @@ public class PlayerController : MonoBehaviour {
 
 	void ChangeCollider(bool slide, bool grounded) {
 		
-		float x = 0f;
-		float y = 0f;
+		float sizeX;
+		float sizeY;
+		float offsetX;
+		float offsetY;
 			
 		if (slide) {
 			
-			x = slideColliderWidth;
-			y = slideColliderHeight;
+			sizeX = slideColliderWidth;
+			sizeY = slideColliderHeight;
+			offsetX = slideColliderOffsetX;
+			offsetY = slideColliderOffsetY;
+
+		} else if (grounded) {
+			
+			sizeX = standColliderWidth;
+			sizeY = standColliderHeight;
+			offsetX = standColliderOffsetX;
+			offsetY = standColliderOffsetY;
 
 		} else {
-			
-			x = standColliderWidth;
-			y = standColliderHeight;
+
+			sizeX = jumpColliderWidth;
+			sizeY = jumpColliderHeight;
+			offsetX = jumpColliderOffsetX;
+			offsetY = jumpColliderOffsetY;
 
 		}
 
-		_playerCollider.size = new Vector2 (x, y);
-				
-		if (slide || !grounded) {
+		_playerCollider.size = new Vector2 (sizeX, sizeY);
+		_playerCollider.offset = new Vector2 (offsetX, offsetY);
 			
-			_playerGroundCollider.offset = new Vector2 (0f, -1 * slideColliderHeight / 2);
-
-		} else {
-			
-			_playerGroundCollider.offset = new Vector2 (0f, -1 * standColliderHeight / 2);
-
-		}
+		_playerGroundCollider.offset = new Vector2 (offsetX, 0f);
+		
 	}
 
 	//void OnCollision2DExit(Collision2D other) {
