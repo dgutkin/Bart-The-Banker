@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 	private bool _immortality;
 	private bool _slide;
 	private bool _unslide;
+	private int _maxLives = 3;
 
 	public GameObject background;
 	public AudioClip painClip;
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour {
 
 		_score = 0;
 		UpdateScore (0, false);
-		UpdateLives (3);
+		UpdateLives (3, false);
 
 	}
 		
@@ -226,20 +227,6 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 
-	//void OnCollision2DExit(Collision2D other) {
-	//	if (other.gameObject.tag == "Ground") {
-	//		_grounded = false;
-	//	}
-	//}
-
-//	public void hitGavel() {
-//		
-//		transform.position = playerRespawn.transform.position;
-//		transform.rotation = Quaternion.identity;
-//		_playerRigidbody.velocity = Vector2.zero;
-//
-//	}
-
 	public IEnumerator ScoreChange(int scoreChange) {
 		// Create a pop up of the score change
 		Text popUp = Instantiate (popUpText, _playerTransform.position, Quaternion.identity) as Text;
@@ -262,7 +249,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		// To Do: This can be object pooled!!
-		Destroy (popUp);
+		Destroy (popUp.gameObject);
 	}
 
 	private void UpdateScore(int scoreChange, bool animate = true) {
@@ -275,8 +262,30 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private void UpdateLives(int newLives) {
-		_lives = newLives;
+
+	public void LifeChange(int lifeChange) {
+		Text popUp = Instantiate (popUpText, _playerTransform.position, Quaternion.identity) as Text;
+		popUp.transform.SetParent (canvas.transform, false);
+		popUp.transform.position = new Vector3(_playerTransform.position.x - 3.5f, _playerTransform.position.y + 1, 0);
+
+		if (lifeChange > 0) {
+			popUp.text = "+Life";
+			popUp.color = Color.green;
+		} else {
+			popUp.text = "-Life";
+			popUp.color = Color.red;
+		}
+
+		Destroy (popUp.gameObject, 3f);
+	}
+
+	private void UpdateLives(int lifeChange, bool animate = true) {
+		if (animate) {
+			// Make popup
+			LifeChange (lifeChange);
+		}
+
+		_lives = Math.Min(_lives + lifeChange, _maxLives);
 		switch (_lives) {
 		case 3:
 			for (int i = 0; i < greyHearts.Length; ++i) {
@@ -336,6 +345,10 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	public void HitHeart() {
+		UpdateLives (1);
+	}
+
 	public void HitSingleBill() {
 		UpdateScore (10);
 		_cash += 10;
@@ -370,7 +383,7 @@ public class PlayerController : MonoBehaviour {
 		if (!_immortality) {
 			AudioSource audio = GetComponent<AudioSource> ();
 			audio.Play ();
-			UpdateLives (_lives - 1);
+			UpdateLives (-1);
 		}
 
 		StartCoroutine("CollideFlash");

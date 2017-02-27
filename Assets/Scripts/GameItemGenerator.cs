@@ -14,7 +14,9 @@ public class GameItemGenerator : MonoBehaviour {
 	public GameObject deathBlock;
 	public GameObject taxBlock;
 	public GameObject cop;
+	public GameObject heart;
 
+	private int heartFrequency = 2;
 	private Vector2 originPosition;
 	private Vector2 lastItemPosition;
 	private Camera cam;
@@ -62,25 +64,6 @@ public class GameItemGenerator : MonoBehaviour {
 		}
 	
 	}
-
-	/*Dictionary<string, Dictionary<string, float> > loadProbTable() {
-		var reader = new StreamReader(File.OpenRead(@"../probTable.csv"));
-		Dictionary<string, Dictionary<string, float> > probTable = new Dictionary<string, Dictionary<string, float> > ();
-
-		var line = reader.ReadLine();
-		var keys = line.Split(',');
-		while (!reader.EndOfStream)
-		{
-			line = reader.ReadLine();
-			var values = line.Split(',');
-
-			for (int i = 1; i < keys.Length; ++i) {
-				probTable [values [0]] [keys [i]] = values [i];
-			}
-				
-		}
-		return probTable;
-	}*/
 
 	float[,] LoadProbTable() {
 		
@@ -290,12 +273,37 @@ public class GameItemGenerator : MonoBehaviour {
 			//Generate random number
 			int randomNumber2 = Random.Range (0, 100);
 
+			// Spawn Heart
+			if (randomNumber2 < heartFrequency) {
+				//RNG the location in the current column slot (yIndex)
+				int heartRNG = Random.Range (0, billSpawnpoints [i].Count);
+
+				//Reset the height but keep distance
+				billPosition = new Vector2 (billPosition.x, originPosition.y); 
+
+				//Spawn Heart
+				switch (billSpawnpoints [i] [heartRNG]) {
+				case 1: //Floor position
+					billPosition += new Vector2 (blockWidth, 0);
+					break;
+				case 2: //Mid position
+					billPosition += new Vector2 (blockWidth, midBlockHeightFactor * blockHeight);
+					break;
+				case 3: //High-1 position
+					billPosition += new Vector2 (blockWidth, (highBlockHeightFactor - 1) * blockHeight);
+					break;
+				}
+				Instantiate (heart, billPosition, Quaternion.identity);
+
+				continue;
+			}
+
 			// increase probability for every turn to achieve consistency, ie. see pseudo random distribution
 			billFrequency += 5;  
 
 			//Check if Bill will be generated 
 			if (randomNumber2 > (100 - billFrequency)) {
-				//Scale probabilities
+				//Scale probabilities based on current progress
 				AdjustBillProbabilities ();
 
 				//Get a bill from bill type distribution

@@ -2009,6 +2009,7 @@ MonoBehaviour:
   deathBlock: {fileID: 1043102108857094, guid: 8ee21d4cbf5ee4c0b91cdf3c7639f3c8, type: 2}
   taxBlock: {fileID: 1000012677711834, guid: 13293995c64b14940b70bce9fce7c5f1, type: 2}
   cop: {fileID: 1000010636661956, guid: bb9963ae90428b84e9fd87476f5816f0, type: 2}
+  heart: {fileID: 1316042093247696, guid: aeb4e77bc9d07480baaa1b01939ad5db, type: 2}
 --- !u!82 &2110150596
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2022,7 +2023,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
