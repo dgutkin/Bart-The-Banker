@@ -13,6 +13,9 @@ public class PauseBehaviour : MonoBehaviour {
 	public GameObject pauseScreen;
 	public GameObject pauseText;
 
+	public delegate void PauseAction();
+	public static event PauseAction OnPauseChange;
+
 	// Use this for initialization
 	void Start () {
 		screenRenderer = pauseScreen.GetComponent<Renderer>();
@@ -35,10 +38,12 @@ public class PauseBehaviour : MonoBehaviour {
 			screenRenderer.enabled = true;
 			textRenderer.enabled = true;
 			Time.timeScale = 0;
+			OnPauseChange ();
 		} else {
 			Time.timeScale = 1;
 			screenRenderer.enabled = false;
 			textRenderer.enabled = false;
+			OnPauseChange ();
 		}
 
 	}

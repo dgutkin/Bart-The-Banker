@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 	private bool _slide;
 	private bool _unslide;
 	private int _maxLives = 3;
+	private bool _isPaused;
 
 	public GameObject background;
 	public AudioClip painClip;
@@ -90,27 +91,43 @@ public class PlayerController : MonoBehaviour {
 		UpdateScore (0, false);
 		UpdateLives (3, false);
 
+		_isPaused = false;
+
+	}
+
+	void OnEnable() {
+		PauseBehaviour.OnPauseChange += PauseChange;
+	}
+	void OnDisable() {
+		PauseBehaviour.OnPauseChange -= PauseChange;
+	}
+	void PauseChange() {
+		_isPaused = !_isPaused;
 	}
 		
 	// Update is called once per frame
 	void Update () 	{
-		
 		//_grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 		//_grounded = Physics2D.Raycast (transform.position, -Vector2.up, distToGround);
-		#if UNITY_EDITOR
-		if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded) {
-			_jump = true;
-			_grounded = false;
-		} else if (Input.GetKey (KeyCode.DownArrow)) { // while user holds down the key
-			_slide = true;
-		} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
-			_unslide = true;
-		}
-		#endif
 
-		//for touch input
-		#if UNITY_ANDROID || UNITY_IOS
-		if (Input.touchCount > 0) {
+		if (_isPaused) {
+			// when paused disable all controls
+		} else {
+			
+			#if UNITY_EDITOR
+			if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded) {
+				_jump = true;
+				_grounded = false;
+			} else if (Input.GetKey (KeyCode.DownArrow)) { // while user holds down the key
+				_slide = true;
+			} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
+				_unslide = true;
+			}
+			#endif
+
+			//for touch input
+			#if UNITY_ANDROID || UNITY_IOS
+			if (Input.touchCount > 0) {
 			Touch touch = Input.GetTouch (0);
 			Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
 			Vector3 cameraPosition = Camera.main.gameObject.transform.position;
@@ -123,12 +140,13 @@ public class PlayerController : MonoBehaviour {
 			} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
 				_unslide = true;
 			}
+			}
+			#endif
 		}
-		#endif
 
 	}
 
-	// FixedUpdate is called every time the physics changes
+	// FixedUpdate is called every time the physics change
 	void FixedUpdate() {
 
 		if (_jump) {
