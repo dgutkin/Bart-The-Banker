@@ -9,6 +9,7 @@ public class GameStates : MonoBehaviour {
 	public enum displayStates {
 
 		menuScreen = 0,
+		howtoplayScreen,
 		gameScreen
 
 	}
@@ -20,22 +21,31 @@ public class GameStates : MonoBehaviour {
 
 	public void changeDisplayState(displayStates newState) {
 
-		Debug.Log("change");
 		switch (newState) {
 		case displayStates.menuScreen:
 			gameActive = false;
-			SceneManager.LoadScene (0);
+			SceneManager.LoadScene ("Menu");
+			break;
+		case displayStates.howtoplayScreen:
+			gameActive = false;
+			SceneManager.LoadScene ("HowToPlay");
 			break;
 		case displayStates.gameScreen:
 			gameActive = true;
-			SceneManager.LoadScene (1);
+			SceneManager.LoadScene ("BartScene");
 			break;
 		}
 
 	}
 
+	public void presentHowToPlay() {
+
+		changeDisplayState (displayStates.howtoplayScreen);
+
+	}
+
 	public void startGame() {
-		Debug.Log("start");
+		
 		changeDisplayState (displayStates.gameScreen);
 
 	}

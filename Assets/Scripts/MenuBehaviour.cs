@@ -20,12 +20,11 @@ public class MenuBehaviour : MonoBehaviour {
 		if (_startActivated) {
 			Debug.Log("activated");
 			//start game and change game state to game mode
-			stateManager.startGame();
+			stateManager.presentHowToPlay();
 		}
 	}
 
 	void OnMouseDown() {
-		Debug.Log ("mouse_down");
 		//audio.Play ();
 		switch (menuItem.name) {
 		case "PlayButton":
