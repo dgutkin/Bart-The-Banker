@@ -13,3 +13,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Leaderboards.unity
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+  - enabled: 1
+    path: Assets/Scenes/HowToPlay.unity

@@ -18,7 +18,6 @@ public class MenuBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (_startActivated) {
-			Debug.Log("activated");
 			//start game and change game state to game mode
 			stateManager.presentHowToPlay();
 		}
@@ -27,11 +26,11 @@ public class MenuBehaviour : MonoBehaviour {
 	void OnMouseDown() {
 		//audio.Play ();
 		switch (menuItem.name) {
+
 		case "PlayButton":
 			_startActivated = true;
 			break;
 		case "LeaderboardsButton":
-			Debug.Log ("leaderboardsbutton");
 			SceneManager.LoadScene("Leaderboards");
 			break;
 		case "BackButton":
@@ -44,6 +43,10 @@ public class MenuBehaviour : MonoBehaviour {
 			//_startActivated = true;
 			SceneManager.LoadScene ("BartScene");
 			break;
+		case "CreditsButton":
+			SceneManager.LoadScene ("Credits");
+			break;
+
 		}
 	}
 }
