@@ -38,11 +38,13 @@ public class PauseBehaviour : MonoBehaviour {
 			screenRenderer.enabled = true;
 			textRenderer.enabled = true;
 			Time.timeScale = 0;
+			AudioListener.pause = true;
 			OnPauseChange ();
 		} else {
 			Time.timeScale = 1;
 			screenRenderer.enabled = false;
 			textRenderer.enabled = false;
+			AudioListener.pause = false;
 			OnPauseChange ();
 		}
 

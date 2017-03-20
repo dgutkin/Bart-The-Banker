@@ -663,7 +663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1175822409}
   - component: {fileID: 1175822410}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BartDemo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
