@@ -131,11 +131,12 @@ public class PlayerController : MonoBehaviour {
 			Touch touch = Input.GetTouch (0);
 			Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
 			Vector3 cameraPosition = Camera.main.gameObject.transform.position;
-			if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && _grounded) { // one tap on the right half of screen
+				if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
+					touchPosition.y < cameraPosition.y && _grounded) { // one tap on the right half of screen
 				_jump = true;
 				_grounded = false;
 			} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-			           && touchPosition.x < cameraPosition.x) {
+					&& touchPosition.x < cameraPosition.x && touchPosition.y < cameraPosition.y) {
 				_slide = true;
 			} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
 				_unslide = true;
