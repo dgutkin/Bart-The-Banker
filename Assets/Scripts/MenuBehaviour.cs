@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class MenuBehaviour : MonoBehaviour {
 
@@ -40,7 +41,7 @@ public class MenuBehaviour : MonoBehaviour {
 			SceneManager.LoadScene ("Menu");
 			break;
 		case "RetryButton":
-			//_startActivated = true;
+			ShowAd ();
 			SceneManager.LoadScene ("BartScene");
 			break;
 		case "CreditsButton":
@@ -49,4 +50,13 @@ public class MenuBehaviour : MonoBehaviour {
 
 		}
 	}
+
+	public void ShowAd()
+	{
+		if (Advertisement.IsReady())
+		{
+			Advertisement.Show();
+		}
+	}
+
 }
