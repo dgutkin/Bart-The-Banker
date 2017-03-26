@@ -409,8 +409,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void HitTaxBlock() {
-		UpdateScore (Mathf.RoundToInt(-1 * _score * 0.2f));
 		_tax += Mathf.RoundToInt (_score * 0.2f);
+		UpdateScore (Mathf.RoundToInt(-1 * _score * 0.2f));
 	}
 
 	IEnumerator CollideFlash() {
