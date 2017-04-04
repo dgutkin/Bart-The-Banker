@@ -221,7 +221,7 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			case 8: // cop
 				blockPosition += new Vector2 (blockWidth * 2, 0);
-				Vector2 copPosition = blockPosition + new Vector2 (0, 0.4f); // adjust for the height of the cop so he stands on ground
+				Vector2 copPosition = blockPosition + new Vector2 (0, 0.2f); // adjust for the height of the cop so he stands on ground
 				GameObject copDude = Instantiate (cop, copPosition, Quaternion.identity) as GameObject;
 				blockPosition += new Vector2 (blockWidth * 2, 0); // create more space after the cop
 				Destroy (copDude, 30.0f);
