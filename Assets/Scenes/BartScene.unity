@@ -1141,7 +1141,6 @@ MonoBehaviour:
   jumpColliderHeight: 0
   jumpColliderOffsetX: 0
   jumpColliderOffsetY: 0
-  groundCheck: {fileID: 0}
   playerRespawn: {fileID: 1982302182}
   scoreText: {fileID: 526040543}
   popUpText: {fileID: 114806118599053058, guid: c92a59df22da54a018b1d4dc4e980318,
@@ -1155,8 +1154,6 @@ MonoBehaviour:
   - {fileID: 350540165}
   - {fileID: 972597470}
   canvas: {fileID: 147581622}
-  background: {fileID: 966581004}
-  painClip: {fileID: 0}
 --- !u!95 &1119655392
 Animator:
   serializedVersion: 3
@@ -1201,7 +1198,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: -0.3, y: 0}
   serializedVersion: 2
-  m_Radius: 0.07
+  m_Radius: 0.03
 --- !u!82 &1119655395
 AudioSource:
   m_ObjectHideFlags: 0

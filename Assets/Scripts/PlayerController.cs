@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour {
 	public float jumpColliderHeight;
 	public float jumpColliderOffsetX;
 	public float jumpColliderOffsetY;
-	public Transform groundCheck;
 	public GameObject playerRespawn;
 	public Text scoreText;
 	public Text popUpText;
