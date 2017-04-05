@@ -52,8 +52,11 @@ public class MenuBehaviour : MonoBehaviour {
 	}
 
 	public void ShowAd() {
-		
-		if (Advertisement.IsReady()) {
+
+		int randomNumber = Random.Range (1, 3);
+
+		// Make the ad appear typically one in three times
+		if (Advertisement.IsReady() && randomNumber == 1) {
 			Advertisement.Show();
 		}
 
