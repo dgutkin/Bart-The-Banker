@@ -8,16 +8,19 @@ public class BillGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		SpawnBills ();
+
 	}
 	
 	void SpawnBills() {
 
 		for (int i = 0; i < billSpawnPoints.Length; i++) {
+			
 			Instantiate (bill, billSpawnPoints [i].position, Quaternion.identity);
+
 		}
 
 	}
-	// maybe generate bill spawn points in a level according to some function?
 
 }

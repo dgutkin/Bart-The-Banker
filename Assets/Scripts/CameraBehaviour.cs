@@ -4,8 +4,7 @@ using System.Collections;
 public class CameraBehaviour : MonoBehaviour {
 
 	public Transform player;
-	public int distanceFromCenter = 3;
-	public Transform background;
+	public float distanceFromCenter = 3.0f;
 
 	private Transform _cameraTransform;
 
@@ -19,9 +18,11 @@ public class CameraBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
 		
-		_cameraTransform.position = new Vector3(player.position.x + distanceFromCenter, 
+		_cameraTransform.position = new Vector3(
+			player.position.x + distanceFromCenter, 
 			_cameraTransform.position.y,
-			_cameraTransform.position.z);
+			_cameraTransform.position.z
+		);
 
 	}
 }

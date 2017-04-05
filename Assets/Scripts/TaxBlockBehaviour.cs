@@ -13,7 +13,7 @@ public class TaxBlockBehaviour : MonoBehaviour {
 	
 	}
 
-	// Kill player on collision
+	// Player loses life on collision
 	void OnTriggerEnter2D(Collider2D other) {
 
 		if (other.gameObject.CompareTag ("Player")) {
@@ -22,6 +22,7 @@ public class TaxBlockBehaviour : MonoBehaviour {
 			AudioSource.PlayClipAtPoint(ding, transform.position);
 			Destroy (gameObject);
 			other.SendMessage ("HitTaxBlock", SendMessageOptions.DontRequireReceiver);
+
 		}
 
 	}

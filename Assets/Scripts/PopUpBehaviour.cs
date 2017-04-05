@@ -9,8 +9,10 @@ public class PopUpBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		_text = GetComponent<Text> ();
 		_text.CrossFadeAlpha (0f, 1f, false);
+
 	}
 	
 	// Update is called once per frame

@@ -13,6 +13,7 @@ public class GameOverBehaviourScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		string dollar = "$";
 		int score = PlayerPrefs.GetInt ("score");
 		int cash = PlayerPrefs.GetInt ("cash");
@@ -27,6 +28,7 @@ public class GameOverBehaviourScript : MonoBehaviour {
 		totalCash.text = "+" + dollar + cash.ToString ();
 		totalTax.text = "-" + dollar + tax.ToString ();
 		totalScore.text = dollar + score.ToString ();
+
 	}
 	
 	// Update is called once per frame

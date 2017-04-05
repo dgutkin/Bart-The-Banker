@@ -4,6 +4,7 @@ using System.Collections;
 
 
 public class LeaderboardsBehaviour : MonoBehaviour {
+	
 	public Text leaderboardsText; 
 
 	// Use this for initialization
@@ -21,9 +22,6 @@ public class LeaderboardsBehaviour : MonoBehaviour {
 		}
 		leaderboardsText.text = text;
 
-		// RectTransform trans = GetComponent<RectTransform> ();
-		// trans.localPosition = new Vector3 (68.92004f, -287.28f, 0f);
-		// trans.position = new Vector3 (68.92004f, -287.28f, 0f);
 	}
 	
 	// Update is called once per frame

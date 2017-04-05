@@ -50,9 +50,6 @@ public class PlayerController : MonoBehaviour {
 	private int _maxLives = 3;
 	private bool _isPaused;
 
-	public GameObject background;
-	public AudioClip painClip;
-
 	// Use this for initialization
 	void Start () {
 		
@@ -107,41 +104,41 @@ public class PlayerController : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () 	{
-		//_grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
-		//_grounded = Physics2D.Raycast (transform.position, -Vector2.up, distToGround);
 
 		if (_isPaused) {
 			// when paused disable all controls
 		} else {
 			
 			#if UNITY_EDITOR
-			if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded) {
-				_jump = true;
-				_grounded = false;
-			} else if (Input.GetKey (KeyCode.DownArrow)) { // while user holds down the key
-				_slide = true;
-			} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
-				_unslide = true;
-			}
+				if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded) {
+					_jump = true;
+					_grounded = false;
+				} else if (Input.GetKey (KeyCode.DownArrow)) { // while user holds down the key
+					_slide = true;
+				} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
+					_unslide = true;
+				}
 			#endif
 
 			//for touch input
 			#if UNITY_ANDROID || UNITY_IOS
-			if (Input.touchCount > 0) {
-			Touch touch = Input.GetTouch (0);
-			Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
-			Vector3 cameraPosition = Camera.main.gameObject.transform.position;
-				if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
-					touchPosition.y < cameraPosition.y && _grounded) { // one tap on the right half of screen
-				_jump = true;
-				_grounded = false;
-			} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-					&& touchPosition.x < cameraPosition.x && touchPosition.y < cameraPosition.y) {
-				_slide = true;
-			} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
-				_unslide = true;
-			}
-			}
+				if (Input.touchCount > 0) {
+					Touch touch = Input.GetTouch (0);
+					Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
+					Vector3 cameraPosition = Camera.main.gameObject.transform.position;
+
+					if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
+							touchPosition.y < cameraPosition.y && _grounded) { // one tap on the right half of screen
+						_jump = true;
+						_grounded = false;
+					} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+						&& touchPosition.x < cameraPosition.x && touchPosition.y < cameraPosition.y) {
+						_slide = true;
+					} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
+						_unslide = true;
+					}
+
+				}
 			#endif
 		}
 
@@ -267,7 +264,7 @@ public class PlayerController : MonoBehaviour {
 			yield return new WaitForSeconds(0.1f);
 		}
 
-		// To Do: This can be object pooled!!
+		// This can be object pooled
 		Destroy (popUp.gameObject);
 	}
 
@@ -283,6 +280,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	public void LifeChange(int lifeChange) {
+		
 		Text popUp = Instantiate (popUpText, _playerTransform.position, Quaternion.identity) as Text;
 		popUp.transform.SetParent (canvas.transform, false);
 		popUp.transform.position = new Vector3(_playerTransform.position.x - 3.5f, _playerTransform.position.y + 1, 0);
@@ -296,9 +294,11 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		Destroy (popUp.gameObject, 3f);
+
 	}
 
 	private void UpdateLives(int lifeChange, bool animate = true) {
+		
 		if (animate) {
 			// Make popup
 			LifeChange (lifeChange);
@@ -362,6 +362,7 @@ public class PlayerController : MonoBehaviour {
 			SceneManager.LoadScene("GameOver");
 			break;
 		}
+
 	}
 
 	public void HitHeart() {
@@ -394,9 +395,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void HitObstacle() {
-		//transform.position = playerRespawn.transform.position;
-		//transform.rotation = Quaternion.identity;
-		//_playerRigidbody.velocity = Vector2.zero;
 
 		//Lose a life
 		if (!_immortality) {
@@ -409,11 +407,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void HitTaxBlock() {
+		
 		_tax += Mathf.RoundToInt (_score * 0.2f);
 		UpdateScore (Mathf.RoundToInt(-1 * _score * 0.2f));
+
 	}
 
 	IEnumerator CollideFlash() {
+		
 		_immortality = true;
 		for (int i = 0; i < 5; i++) {
 			_playerRenderer.material = null;
@@ -422,17 +423,7 @@ public class PlayerController : MonoBehaviour {
 			yield return new WaitForSeconds (0.1f);
 		}
 		_immortality = false;
-	}
 
-//	IEnumerator Slide() {
-//
-//		_playerCollider.size = new Vector2 (0.3f, 0.15f);
-//		_playerTransform.Translate (0f, -0.5f, 0f);
-//		_playerAnimator.SetTrigger ("Slide");
-//		yield return new WaitForSeconds (1.0f);  //need animation time of slide
-//		_playerCollider.size = new Vector2(0.15f, 0.3f);
-//		_playerTransform.Translate (0f, +0.5f, 0f);
-//
-//	}
+	}
 
 }

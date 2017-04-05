@@ -12,14 +12,15 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 
 	public bool reverseScale = false; // if object not tilable
 
-	private float spriteWidth = 0f;
-	private Camera cam;
-	private Transform myTransform;
+	private float _spriteWidth = 0f;
+	private Camera _cam;
+	private Transform _myTransform;
+	private float secondsUntilDestroy = 30f;
 
 	void Awake() {
 		
-		cam = Camera.main;
-		myTransform = transform;
+		_cam = Camera.main;
+		_myTransform = transform;
 
 	}
 
@@ -27,7 +28,7 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 	void Start () {
 		
 		SpriteRenderer sRenderer = GetComponent<SpriteRenderer> ();
-		spriteWidth = sRenderer.sprite.bounds.size.x;
+		_spriteWidth = sRenderer.sprite.bounds.size.x;
 
 	}
 	
@@ -36,16 +37,16 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 		
 		if (hasLeft == false || hasRight == false) {
 			
-			float camHorizontalExtend = cam.orthographicSize * Screen.width / Screen.height;  // half of camera width
-			float edgeVisiblePositionRight = (myTransform.position.x + spriteWidth / 2) - camHorizontalExtend;
-			float edgeVisiblePositionLeft = (myTransform.position.x - spriteWidth / 2) + camHorizontalExtend;
+			float camHorizontalExtend = _cam.orthographicSize * Screen.width / Screen.height;  // half of camera width
+			float edgeVisiblePositionRight = (_myTransform.position.x + _spriteWidth / 2) - camHorizontalExtend;
+			float edgeVisiblePositionLeft = (_myTransform.position.x - _spriteWidth / 2) + camHorizontalExtend;
 
-			if (cam.transform.position.x >= edgeVisiblePositionRight - offsetX && hasRight == false) {
+			if (_cam.transform.position.x >= edgeVisiblePositionRight - offsetX && hasRight == false) {
 				
 				makeNewGround (1);
 				hasRight = true;
 
-			} else if (cam.transform.position.x <= edgeVisiblePositionLeft + offsetX && hasLeft == false) {
+			} else if (_cam.transform.position.x <= edgeVisiblePositionLeft + offsetX && hasLeft == false) {
 				
 				makeNewGround (-1);
 				hasLeft = true;
@@ -59,10 +60,10 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 	void makeNewGround (int direction) {
 
 		// calculate position and make new tile
-		Vector3 newPosition = new Vector3 (myTransform.position.x + spriteWidth * direction, myTransform.position.y);
-		Transform newGround = Instantiate (myTransform, newPosition, myTransform.rotation) as Transform;
+		Vector3 newPosition = new Vector3 (_myTransform.position.x + _spriteWidth * direction, _myTransform.position.y);
+		Transform newGround = Instantiate (_myTransform, newPosition, _myTransform.rotation) as Transform;
 		// destroy the new ground after 30 seconds to save space
-		Destroy (newGround.gameObject, 30.0f);
+		Destroy (newGround.gameObject, secondsUntilDestroy);
 
 		if (reverseScale == true) {  // if not tileable reverse x scale
 			
@@ -70,7 +71,7 @@ public class Tiling : MonoBehaviour { // attach as component to foreground/backg
 
 		}
 
-		newGround.parent = myTransform.parent;
+		newGround.parent = _myTransform.parent;
 
 		if (direction > 0) {
 			

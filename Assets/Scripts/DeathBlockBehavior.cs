@@ -13,12 +13,15 @@ public class DeathBlockBehavior : MonoBehaviour {
 	
 	}
 
-	// Kill player on collision
+	//  Player loses a life on collision
 	void OnTriggerEnter2D(Collider2D other) {
 
 		if (other.gameObject.CompareTag ("Player")) {
+			
 			other.SendMessage ("HitObstacle", SendMessageOptions.DontRequireReceiver);
+
 		}
 
 	}
+
 }

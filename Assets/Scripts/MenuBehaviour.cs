@@ -13,21 +13,22 @@ public class MenuBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//audio = GetComponent<AudioSource> ();
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
 		if (_startActivated) {
 			//start game and change game state to game mode
 			stateManager.presentHowToPlay();
 		}
+
 	}
 
 	void OnMouseDown() {
-		//audio.Play ();
+		
 		switch (menuItem.name) {
-
 		case "PlayButton":
 			_startActivated = true;
 			break;
@@ -47,16 +48,15 @@ public class MenuBehaviour : MonoBehaviour {
 		case "CreditsButton":
 			SceneManager.LoadScene ("Credits");
 			break;
-
 		}
 	}
 
-	public void ShowAd()
-	{
-		if (Advertisement.IsReady())
-		{
+	public void ShowAd() {
+		
+		if (Advertisement.IsReady()) {
 			Advertisement.Show();
 		}
+
 	}
 
 }

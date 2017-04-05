@@ -6,35 +6,42 @@ public class Parallaxing : MonoBehaviour {
 	public float parallaxScale;
 	public float smoothing = 1f;
 
-	private Transform cam;
-	private Vector3 previousCamPosition;
-	private Transform myTransform;
+	private Transform _cam;
+	private Vector3 _previousCamPosition;
+	private Transform _myTransform;
 
 	// Called before Start()
 	void Awake() {
 
-		cam = Camera.main.transform;
-		myTransform = transform;
+		_cam = Camera.main.transform;
+		_myTransform = transform;
 
 	}
 
 	// Use this for initialization
 	void Start () {
 
-		previousCamPosition = cam.position;
+		_previousCamPosition = _cam.position;
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		float parallax = (cam.position.x - previousCamPosition.x) * parallaxScale;
-		float backgroundTargetPositionX = myTransform.position.x + parallax;
-		Vector3 backgroundTargetPosition = new Vector3 (backgroundTargetPositionX, myTransform.position.y,
-			                                   myTransform.position.z);
-		myTransform.position = Vector3.Lerp (myTransform.position, backgroundTargetPosition, smoothing * Time.deltaTime);
+		float parallax = (_cam.position.x - _previousCamPosition.x) * parallaxScale;
+		float backgroundTargetPositionX = _myTransform.position.x + parallax;
+		Vector3 backgroundTargetPosition = new Vector3 (
+			backgroundTargetPositionX, 
+			_myTransform.position.y,
+			_myTransform.position.z
+		);
+		_myTransform.position = Vector3.Lerp (
+			_myTransform.position, 
+			backgroundTargetPosition, 
+			smoothing * Time.deltaTime
+		);
 
-		previousCamPosition = cam.position;
+		_previousCamPosition = _cam.position;
 	
 	}
 }
