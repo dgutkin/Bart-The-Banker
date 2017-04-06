@@ -153,9 +153,13 @@ public class GameItemGenerator : MonoBehaviour {
 
 		int[] obstaclesGenerated = new int[_obstaclesPerTile];
 		List<List<int>> billSpawnpoints = new List<List<int>> ();
+		// since a cop is one obstacle but takes up multiple block columns
+		// used for spawn point keep track of the obstacles' spawn point
+		// number per tile
+		int[] obstacleSpawnpointIndices = new int[_obstaclesPerTile];
 
 		// in a fixed length loop per tile
-		for (int obstacles = 0; obstacles < _obstaclesPerTile; obstacles++) {
+		for (int obstacle = 0; obstacle < _obstaclesPerTile; obstacle++) {
 
 			// randomly choose the obstacle type
 			int randomNumber = Random.Range(0,100);
@@ -167,15 +171,17 @@ public class GameItemGenerator : MonoBehaviour {
 
 			//Check for bad sequence and if true then skip
 			if(CheckBadSequence()) {
-				obstacles = obstacles - 1;
+				obstacle = obstacle - 1;
 				continue;
 			}
 
 			obstaclePosition = new Vector2 (obstaclePosition.x, _originPosition.y); // reset the height but keep distance
-			obstaclesGenerated[obstacles] = _currentObstacleType;
+			obstaclesGenerated[obstacle] = _currentObstacleType;
+			obstacleSpawnpointIndices[obstacle] = billSpawnpoints.Count;
 
 			// Generate obstacle and note down the trivial bill spawn points
 			// Destroy obstacles 30 seconds after they spawn
+
 			switch (_currentObstacleType) {
 			case 0: // no obstacle
 				obstaclePosition += new Vector2 (_obstacleWidth, 0);
@@ -194,10 +200,10 @@ public class GameItemGenerator : MonoBehaviour {
 				billSpawnpoints.Add(new List<int>{1});
 				break;
 			case 3: // high trap
-				obstaclePosition += new Vector2(_obstacleWidth, _highObstacleHeightFactor * _obstacleHeight);
-				GameObject highTrap = Instantiate(trapCage, obstaclePosition, Quaternion.identity) as GameObject;
+				obstaclePosition += new Vector2 (_obstacleWidth, _highObstacleHeightFactor * _obstacleHeight);
+				GameObject highTrap = Instantiate (trapCage, obstaclePosition, Quaternion.identity) as GameObject;
 				Destroy (highTrap, _secondsUntilDestroy);
-				billSpawnpoints.Add(new List<int>{1, 2});
+				billSpawnpoints.Add (new List<int>{ 1, 2 });
 				break;
 			case 4: // sky trap
 				obstaclePosition += new Vector2(_obstacleWidth, _skyObstacleHeightFactor * _obstacleHeight);
@@ -230,7 +236,7 @@ public class GameItemGenerator : MonoBehaviour {
 				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthCopScalingFactor, 0); // create more space after the cop
 				Destroy (copDude, _secondsUntilDestroy);
 				// generate a bill spawn for every obstacle spot that the cop occupies
-				for (int i = 0; i < _obstacleWidthCopScalingFactor * 2; i++) {
+				for (int i = 0; i < (_obstacleWidthCopScalingFactor * 2); i++) {
 					billSpawnpoints.Add (new List<int>{ 1, 2, 3 });
 				}
 				break;
@@ -243,13 +249,14 @@ public class GameItemGenerator : MonoBehaviour {
 
 		}
 
-		SpawnBillsAndLives(obstaclesGenerated, billSpawnpoints);
+		SpawnBillsAndLives(obstaclesGenerated, billSpawnpoints, obstacleSpawnpointIndices);
 
 		_lastItemPosition = new Vector2(obstaclePosition.x, _originPosition.y);
 
 	}
 
-	void SpawnBillsAndLives(int[] obstaclesGenerated, List<List<int>> billSpawnpoints) {
+	void SpawnBillsAndLives(int[] obstaclesGenerated, List<List<int>> billSpawnpoints, 
+		int[] obstacleSpawnpointIndices) {
 
 		//Find all possible non-trivial spawn points (sequence of 3) and revise impossible sequences
 		for (int i = 0; i < obstaclesGenerated.Length - 2; ++i) {
@@ -260,14 +267,14 @@ public class GameItemGenerator : MonoBehaviour {
 
 			switch (sequence) {
 			case "202": //Mid, Empty, Mid
-				billSpawnpoints[i+1] = new List<int>{};
+				billSpawnpoints[obstacleSpawnpointIndices[i+1]] = new List<int>{};
 				break;
 			case "000": //Empty, Empty, Empty
 			case "040": //Empty, Sky, Empty
 			case "404": //Sky, Empty, Sky
 			case "400": //Sky, Empty, Empty
 			case "004": //Empty, Empty, Sky
-				billSpawnpoints[i+1] = new List<int>{1, 2, 3};
+				billSpawnpoints[obstacleSpawnpointIndices[i+1]] = new List<int>{1, 2, 3};
 				break;
 			}
 		}
