@@ -344,7 +344,6 @@ public class GameItemGenerator : MonoBehaviour {
 				billPosition = new Vector2 (billPosition.x, _originPosition.y); 
 
 				//Spawn bill
-				Debug.Log(billSpawnpoints[i][rngLocation].ToString());
 				switch (billSpawnpoints [i] [rngLocation]) {
 				case 1: //Floor position
 					billPosition += new Vector2 (_obstacleWidth, 0);
