@@ -163,12 +163,8 @@ public class PlayerController : MonoBehaviour {
 				
 				_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 
-				if (_playerAnimator.IsInTransition (0) &&
-				    _playerAnimator.GetNextAnimatorStateInfo (0).shortNameHash == Animator.StringToHash("Slide")) {
-
 					ChangeCollider (true, true);
 
-				}
 			}
 
 		} else if (_unslide) {
@@ -177,12 +173,7 @@ public class PlayerController : MonoBehaviour {
 			_playerAnimator.SetBool ("Slide", false);
 			_playerAnimator.SetBool ("UnSlide", true);
 
-			if (_playerAnimator.IsInTransition(0) && 
-				_playerAnimator.GetNextAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Run")) {
-
-				ChangeCollider (false, true);
-
-			}
+			ChangeCollider (false, true);
 
 	    } else if (_grounded) {
 

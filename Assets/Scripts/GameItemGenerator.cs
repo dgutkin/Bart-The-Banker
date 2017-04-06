@@ -68,7 +68,7 @@ public class GameItemGenerator : MonoBehaviour {
 		// get position of last game item and if camera.x exceeds it then respawn items
 		if (_cam.transform.position.x >= _lastItemPosition.x - _offsetXTiling) {
 			
-			SpawnObjectsNew ();
+			SpawnObjects ();
 
 		}
 	
@@ -129,7 +129,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 		// low trap/low tax + nothing/sky trap + low trap/low tax
 		// low trap/low tax + nothing/sky trap + mid trap/mid tax
-		// mid trap/low tax + nothing/sky trap + low trap/low tax
+		// mid trap/mid tax + nothing/sky trap + low trap/low tax
 
 		bool bad = ((_beforePreviousObstacleType == 1 || _beforePreviousObstacleType == 5) &&
 		           (_previousObstacleType == 0 || _previousObstacleType == 4) &&
@@ -147,7 +147,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 	}
 
-	void SpawnObjectsNew() {
+	void SpawnObjects() {
 
 		Vector2 obstaclePosition = _lastItemPosition;
 
@@ -229,10 +229,10 @@ public class GameItemGenerator : MonoBehaviour {
 				GameObject copDude = Instantiate (cop, copPosition, Quaternion.identity) as GameObject;
 				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthCopScalingFactor, 0); // create more space after the cop
 				Destroy (copDude, _secondsUntilDestroy);
-				billSpawnpoints.Add(new List<int>{1, 2, 3});
-				billSpawnpoints.Add(new List<int>{1, 2, 3});
-				billSpawnpoints.Add(new List<int>{1, 2, 3});
-				billSpawnpoints.Add(new List<int>{1, 2, 3});
+				// generate a bill spawn for every obstacle spot that the cop occupies
+				for (int i = 0; i < _obstacleWidthCopScalingFactor * 2; i++) {
+					billSpawnpoints.Add (new List<int>{ 1, 2, 3 });
+				}
 				break;
 			}
 
@@ -245,7 +245,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 		SpawnBillsAndLives(obstaclesGenerated, billSpawnpoints);
 
-		_lastItemPosition = new Vector2(obstaclePosition.x, _obstacleHeight);
+		_lastItemPosition = new Vector2(obstaclePosition.x, _originPosition.y);
 
 	}
 
