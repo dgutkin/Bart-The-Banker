@@ -150,7 +150,6 @@ public class GameItemGenerator : MonoBehaviour {
 	void SpawnObjectsNew() {
 
 		Vector2 obstaclePosition = _lastItemPosition;
-		Vector2 billPosition = _lastItemPosition;
 
 		int[] obstaclesGenerated = new int[_obstaclesPerTile];
 		List<List<int>> billSpawnpoints = new List<List<int>> ();
@@ -231,6 +230,9 @@ public class GameItemGenerator : MonoBehaviour {
 				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthCopScalingFactor, 0); // create more space after the cop
 				Destroy (copDude, _secondsUntilDestroy);
 				billSpawnpoints.Add(new List<int>{1, 2, 3});
+				billSpawnpoints.Add(new List<int>{1, 2, 3});
+				billSpawnpoints.Add(new List<int>{1, 2, 3});
+				billSpawnpoints.Add(new List<int>{1, 2, 3});
 				break;
 			}
 
@@ -243,7 +245,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 		SpawnBillsAndLives(obstaclesGenerated, billSpawnpoints);
 
-		_lastItemPosition = new Vector2(Mathf.Max(obstaclePosition.x, billPosition.x), obstaclePosition.y);
+		_lastItemPosition = new Vector2(obstaclePosition.x, _obstacleHeight);
 
 	}
 
@@ -342,6 +344,7 @@ public class GameItemGenerator : MonoBehaviour {
 				billPosition = new Vector2 (billPosition.x, _originPosition.y); 
 
 				//Spawn bill
+				Debug.Log(billSpawnpoints[i][rngLocation].ToString());
 				switch (billSpawnpoints [i] [rngLocation]) {
 				case 1: //Floor position
 					billPosition += new Vector2 (_obstacleWidth, 0);
