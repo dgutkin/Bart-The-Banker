@@ -2010,6 +2010,7 @@ MonoBehaviour:
   taxPaper: {fileID: 1757644871844432, guid: bd2e2bcc609664988a78603a714ad624, type: 2}
   cop: {fileID: 1000010636661956, guid: bb9963ae90428b84e9fd87476f5816f0, type: 2}
   heart: {fileID: 1316042093247696, guid: aeb4e77bc9d07480baaa1b01939ad5db, type: 2}
+  platform: {fileID: 1706397252241114, guid: 11f61a2e665ef43ee83a4a4a350e3338, type: 2}
 --- !u!82 &2110150596
 AudioSource:
   m_ObjectHideFlags: 0

@@ -149,6 +149,8 @@ public class PlayerController : MonoBehaviour {
 		if (_jump) {
 			
 			_jump = false;
+			_playerAnimator.SetBool ("Run", false);
+			_playerAnimator.SetBool ("UnSlide", false);
 			_playerAnimator.SetTrigger ("Jump");
 			_playerRigidbody.AddForce (new Vector2 (jumpXForce, jumpYForce));
 			ChangeCollider (false, false);
@@ -157,6 +159,7 @@ public class PlayerController : MonoBehaviour {
 
 			_slide = false;
 			_playerAnimator.SetBool("UnSlide", false);
+			_playerAnimator.SetBool ("Run", false);
 			_playerAnimator.SetBool ("Slide", true);
 
 			if (_grounded) {
@@ -177,6 +180,7 @@ public class PlayerController : MonoBehaviour {
 
 	    } else if (_grounded) {
 
+			_playerAnimator.SetBool ("Run", true);
 			_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 
 			if (!_playerAnimator.GetBool("Slide") && _playerAnimator.IsInTransition(0)) {

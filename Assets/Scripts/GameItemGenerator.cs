@@ -17,6 +17,8 @@ public class GameItemGenerator : MonoBehaviour {
 
 	public GameObject heart;
 
+	public GameObject platform;
+
 	private Camera _cam;
 	private Vector2 _originPosition;
 	private Vector2 _lastItemPosition;
@@ -29,11 +31,13 @@ public class GameItemGenerator : MonoBehaviour {
 	private float _obstacleHeight = 1.3f;
 	private float _obstacleWidth = 1.4f;
 	private float _obstacleWidthCopScalingFactor = 2f;
+	private float _obstacleWidthPlatformScalingFactor = 2f;
 	private float _secondsUntilDestroy = 30f;
 
 	private float _midObstacleHeightFactor = 1;
 	private float _highObstacleHeightFactor = 4;
 	private float _skyObstacleHeightFactor = 5;
+	private float _platformHeightFactor = 2;
 
 	private int _beforePreviousObstacleType = 0;
 	private int _previousObstacleType = 0;
@@ -92,7 +96,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 				int cumprob = 0;
 				for (int j = 0; j < values.Length-1; ++j) {
-					cumprob += int.Parse(values[j+1]);
+					cumprob += int.Parse(values[j+1]); // skip the label
 					_probTable [i,j] = cumprob;
 				}
 				++i;
@@ -163,7 +167,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 			// randomly choose the obstacle type
 			int randomNumber = Random.Range(0,100);
-			for (int i = 0; i < 9; i++) {
+			for (int i = 0; i < _probTable.GetLength(0); i++) {
 				if (randomNumber > _probTable[_previousObstacleType,i]) {
 					_currentObstacleType = i+1;
 				}
@@ -177,7 +181,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 			obstaclePosition = new Vector2 (obstaclePosition.x, _originPosition.y); // reset the height but keep distance
 			obstaclesGenerated[obstacle] = _currentObstacleType;
-			obstacleSpawnpointIndices[obstacle] = billSpawnpoints.Count;
+			obstacleSpawnpointIndices[obstacle] = billSpawnpoints.Count - 1;
 
 			// Generate obstacle and note down the trivial bill spawn points
 			// Destroy obstacles 30 seconds after they spawn
@@ -238,6 +242,14 @@ public class GameItemGenerator : MonoBehaviour {
 				// generate a bill spawn for every obstacle spot that the cop occupies
 				for (int i = 0; i < (_obstacleWidthCopScalingFactor * 2); i++) {
 					billSpawnpoints.Add (new List<int>{ 1, 2, 3 });
+				}
+				break;
+			case 9: // platform
+				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthPlatformScalingFactor, _platformHeightFactor * _obstacleHeight);
+				GameObject platformObject = Instantiate (platform, obstaclePosition, Quaternion.identity) as GameObject;
+				Destroy (platform, _secondsUntilDestroy);
+				for (int i = 0; i < _obstacleWidthPlatformScalingFactor; i++) {
+					billSpawnpoints.Add (new List<int>{ 1, 2 });
 				}
 				break;
 			}
