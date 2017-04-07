@@ -47,7 +47,7 @@ public class GameItemGenerator : MonoBehaviour {
 	private int[] _billProbabilities = new int[5]{90, 10, 0, 0, 0};
 
 	private int _heartFrequency = 2;
-	private int _yIndex = 0;
+	private int _billProgressIndex = 0;
 
 	void Awake() {
 		
@@ -183,9 +183,14 @@ public class GameItemGenerator : MonoBehaviour {
 			obstaclesGenerated[obstacle] = _currentObstacleType;
 			obstacleSpawnpointIndices[obstacle] = billSpawnpoints.Count - 1;
 
+			// Replace cops and platforms with no obstacles for the first part of the game
+			// Gradual increase in difficulty
+			if (_billProgressIndex < 15 && _currentObstacleType >= 8) {
+				_currentObstacleType = 0;
+			}
+
 			// Generate obstacle and note down the trivial bill spawn points
 			// Destroy obstacles 30 seconds after they spawn
-
 			switch (_currentObstacleType) {
 			case 0: // no obstacle
 				obstaclePosition += new Vector2 (_obstacleWidth, 0);
@@ -393,24 +398,26 @@ public class GameItemGenerator : MonoBehaviour {
 					break;
 				}
 
-				//Reset probability
+				// Reset probability
 				billFrequency = 30;
+
+				_billProgressIndex++;
+
 			} else {
 				billPosition += new Vector2 (_obstacleWidth, 0);
 			}
-
-			_yIndex++;
+				
 		}
 
 	}
 
 	void AdjustBillProbabilities() {
-		if (_yIndex > 500) {
+		if (_billProgressIndex > 500) {
 			return;
 		}
 
 		//Adjust probabilities
-		switch(_yIndex) {
+		switch(_billProgressIndex) {
 		case 50:
 			_billProbabilities [0] = 60;
 			_billProbabilities [1] = 30;
