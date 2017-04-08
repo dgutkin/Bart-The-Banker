@@ -32,8 +32,8 @@ public class MenuBehaviour : MonoBehaviour {
 		case "PlayButton":
 			_startActivated = true;
 			break;
-		case "LeaderboardsButton":
-			SceneManager.LoadScene("Leaderboards");
+		case "HighScoresButton":
+			SceneManager.LoadScene("HighScores");
 			break;
 		case "BackButton":
 			SceneManager.LoadScene ("Menu");

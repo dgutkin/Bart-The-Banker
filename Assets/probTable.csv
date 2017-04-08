@@ -1,5 +1,5 @@
 ,No Block,Floor Block,Mid Block,High Block,Sky Block,Floor Tax Block,Mid Tax Block,High Tax Block,Cop,Platform
-No Block,20,19,15,5,1,9,6,0,15,10
+No Block,20,19,15,5,1,9,6,0,10,15
 Floor Block,80,0,0,0,20,0,0,0,0,0
 Mid Block,40,0,30,20,0,0,0,10,0,0
 High Block,40,0,15,10,10,0,15,10,0,0
@@ -8,4 +8,4 @@ Floor Tax Block,80,0,0,0,20,0,0,0,0,0
 Mid Tax Block,40,0,30,20,0,0,0,10,0,0
 High Tax Block,40,0,15,10,10,0,15,10,0,0
 Cop,80,0,0,0,20,0,0,0,0,0
-Platform,50,0,10,0,0,0,10,0,20,10
+Platform,40,0,5,0,0,0,15,0,30,10

@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 318196206}
   - component: {fileID: 318196205}
   m_Layer: 5
-  m_Name: LeaderboardsText
+  m_Name: HighScoresText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LEADERBOARD
+  m_Text: HIGH SCORES
 --- !u!222 &318196206
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 639972073}
   - component: {fileID: 639972072}
   m_Layer: 0
-  m_Name: LeaderboardsButton
+  m_Name: HighScoresButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
