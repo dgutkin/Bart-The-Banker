@@ -181,7 +181,7 @@ public class GameItemGenerator : MonoBehaviour {
 
 			obstaclePosition = new Vector2 (obstaclePosition.x, _originPosition.y); // reset the height but keep distance
 			obstaclesGenerated[obstacle] = _currentObstacleType;
-			obstacleSpawnpointIndices[obstacle] = billSpawnpoints.Count - 1;
+			obstacleSpawnpointIndices[obstacle] = billSpawnpoints.Count;
 
 			// Replace cops and platforms with no obstacles for the first part of the game
 			// Gradual increase in difficulty
@@ -200,7 +200,7 @@ public class GameItemGenerator : MonoBehaviour {
 				obstaclePosition += new Vector2 (_obstacleWidth, 0);
 				GameObject floorTrap = Instantiate (trapCage, obstaclePosition, Quaternion.identity) as GameObject;
 				Destroy (floorTrap, _secondsUntilDestroy);
-				billSpawnpoints.Add(new List<int>{2, 3});
+				billSpawnpoints.Add(new List<int>{3});
 				break;
 			case 2: // mid trap
 				obstaclePosition += new Vector2 (_obstacleWidth, _midObstacleHeightFactor * _obstacleHeight);
@@ -224,7 +224,7 @@ public class GameItemGenerator : MonoBehaviour {
 				obstaclePosition += new Vector2(_obstacleWidth, 0);
 				GameObject floorTax = Instantiate(taxPaper, obstaclePosition, Quaternion.identity) as GameObject;
 				Destroy (floorTax, _secondsUntilDestroy);
-				billSpawnpoints.Add(new List<int>{2, 3});
+				billSpawnpoints.Add(new List<int>{3});
 				break;
 			case 6: // mid tax
 				obstaclePosition += new Vector2(_obstacleWidth, _midObstacleHeightFactor * _obstacleHeight);
@@ -252,9 +252,9 @@ public class GameItemGenerator : MonoBehaviour {
 			case 9: // platform
 				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthPlatformScalingFactor, _platformHeightFactor * _obstacleHeight);
 				GameObject platformObject = Instantiate (platform, obstaclePosition, Quaternion.identity) as GameObject;
-				Destroy (platform, _secondsUntilDestroy);
+				Destroy (platformObject, _secondsUntilDestroy);
 				for (int i = 0; i < _obstacleWidthPlatformScalingFactor; i++) {
-					billSpawnpoints.Add (new List<int>{ 1, 2 });
+					billSpawnpoints.Add (new List<int>{ 1, 2, 3 });
 				}
 				break;
 			}
@@ -308,6 +308,7 @@ public class GameItemGenerator : MonoBehaviour {
 			//Skip if no possible spawn in the column slot
 			if (billSpawnpoints [i].Count == 0) {
 				billFrequency += 5;
+				billPosition += new Vector2 (_obstacleWidth, 0);
 				continue;
 			}
 
