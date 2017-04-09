@@ -27,6 +27,26 @@ public class PauseBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+		// Detect if pause screen is tapped and unpause
+		if (Input.GetMouseButtonDown(0) && Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity)) {
+
+			RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+
+			if (hit.transform.CompareTag("Pause")) {
+				
+				_isPaused = !_isPaused;
+				Time.timeScale = 1;
+				_screenRenderer.enabled = false;
+				_textRenderer.enabled = false;
+				AudioListener.pause = false;
+				OnPauseChange ();
+
+			}
+
+		}
 		
 	}
 
@@ -40,6 +60,7 @@ public class PauseBehaviour : MonoBehaviour {
 			_textRenderer.enabled = true;
 			Time.timeScale = 0;
 			AudioListener.pause = true;
+
 			OnPauseChange ();
 
 		} else {
@@ -53,5 +74,7 @@ public class PauseBehaviour : MonoBehaviour {
 		}
 
 	}
+
+
 
 }

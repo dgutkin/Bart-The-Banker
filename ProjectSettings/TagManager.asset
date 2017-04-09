@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Cop
+  - Pause
   layers:
   - Default
   - TransparentFX
