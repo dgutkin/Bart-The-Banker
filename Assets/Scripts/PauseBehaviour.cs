@@ -35,7 +35,7 @@ public class PauseBehaviour : MonoBehaviour {
 
 			RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-			if (hit.transform.CompareTag("Pause")) {
+			if (hit.transform.CompareTag("Pause") && _screenRenderer.enabled) {
 				
 				_isPaused = !_isPaused;
 				Time.timeScale = 1;

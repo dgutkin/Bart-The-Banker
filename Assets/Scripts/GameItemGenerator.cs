@@ -59,7 +59,7 @@ public class GameItemGenerator : MonoBehaviour {
 	void Start () {
 		
 		_originPosition = transform.position;
-		_originPosition += new Vector2 (5f, -3.72f);
+		_originPosition += new Vector2 (10f, -3.72f);
 		_lastItemPosition = _originPosition;
 		_probTable = LoadProbTable ();
 
