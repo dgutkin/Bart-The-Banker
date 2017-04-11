@@ -3,8 +3,8 @@ using System.Collections;
 
 public class CopBehaviour : MonoBehaviour {
 
-	public float walkingSpeed = 2.5f;
-	public float leftTurnAroundDelay = 1f;
+	public float walkingSpeed = 2.3f;
+	public float leftTurnAroundDelay = 0f;
 
 	private float _leftTurnAroundTime;
 	private bool _walkingLeft;

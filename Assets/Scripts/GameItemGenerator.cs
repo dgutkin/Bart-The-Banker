@@ -31,13 +31,13 @@ public class GameItemGenerator : MonoBehaviour {
 	private float _obstacleHeight = 1.3f;
 	private float _obstacleWidth = 1.4f;
 	private float _obstacleWidthCopScalingFactor = 2f;
-	private float _obstacleWidthPlatformScalingFactor = 2f;
+	private float _obstacleWidthPlatformScalingFactor = 3f;
 	private float _secondsUntilDestroy = 30f;
 
 	private float _midObstacleHeightFactor = 1;
 	private float _highObstacleHeightFactor = 4;
 	private float _skyObstacleHeightFactor = 5;
-	private float _platformHeightFactor = 2;
+	private float _platformHeightFactor = 1.8f;
 
 	private int _beforePreviousObstacleType = 0;
 	private int _previousObstacleType = 0;
@@ -366,7 +366,7 @@ public class GameItemGenerator : MonoBehaviour {
 				int rngLocation = Random.Range (0, billSpawnpoints [i].Count);
 
 				//Reset the height but keep distance
-				billPosition = new Vector2 (billPosition.x, _originPosition.y); 
+				billPosition = new Vector2 (billPosition.x, _originPosition.y);
 
 				//Spawn bill
 				switch (billSpawnpoints [i] [rngLocation]) {
@@ -413,6 +413,7 @@ public class GameItemGenerator : MonoBehaviour {
 	}
 
 	void AdjustBillProbabilities() {
+		
 		if (_billProgressIndex > 500) {
 			return;
 		}

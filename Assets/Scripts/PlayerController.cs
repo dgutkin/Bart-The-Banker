@@ -16,12 +16,15 @@ public class PlayerController : MonoBehaviour {
 	public float slideColliderHeight;
 	public float standColliderOffsetX;
 	public float standColliderOffsetY;
+	public float standGroundColliderOffsetY;
 	public float slideColliderOffsetX;
 	public float slideColliderOffsetY;
+	public float slideGroundColliderOffsetY;
 	public float jumpColliderWidth;
 	public float jumpColliderHeight;
 	public float jumpColliderOffsetX;
 	public float jumpColliderOffsetY;
+	public float jumpGroundColliderOffsetY;
 	public GameObject playerRespawn;
 	public Text scoreText;
 	public Text popUpText;
@@ -48,6 +51,7 @@ public class PlayerController : MonoBehaviour {
 	private bool _unslide;
 	private int _maxLives = 3;
 	private bool _isPaused;
+	private Vector3 _positionOffsetForRaycast;
 
 	// Use this for initialization
 	void Start () {
@@ -55,18 +59,21 @@ public class PlayerController : MonoBehaviour {
 		moveSpeed = 3f;
 		jumpYForce = 650f;
 		jumpXForce = 0f;
-		standColliderWidth = 0.25f;
-		standColliderHeight = 2.2f;
-		slideColliderWidth = 2f;
+		standColliderWidth = 0.25f; //0.25
+		standColliderHeight = 2.2f; //2.2
+		standColliderOffsetX = -0.3f; //-0.3
+		standColliderOffsetY = 1.1f; //1.1
+		standGroundColliderOffsetY = 0f; //0
+		slideColliderWidth = 1.5f;
 		slideColliderHeight = 1f;
-		standColliderOffsetX = -0.3f;
-		standColliderOffsetY = 1.1f;
-		slideColliderOffsetX = -1f;
+		slideColliderOffsetX = -0.75f;
 		slideColliderOffsetY = 0.5f;
-		jumpColliderWidth = 0.8f;
-		jumpColliderHeight = 1.75f;
-		jumpColliderOffsetX = -0.75f;
-		jumpColliderOffsetY = 0.87f;
+		slideGroundColliderOffsetY = 0f;
+		jumpColliderWidth = 0.5f; //0.8
+		jumpColliderHeight = 1.4f;
+		jumpColliderOffsetX = -0.5f; //-0.75
+		jumpColliderOffsetY = 1f;
+		jumpGroundColliderOffsetY = 0.3f;
 
 		_playerRigidbody = GetComponent<Rigidbody2D> ();
 		_playerAnimator = GetComponent<Animator> ();
@@ -89,6 +96,8 @@ public class PlayerController : MonoBehaviour {
 
 		_isPaused = false;
 
+		_positionOffsetForRaycast = new Vector3 (-1f, 0.5f, 0f);
+
 	}
 
 	void OnEnable() {
@@ -109,9 +118,13 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			
 			#if UNITY_EDITOR
-				if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded) {
-					_jump = true;
-					_grounded = false;
+				if (Input.GetKeyDown (KeyCode.UpArrow) && _grounded && 
+					Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, Vector3.down, 1f,
+					(1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Ground")))) {				
+					// use a raycast to check if the player is sufficiently grounded to jump
+						_jump = true;
+						_grounded = false;
+
 				} else if (Input.GetKey (KeyCode.DownArrow)) { // while user holds down the key
 					_slide = true;
 				} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
@@ -158,15 +171,16 @@ public class PlayerController : MonoBehaviour {
 		} else if (_slide) {
 
 			_slide = false;
-			_playerAnimator.SetBool("UnSlide", false);
-			_playerAnimator.SetBool ("Run", false);
-			_playerAnimator.SetBool ("Slide", true);
 
 			if (_grounded) {
+
+				_playerAnimator.SetBool("UnSlide", false);
+				_playerAnimator.SetBool ("Run", false);
+				_playerAnimator.SetBool ("Slide", true);
 				
 				_playerRigidbody.velocity = new Vector2 (moveSpeed, _playerRigidbody.velocity.y);
 
-					ChangeCollider (true, true);
+				ChangeCollider (true, true);
 
 			}
 
@@ -189,13 +203,20 @@ public class PlayerController : MonoBehaviour {
 
 			}
 		}
-			
+
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
-		
-		if (other.gameObject.CompareTag("Ground")) {
-			_grounded = true;
+
+		if (other.gameObject.CompareTag ("Ground") && other.contacts.Length > 0) {
+
+			// Disallow jumping when colliding with ceilings and corners
+			// Normal vector is negative when colliding with platform from below
+			ContactPoint2D contactPoint = other.contacts [0];
+			if (Vector2.Dot (contactPoint.normal, Vector2.up) > 0.5) {
+				_grounded = true;
+			}
+
 		}
 
 	}
@@ -206,6 +227,7 @@ public class PlayerController : MonoBehaviour {
 		float sizeY;
 		float offsetX;
 		float offsetY;
+		float groundOffsetY;
 			
 		if (slide) {
 			
@@ -213,6 +235,7 @@ public class PlayerController : MonoBehaviour {
 			sizeY = slideColliderHeight;
 			offsetX = slideColliderOffsetX;
 			offsetY = slideColliderOffsetY;
+			groundOffsetY = slideGroundColliderOffsetY;
 
 		} else if (grounded) {
 			
@@ -220,6 +243,7 @@ public class PlayerController : MonoBehaviour {
 			sizeY = standColliderHeight;
 			offsetX = standColliderOffsetX;
 			offsetY = standColliderOffsetY;
+			groundOffsetY = standGroundColliderOffsetY;
 
 		} else {
 
@@ -227,13 +251,14 @@ public class PlayerController : MonoBehaviour {
 			sizeY = jumpColliderHeight;
 			offsetX = jumpColliderOffsetX;
 			offsetY = jumpColliderOffsetY;
+			groundOffsetY = jumpGroundColliderOffsetY;
 
 		}
 
 		_playerCollider.size = new Vector2 (sizeX, sizeY);
 		_playerCollider.offset = new Vector2 (offsetX, offsetY);
 			
-		_playerGroundCollider.offset = new Vector2 (offsetX, 0f);
+		_playerGroundCollider.offset = new Vector2 (offsetX, groundOffsetY);
 		
 	}
 
