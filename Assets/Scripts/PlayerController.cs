@@ -102,12 +102,40 @@ public class PlayerController : MonoBehaviour {
 
 	void OnEnable() {
 		PauseBehaviour.OnPauseChange += PauseChange;
+		GameItemGenerator.OnGameSpeedChange += GameSpeedChange;
 	}
 	void OnDisable() {
 		PauseBehaviour.OnPauseChange -= PauseChange;
+		GameItemGenerator.OnGameSpeedChange -= GameSpeedChange;
 	}
 	void PauseChange() {
 		_isPaused = !_isPaused;
+	}
+	void GameSpeedChange(int level) {
+		
+		// Begin speeding up the game at Level 3
+		moveSpeed  = 3f + 0.5f * Math.Max(level - 2,0);
+		jumpYForce = 650;
+		// adjust the xForce and gravity to keep the same jump arc
+		switch (level) {
+		case 3:
+			jumpXForce = -10;
+			_playerRigidbody.gravityScale = 2.5f;
+			break;
+		case 4:
+			jumpXForce = -20;
+			_playerRigidbody.gravityScale = 2.7f;
+			break;
+		case 5:
+			jumpXForce = -30;
+			_playerRigidbody.gravityScale = 2.75f;
+			break;
+		case 6:
+			jumpXForce = -50;
+			_playerRigidbody.gravityScale = 2.765f;
+			break;
+		}
+
 	}
 		
 	// Update is called once per frame

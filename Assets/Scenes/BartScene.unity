@@ -1198,7 +1198,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2.2
+  m_GravityScale: 2.3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1217,7 +1217,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: -0.3, y: 1.1}
   serializedVersion: 2
-  m_Size: {x: 0.21800348, y: 2.2}
+  m_Size: {x: 0.25, y: 2.2}
 --- !u!114 &1119655391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2210,7 +2210,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2110150588}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fc6b208e2b63a40d1a0c08195145c0ca, type: 3}

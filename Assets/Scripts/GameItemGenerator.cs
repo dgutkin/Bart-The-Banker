@@ -19,6 +19,9 @@ public class GameItemGenerator : MonoBehaviour {
 
 	public GameObject platform;
 
+	public delegate void GameSpeedAction(int level);
+	public static event GameSpeedAction OnGameSpeedChange;
+
 	private Camera _cam;
 	private Vector2 _originPosition;
 	private Vector2 _lastItemPosition;
@@ -46,8 +49,10 @@ public class GameItemGenerator : MonoBehaviour {
 	//Single Bill, Double Bill, Single Stack, Double Stack, Cash Briefcase
 	private int[] _billProbabilities = new int[5]{90, 10, 0, 0, 0};
 
-	private int _heartFrequency = 2;
+	private int _heartFrequency = 0;
 	private int _billProgressIndex = 0;
+	private int _level = 1;
+	private int _spaceBeforeGameChange = 5;
 
 	void Awake() {
 		
@@ -153,6 +158,9 @@ public class GameItemGenerator : MonoBehaviour {
 
 	void SpawnObjects() {
 
+		// Gradual increase in difficulty
+		AdjustProgress();
+
 		Vector2 obstaclePosition = _lastItemPosition;
 
 		int[] obstaclesGenerated = new int[_obstaclesPerTile];
@@ -183,9 +191,8 @@ public class GameItemGenerator : MonoBehaviour {
 			obstaclesGenerated[obstacle] = _currentObstacleType;
 			obstacleSpawnpointIndices[obstacle] = billSpawnpoints.Count;
 
-			// Replace cops and platforms with no obstacles for the first part of the game
-			// Gradual increase in difficulty
-			if (_billProgressIndex < 15 && _currentObstacleType >= 8) {
+			// No cops or platforms in the first level
+			if (_level == 1 && _currentObstacleType >= 8) {
 				_currentObstacleType = 0;
 			}
 
@@ -345,8 +352,6 @@ public class GameItemGenerator : MonoBehaviour {
 
 			//Check if Bill will be generated 
 			if (randomNumber > (100 - billFrequency)) {
-				//Scale probabilities based on current progress
-				AdjustBillProbabilities ();
 
 				//Get a bill from bill type distribution
 				int rng = Random.Range (0, 100);
@@ -412,50 +417,71 @@ public class GameItemGenerator : MonoBehaviour {
 
 	}
 
-	void AdjustBillProbabilities() {
-		
-		if (_billProgressIndex > 500) {
-			return;
-		}
+	void AdjustProgress() {
 
-		//Adjust probabilities
-		switch(_billProgressIndex) {
-		case 50:
+		int previousLevel = _level;
+		// Make adjustments
+		if (_billProgressIndex < 50) {
+			_billProbabilities [0] = 90;
+			_billProbabilities [1] = 10;
+			_billProbabilities [2] = 0;
+			_billProbabilities [3] = 0;
+			_billProbabilities [4] = 0;
+		} else if (_billProgressIndex < 100) {
 			_billProbabilities [0] = 60;
 			_billProbabilities [1] = 30;
 			_billProbabilities [2] = 10;
 			_billProbabilities [3] = 0;
 			_billProbabilities [4] = 0;
-			break;
-		case 100:
+			_level = 2;
+			_heartFrequency = 1;
+		} else if (_billProgressIndex < 200) {
 			_billProbabilities [0] = 35;
 			_billProbabilities [1] = 35;
 			_billProbabilities [2] = 20;
 			_billProbabilities [3] = 10;
 			_billProbabilities [4] = 0;
-			break;
-		case 200:
+			_heartFrequency = 2;
+			_level = 3;
+		} else if (_billProgressIndex < 300) {
 			_billProbabilities [0] = 25;
 			_billProbabilities [1] = 30;
 			_billProbabilities [2] = 25;
 			_billProbabilities [3] = 15;
 			_billProbabilities [4] = 5;
-			break;
-		case 300:
+			_heartFrequency = 2;
+			_level = 4;
+		} else if (_billProgressIndex < 400) {
 			_billProbabilities [0] = 15;
 			_billProbabilities [1] = 20;
 			_billProbabilities [2] = 35;
 			_billProbabilities [3] = 20;
 			_billProbabilities [4] = 10;
-			break;
-		case 500:
+			_heartFrequency = 2;
+			_level = 5;
+		} else if (_billProgressIndex < 500) {
 			_billProbabilities [0] = 10;
 			_billProbabilities [1] = 15;
 			_billProbabilities [2] = 30;
 			_billProbabilities [3] = 30;
 			_billProbabilities [4] = 15;
-			break;
+			_heartFrequency = 2;
+			_level = 6;
+		} else {
+			return;
 		}
+
+		if (_level > previousLevel) {
+
+			// Create a break in spawned objects to prepare for a game change
+			_lastItemPosition += new Vector2(_obstacleWidth * _spaceBeforeGameChange, 0f);
+			// Adjust player speed and jump for game change
+			OnGameSpeedChange (_level);
+
+		}
+
+
+
 	}
 				
 }
