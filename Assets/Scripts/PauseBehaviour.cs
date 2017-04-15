@@ -7,6 +7,7 @@ public class PauseBehaviour : MonoBehaviour {
 
 	public GameObject pauseScreen;
 	public GameObject pauseText;
+	public GameObject mainCamera;
 
 	public delegate void PauseAction();
 	public static event PauseAction OnPauseChange;
@@ -14,6 +15,8 @@ public class PauseBehaviour : MonoBehaviour {
 	private bool _isPaused = false;
 	private Renderer _screenRenderer;
 	private Text _textRenderer;
+	private AudioSource _audioSource;
+	private AudioSource _mainCameraAudioSource;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +25,8 @@ public class PauseBehaviour : MonoBehaviour {
 		_screenRenderer.enabled = false;
 		_textRenderer = pauseText.GetComponent<Text> ();
 		_textRenderer.enabled = false;
+		_audioSource = GetComponent<AudioSource> ();
+		_mainCameraAudioSource = mainCamera.GetComponent<AudioSource> ();
 
 	}
 	
@@ -38,11 +43,7 @@ public class PauseBehaviour : MonoBehaviour {
 			if (hit.transform.CompareTag("Pause") && _screenRenderer.enabled) {
 				
 				_isPaused = !_isPaused;
-				Time.timeScale = 1;
-				_screenRenderer.enabled = false;
-				_textRenderer.enabled = false;
-				AudioListener.pause = false;
-				OnPauseChange ();
+				UnPauseGame ();
 
 			}
 
@@ -54,27 +55,45 @@ public class PauseBehaviour : MonoBehaviour {
 
 		// attached to pause button game object
 		_isPaused = !_isPaused;
+
 		if (_isPaused) {
 			
-			_screenRenderer.enabled = true;
-			_textRenderer.enabled = true;
-			Time.timeScale = 0;
-			AudioListener.pause = true;
-
-			OnPauseChange ();
+			PauseGame ();
 
 		} else {
 			
-			Time.timeScale = 1;
-			_screenRenderer.enabled = false;
-			_textRenderer.enabled = false;
-			AudioListener.pause = false;
-			OnPauseChange ();
+			UnPauseGame ();
 
 		}
 
 	}
 
+	void PauseGame() {
 
+		// Play button click sound
+		_audioSource.Play ();
+
+		_screenRenderer.enabled = true;
+		_textRenderer.enabled = true;
+		Time.timeScale = 0;
+		_mainCameraAudioSource.Pause();
+
+		OnPauseChange ();
+
+	}
+
+	void UnPauseGame() {
+
+		// Play button click sound
+		_audioSource.Play ();
+
+		Time.timeScale = 1;
+		_screenRenderer.enabled = false;
+		_textRenderer.enabled = false;
+		_mainCameraAudioSource.Play();
+
+		OnPauseChange ();
+
+	}
 
 }
