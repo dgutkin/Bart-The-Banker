@@ -17,6 +17,7 @@ public class HeartBehaviour : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 
 		if (other.gameObject.CompareTag ("Player")) {
+			GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat (Constants.SOUND_VOLUME, Constants.DEFAULT_SOUND_VOLUME);
 
 			AudioClip ting = GetComponent<AudioSource>().clip;
 			AudioSource.PlayClipAtPoint(ting, transform.position);

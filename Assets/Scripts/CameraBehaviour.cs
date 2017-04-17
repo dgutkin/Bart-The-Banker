@@ -12,7 +12,7 @@ public class CameraBehaviour : MonoBehaviour {
 	void Start () {
 		
 		_cameraTransform = GetComponent<Transform> ();
-
+		GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat (Constants.MUSIC_VOLUME, Constants.DEFAULT_MUSIC_VOLUME);
 	}
 	
 	// Update is called once per frame

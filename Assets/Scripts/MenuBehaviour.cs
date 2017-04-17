@@ -26,6 +26,9 @@ public class MenuBehaviour : MonoBehaviour {
 			stateManager.presentHowToPlay();
 		}
 
+		// Update volume
+		audioSource.volume = PlayerPrefs.GetFloat(Constants.SOUND_VOLUME, Constants.DEFAULT_SOUND_VOLUME);
+
 	}
 
 	void OnMouseDown() {
@@ -59,6 +62,9 @@ public class MenuBehaviour : MonoBehaviour {
 			break;
 		case "CreditsButton":
 			SceneManager.LoadScene ("Credits");
+			break;
+		case "SettingsButton":
+			SceneManager.LoadScene ("Settings");
 			break;
 		}
 

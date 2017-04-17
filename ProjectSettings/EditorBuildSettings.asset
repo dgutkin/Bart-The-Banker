@@ -19,3 +19,5 @@ EditorBuildSettings:
     path: Assets/Scenes/HowToPlay.unity
   - enabled: 1
     path: Assets/Scenes/HighScores.unity
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
