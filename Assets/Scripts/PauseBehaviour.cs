@@ -48,6 +48,10 @@ public class PauseBehaviour : MonoBehaviour {
 			}
 
 		}
+
+		// Update volumes
+		_audioSource.volume = PlayerPrefs.GetFloat (Constants.SOUND_VOLUME, Constants.DEFAULT_SOUND_VOLUME);
+		_mainCameraAudioSource.volume = PlayerPrefs.GetFloat (Constants.SOUND_VOLUME, Constants.DEFAULT_SOUND_VOLUME);
 		
 	}
 

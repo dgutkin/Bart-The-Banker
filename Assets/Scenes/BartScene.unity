@@ -2262,6 +2262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1119655388}
   distanceFromCenter: 3
+  defaultMusicVolume: 0.3
 --- !u!114 &2110150595
 MonoBehaviour:
   m_ObjectHideFlags: 0

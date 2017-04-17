@@ -446,6 +446,7 @@ public class PlayerController : MonoBehaviour {
 		//Lose a life
 		if (!_immortality) {
 			AudioSource audio = GetComponent<AudioSource> ();
+			audio.volume = PlayerPrefs.GetFloat (Constants.SOUND_VOLUME, Constants.DEFAULT_SOUND_VOLUME);
 			audio.Play ();
 			UpdateLives (-1);
 		}
