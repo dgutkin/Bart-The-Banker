@@ -6,13 +6,14 @@ public class CameraBehaviour : MonoBehaviour {
 	public Transform player;
 	public float distanceFromCenter = 3.0f;
 
+	private AudioSource _audioSource;
 	private Transform _cameraTransform;
 
 	// Use this for initialization
 	void Start () {
 		
 		_cameraTransform = GetComponent<Transform> ();
-		GetComponent<AudioSource> ().volume = PlayerPrefs.GetFloat (Constants.MUSIC_VOLUME, Constants.DEFAULT_MUSIC_VOLUME);
+
 	}
 	
 	// Update is called once per frame
@@ -24,5 +25,16 @@ public class CameraBehaviour : MonoBehaviour {
 			_cameraTransform.position.z
 		);
 
+	}
+
+	void Update() {
+		_audioSource.volume = PlayerPrefs.GetFloat (Constants.MUSIC_VOLUME, Constants.DEFAULT_MUSIC_VOLUME);
+	}
+
+	void Awake() {
+		_audioSource = GetComponent<AudioSource> ();
+		_audioSource.ignoreListenerVolume = true;
+		_audioSource.volume = PlayerPrefs.GetFloat (Constants.MUSIC_VOLUME, Constants.DEFAULT_MUSIC_VOLUME);
+		_audioSource.Play ();
 	}
 }

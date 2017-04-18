@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
+
 
 public class VolumeSliderBehaviour : MonoBehaviour {
 
@@ -34,6 +36,10 @@ public class VolumeSliderBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (volumeName == "Sound") {
+			AudioListener.volume = slider.value;
+		}
+
 		PlayerPrefs.SetFloat (volumeKey , slider.value);
 	}
 }
