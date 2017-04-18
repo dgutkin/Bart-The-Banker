@@ -18,6 +18,7 @@ public class GameItemGenerator : MonoBehaviour {
 	public GameObject heart;
 
 	public GameObject platform;
+	public GameObject streetlight;
 
 	public delegate void GameSpeedAction(int level);
 	public static event GameSpeedAction OnGameSpeedChange;
@@ -40,7 +41,7 @@ public class GameItemGenerator : MonoBehaviour {
 	private float _midObstacleHeightFactor = 1;
 	private float _highObstacleHeightFactor = 4;
 	private float _skyObstacleHeightFactor = 5;
-	private float _platformHeightFactor = 1.8f;
+	private float _platformHeightFactor = 2f; // 1.8f for the actual platforms
 
 	private int _beforePreviousObstacleType = 0;
 	private int _previousObstacleType = 0;
