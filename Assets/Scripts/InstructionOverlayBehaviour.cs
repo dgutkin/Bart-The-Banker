@@ -14,7 +14,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		
 		_rightSide = rightSideInstructions.GetComponent<Text> ();
 		_rightSide.enabled = false;
 		_leftSide = leftSideInstructions.GetComponent<Text> ();
@@ -28,7 +28,10 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 				_rightSide.enabled = true;
 				_leftSide.enabled = true;
 			}
-
+		} else {
+			_showOverlay = true;
+			_rightSide.enabled = true;
+			_leftSide.enabled = true;
 		}
 
 	}
@@ -40,22 +43,12 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 
 			float showDuration = 3f;
 			float fadeDuration = 0.5f;
-			StartCoroutine(ShowOverlay(_rightSide, _leftSide, fadeDuration, showDuration));
+			StartCoroutine(Utility.FadeTextOut(_rightSide, showDuration, fadeDuration));
+			StartCoroutine(Utility.FadeTextOut(_leftSide, showDuration, fadeDuration));
 			_showOverlay = false;
 
 		}
 		
-	}
-
-	public IEnumerator ShowOverlay(Text rightText, Text leftText, float fadeDuration, float showDuration) {
-
-		yield return new WaitForSeconds (showDuration);
-		rightText.CrossFadeAlpha (0f, fadeDuration, false);
-		leftText.CrossFadeAlpha (0f, fadeDuration, false);
-		yield return new WaitForSeconds (fadeDuration);
-		_rightSide.enabled = false;
-		_leftSide.enabled = false;
-
 	}
 
 }

@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject playerRespawn;
 	public Text scoreText;
 	public Text popUpText;
+	public Text levelUpText;
+	public Text levelUpSubtitle;
 	public GameObject[] redHearts;
 	public GameObject[] greyHearts;
 	public Canvas canvas;
@@ -74,6 +76,8 @@ public class PlayerController : MonoBehaviour {
 		jumpColliderOffsetX = -0.5f; //-0.75
 		jumpColliderOffsetY = 1f;
 		jumpGroundColliderOffsetY = 0.3f;
+		levelUpText.enabled = false;
+		levelUpSubtitle.enabled = false;
 
 		_playerRigidbody = GetComponent<Rigidbody2D> ();
 		_playerAnimator = GetComponent<Animator> ();
@@ -112,30 +116,46 @@ public class PlayerController : MonoBehaviour {
 		_isPaused = !_isPaused;
 	}
 	void GameSpeedChange(int level) {
-		
+
+		string subtitleMsg = "";
+
 		// Begin speeding up the game at Level 3
 		moveSpeed  = 3f + 0.5f * Math.Max(level - 2,0);
 		jumpYForce = 650;
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
+		case 2:
+			subtitleMsg = "WATCH OUT FOR THE COPS!";
+			break;
 		case 3:
 			jumpXForce = -10;
 			_playerRigidbody.gravityScale = 2.5f;
+			subtitleMsg = "MORE COPS, START RUNNING FASTER!";
 			break;
 		case 4:
 			jumpXForce = -20;
 			_playerRigidbody.gravityScale = 2.7f;
+			subtitleMsg = "THE FASTER YOU RUN, THE FASTER YOU EARN.";
 			break;
 		case 5:
 			jumpXForce = -30;
 			_playerRigidbody.gravityScale = 2.75f;
+			subtitleMsg = "ARE YOU A RUNNER OR A BANKER?";
 			break;
 		case 6:
 			jumpXForce = -50;
 			_playerRigidbody.gravityScale = 2.765f;
+			subtitleMsg = "THEY SHOULD CALL YOU BART THE RUNNER, HOW LONG CAN YOU LAST?";
 			break;
 		}
 
+		levelUpText.text = "LEVEL " + level;
+		levelUpSubtitle.text = subtitleMsg;
+		levelUpText.enabled = true;
+		levelUpSubtitle.enabled = true;
+
+		StartCoroutine (Utility.FadeTextOut (levelUpText, 6f, 0.5f));
+		StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, 6f, 0.5f));
 	}
 		
 	// Update is called once per frame
