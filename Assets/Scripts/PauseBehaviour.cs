@@ -8,6 +8,10 @@ public class PauseBehaviour : MonoBehaviour {
 	public GameObject pauseScreen;
 	public GameObject pauseText;
 	public GameObject mainCamera;
+	public GameObject quitButton;
+	public GameObject quitText;
+	public GameObject resumeButton;
+	public GameObject resumeText;
 
 	public delegate void PauseAction();
 	public static event PauseAction OnPauseChange;
@@ -17,6 +21,10 @@ public class PauseBehaviour : MonoBehaviour {
 	private Text _textRenderer;
 	private AudioSource _audioSource;
 	private AudioSource _mainCameraAudioSource;
+	private Renderer _quitButtonRenderer;
+	private Text _quitTextRenderer;
+	private Renderer _resumeButtonRenderer;
+	private Text _resumeTextRenderer;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +33,14 @@ public class PauseBehaviour : MonoBehaviour {
 		_screenRenderer.enabled = false;
 		_textRenderer = pauseText.GetComponent<Text> ();
 		_textRenderer.enabled = false;
+		_quitButtonRenderer = quitButton.GetComponent<Renderer> ();
+		_quitButtonRenderer.enabled = false;
+		_quitTextRenderer = quitText.GetComponent<Text> ();
+		_quitTextRenderer.enabled = false;
+		_resumeButtonRenderer = resumeButton.GetComponent<Renderer> ();
+		_resumeButtonRenderer.enabled = false;
+		_resumeTextRenderer = resumeText.GetComponent<Text> ();
+		_resumeTextRenderer.enabled = false;
 		_audioSource = GetComponent<AudioSource> ();
 		_mainCameraAudioSource = mainCamera.GetComponent<AudioSource> ();
 
@@ -40,7 +56,7 @@ public class PauseBehaviour : MonoBehaviour {
 
 			RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-			if (hit.transform.CompareTag("Pause") && _screenRenderer.enabled) {
+			if (hit.transform.CompareTag("Pause") && _resumeButtonRenderer.enabled) {
 				
 				_isPaused = !_isPaused;
 				UnPauseGame ();
@@ -79,6 +95,10 @@ public class PauseBehaviour : MonoBehaviour {
 
 		_screenRenderer.enabled = true;
 		_textRenderer.enabled = true;
+		_quitButtonRenderer.enabled = true;
+		_quitTextRenderer.enabled = true;
+		_resumeButtonRenderer.enabled = true;
+		_resumeTextRenderer.enabled = true;
 		Time.timeScale = 0;
 		_mainCameraAudioSource.Pause();
 
@@ -94,6 +114,10 @@ public class PauseBehaviour : MonoBehaviour {
 		Time.timeScale = 1;
 		_screenRenderer.enabled = false;
 		_textRenderer.enabled = false;
+		_quitButtonRenderer.enabled = false;
+		_quitTextRenderer.enabled = false;
+		_resumeButtonRenderer.enabled = false;
+		_resumeTextRenderer.enabled = false;
 		_mainCameraAudioSource.Play();
 
 		OnPauseChange ();

@@ -66,6 +66,13 @@ public class MenuBehaviour : MonoBehaviour {
 		case "SettingsButton":
 			SceneManager.LoadScene ("Settings");
 			break;
+		case "QuitButton":
+			SceneManager.LoadScene ("Menu");
+			break;
+		case "ResumeButton":
+			// action handled in pause behaviour
+			// takes a spot here to play the button tap
+			break;
 		}
 
 	}
