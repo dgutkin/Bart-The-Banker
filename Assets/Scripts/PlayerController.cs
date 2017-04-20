@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject[] redHearts;
 	public GameObject[] greyHearts;
 	public Canvas canvas;
+	public float copWalkingSpeed;
 
 	private Rigidbody2D _playerRigidbody;
 	private Animator _playerAnimator;
@@ -122,6 +123,10 @@ public class PlayerController : MonoBehaviour {
 		// Begin speeding up the game at Level 3
 		moveSpeed  = 3f + 0.5f * Math.Max(level - 2,0);
 		jumpYForce = 650;
+		// Slow down the cops
+		// Half the speed every level
+		copWalkingSpeed = 2.3f * Mathf.Pow(0.5f, Mathf.Max(level - 2, 0));
+
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
 		case 2:

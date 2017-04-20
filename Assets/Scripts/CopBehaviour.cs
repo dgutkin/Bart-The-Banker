@@ -13,6 +13,8 @@ public class CopBehaviour : MonoBehaviour {
 	private float _rightBound;
 	private Animator _copAnimator;
 
+	private PlayerController playerController;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -22,6 +24,24 @@ public class CopBehaviour : MonoBehaviour {
 		_rightBound = transform.position.x + 1.0f;
 		_copAnimator = GetComponent<Animator> ();
 		UpdateWalkOrientation ();
+
+		// set the right walking speed according to the level
+		playerController = GameObject.FindWithTag ("Player").GetComponent<PlayerController> ();
+		walkingSpeed = playerController.copWalkingSpeed;
+
+	}
+
+	void OnEnable() {
+		GameItemGenerator.OnGameSpeedChange += CopSpeedChange;
+	}
+
+	void OnDisable() {
+		GameItemGenerator.OnGameSpeedChange -= CopSpeedChange;
+	}
+
+	void CopSpeedChange(int level) {
+
+		//walkingSpeed = Mathf.Max(2.3f - 1f * Mathf.Max (level - 2, 0),0);
 
 	}
 	
