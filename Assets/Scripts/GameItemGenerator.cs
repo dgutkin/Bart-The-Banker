@@ -17,7 +17,6 @@ public class GameItemGenerator : MonoBehaviour {
 
 	public GameObject heart;
 
-	public GameObject platform;
 	public GameObject streetlight;
 
 	public delegate void GameSpeedAction(int level);
@@ -35,13 +34,14 @@ public class GameItemGenerator : MonoBehaviour {
 	private float _obstacleHeight = 1.3f;
 	private float _obstacleWidth = 1.4f;
 	private float _obstacleWidthCopScalingFactor = 2f;
-	private float _obstacleWidthPlatformScalingFactor = 3f;
+	private float _copHeightOffset = 0.2f;
+	private float _obstacleWidthStreetlightScalingFactor = 3f;
 	private float _secondsUntilDestroy = 30f;
 
 	private float _midObstacleHeightFactor = 1;
 	private float _highObstacleHeightFactor = 4;
 	private float _skyObstacleHeightFactor = 5;
-	private float _platformHeightFactor = 2f; // 1.8f for the actual platforms
+	private float _streetlightHeightFactor = 2f;
 
 	private int _beforePreviousObstacleType = 0;
 	private int _previousObstacleType = 0;
@@ -248,7 +248,7 @@ public class GameItemGenerator : MonoBehaviour {
 				break;
 			case 8: // cop
 				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthCopScalingFactor, 0);
-				Vector2 copPosition = obstaclePosition + new Vector2 (0, 0.2f); // adjust for the height of the cop so he stands on ground
+				Vector2 copPosition = obstaclePosition + new Vector2 (0, _copHeightOffset); // adjust for the height of the cop so he stands on ground
 				GameObject copDude = Instantiate (cop, copPosition, Quaternion.identity) as GameObject;
 				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthCopScalingFactor, 0); // create more space after the cop
 				Destroy (copDude, _secondsUntilDestroy);
@@ -257,11 +257,11 @@ public class GameItemGenerator : MonoBehaviour {
 					billSpawnpoints.Add (new List<int>{ 1, 2, 3 });
 				}
 				break;
-			case 9: // platform
-				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthPlatformScalingFactor, _platformHeightFactor * _obstacleHeight);
-				GameObject platformObject = Instantiate (platform, obstaclePosition, Quaternion.identity) as GameObject;
-				Destroy (platformObject, _secondsUntilDestroy);
-				for (int i = 0; i < _obstacleWidthPlatformScalingFactor; i++) {
+			case 9: // streetlight
+				obstaclePosition += new Vector2 (_obstacleWidth * _obstacleWidthStreetlightScalingFactor, _streetlightHeightFactor * _obstacleHeight);
+				GameObject streetlightObject = Instantiate (streetlight, obstaclePosition, Quaternion.identity) as GameObject;
+				Destroy (streetlightObject, _secondsUntilDestroy);
+				for (int i = 0; i < _obstacleWidthStreetlightScalingFactor; i++) {
 					billSpawnpoints.Add (new List<int>{ 1, 2, 3 });
 				}
 				break;

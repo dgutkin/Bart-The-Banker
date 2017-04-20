@@ -4,7 +4,6 @@ using System.Collections;
 public class CameraBehaviour : MonoBehaviour {
 
 	public Transform player;
-	public float distanceFromCenter = 3.0f;
 
 	private AudioSource _audioSource;
 	private Transform _cameraTransform;
@@ -20,7 +19,7 @@ public class CameraBehaviour : MonoBehaviour {
 	void LateUpdate () {
 		
 		_cameraTransform.position = new Vector3(
-			player.position.x + distanceFromCenter, 
+			player.position.x + Constants.PLAYER_DISTANCE_FROM_CENTER, 
 			_cameraTransform.position.y,
 			_cameraTransform.position.z
 		);
