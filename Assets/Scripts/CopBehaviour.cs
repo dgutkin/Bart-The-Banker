@@ -20,8 +20,8 @@ public class CopBehaviour : MonoBehaviour {
 		
 		_distanceWalked = 0f;
 		_walkingLeft = true;
-		_leftBound = transform.position.x - 1.0f;
-		_rightBound = transform.position.x + 1.0f;
+		_leftBound = transform.position.x - 0.8f;
+		_rightBound = transform.position.x + 1.2f;
 		_copAnimator = GetComponent<Animator> ();
 		UpdateWalkOrientation ();
 

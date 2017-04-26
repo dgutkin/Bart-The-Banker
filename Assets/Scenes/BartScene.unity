@@ -1516,6 +1516,7 @@ MonoBehaviour:
   - {fileID: 350540165}
   - {fileID: 972597470}
   canvas: {fileID: 147581622}
+  copWalkingSpeed: 0
 --- !u!95 &1119655392
 Animator:
   serializedVersion: 3
@@ -2919,7 +2920,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1119655388}
-  distanceFromCenter: 3
 --- !u!114 &2110150595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2943,7 +2943,6 @@ MonoBehaviour:
   taxPaper: {fileID: 1757644871844432, guid: bd2e2bcc609664988a78603a714ad624, type: 2}
   cop: {fileID: 1000010636661956, guid: bb9963ae90428b84e9fd87476f5816f0, type: 2}
   heart: {fileID: 1316042093247696, guid: aeb4e77bc9d07480baaa1b01939ad5db, type: 2}
-  platform: {fileID: 1643918734009202, guid: 25ea7b8600c72471cb54252de0341483, type: 2}
   streetlight: {fileID: 1643918734009202, guid: 25ea7b8600c72471cb54252de0341483,
     type: 2}
 --- !u!82 &2110150596

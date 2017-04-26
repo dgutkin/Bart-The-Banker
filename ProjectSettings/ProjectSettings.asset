@@ -133,7 +133,7 @@ PlayerSettings:
   stripEngineCode: 1
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
-  iPhoneBuildNumber: 6
+  iPhoneBuildNumber: 7
   ForceInternetPermission: 0
   ForceSDCardPermission: 0
   CreateWallpaper: 0

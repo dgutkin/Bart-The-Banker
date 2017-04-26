@@ -6,15 +6,17 @@ using UnityEngine.Advertisements;
 public class MenuBehaviour : MonoBehaviour {
 
 	public GameStates stateManager = null;
-	public GameObject menuItem; 
+	public GameObject menuItem;
 	public AudioSource audioSource;
 
 	private bool _startActivated = false;
+	private Renderer menuItemRenderer;
 
 	// Use this for initialization
 	void Start () {
 		
 		audioSource = GetComponent<AudioSource> ();
+		menuItemRenderer = menuItem.GetComponent<Renderer> ();
 
 	}
 	
@@ -33,7 +35,11 @@ public class MenuBehaviour : MonoBehaviour {
 
 	void OnMouseDown() {
 
-		StartCoroutine("ActivateButton");
+		if (menuItemRenderer.enabled) {
+			
+			StartCoroutine ("ActivateButton");
+
+		}
 
 	}
 
