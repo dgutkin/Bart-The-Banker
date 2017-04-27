@@ -290,7 +290,6 @@ GameObject:
   m_Component:
   - component: {fileID: 185775944}
   - component: {fileID: 185775945}
-  - component: {fileID: 185775946}
   m_Layer: 5
   m_Name: PauseScreen
   m_TagString: Untagged
@@ -346,20 +345,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!61 &185775946
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 185775943}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.000000029802322}
-  serializedVersion: 2
-  m_Size: {x: 8.719999, y: 4.4600005}
 --- !u!1001 &350540163
 Prefab:
   m_ObjectHideFlags: 0
@@ -1870,7 +1855,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
@@ -2247,7 +2232,7 @@ GameObject:
   - component: {fileID: 1564545187}
   m_Layer: 5
   m_Name: QuitButton
-  m_TagString: Pause
+  m_TagString: Quit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

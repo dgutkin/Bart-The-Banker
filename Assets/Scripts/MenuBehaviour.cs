@@ -34,7 +34,7 @@ public class MenuBehaviour : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-
+		
 		if (menuItemRenderer.enabled) {
 			
 			StartCoroutine ("ActivateButton");
@@ -47,7 +47,8 @@ public class MenuBehaviour : MonoBehaviour {
 
 		audioSource.Play();
 
-		yield return new WaitForSeconds(audioSource.clip.length - 0.5f);
+		// Only the first part of the clip is the required sound
+		yield return new WaitForSeconds(audioSource.clip.length * 0.25f);
 
 		switch (menuItem.name) {
 		case "PlayButton":
@@ -77,7 +78,7 @@ public class MenuBehaviour : MonoBehaviour {
 			break;
 		case "ResumeButton":
 			// action handled in pause behaviour
-			// takes a spot here to play the button tap
+			// placeholder to play the button tap
 			break;
 		}
 

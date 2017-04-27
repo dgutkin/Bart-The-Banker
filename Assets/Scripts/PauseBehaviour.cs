@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseBehaviour : MonoBehaviour {
 
@@ -61,6 +62,12 @@ public class PauseBehaviour : MonoBehaviour {
 				_isPaused = !_isPaused;
 				UnPauseGame ();
 
+			} else if (hit.transform.CompareTag ("Quit") && _quitButtonRenderer.enabled) {
+
+				// Reset the time scale so that button activition runs
+				// IEnumerator dependent on game time
+				Time.timeScale = 1f;
+
 			}
 
 		}
@@ -72,7 +79,7 @@ public class PauseBehaviour : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-
+		
 		// attached to pause button game object
 		_isPaused = !_isPaused;
 
