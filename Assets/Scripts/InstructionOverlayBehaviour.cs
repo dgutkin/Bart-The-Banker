@@ -23,7 +23,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		if (PlayerPrefs.HasKey ("leaderboards")) {
 			// Only show the overlay with instructions if less than 3 high scores recorded
 			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
-			if (leaderboards.Count < 3) {
+			if (leaderboards.Count < 4) {
 				_showOverlay = true;
 				_rightSide.enabled = true;
 				_leftSide.enabled = true;

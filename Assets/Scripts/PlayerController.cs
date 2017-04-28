@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour {
 	private int _maxLives = 3;
 	private bool _isPaused;
 	private Vector3 _positionOffsetForRaycast;
+	private float _touchExtendFactor;
 
 	// Use this for initialization
 	void Start () {
@@ -102,16 +103,19 @@ public class PlayerController : MonoBehaviour {
 		_isPaused = false;
 
 		_positionOffsetForRaycast = new Vector3 (-1f, 0.5f, 0f);
+		_touchExtendFactor = 1.5f;
 
 	}
 
 	void OnEnable() {
 		PauseBehaviour.OnPauseChange += PauseChange;
 		GameItemGenerator.OnGameSpeedChange += GameSpeedChange;
+		CopBehaviour.OnBribe += Bribe;
 	}
 	void OnDisable() {
 		PauseBehaviour.OnPauseChange -= PauseChange;
 		GameItemGenerator.OnGameSpeedChange -= GameSpeedChange;
+		CopBehaviour.OnBribe -= Bribe;
 	}
 	void PauseChange() {
 		_isPaused = !_isPaused;
@@ -125,7 +129,7 @@ public class PlayerController : MonoBehaviour {
 		jumpYForce = 650;
 		// Slow down the cops
 		// Half the speed every level
-		copWalkingSpeed = 2.3f * Mathf.Pow(0.5f, Mathf.Max(level - 2, 0));
+		copWalkingSpeed = 2.5f * Mathf.Pow(0.6f, Mathf.Max(level - 2, 0));
 
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
@@ -191,19 +195,26 @@ public class PlayerController : MonoBehaviour {
 					Touch touch = Input.GetTouch (0);
 					Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
 					Vector3 cameraPosition = Camera.main.gameObject.transform.position;
+					Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
 
-					if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
-							touchPosition.y < cameraPosition.y && _grounded) { // one tap on the right half of screen
-						_jump = true;
-						_grounded = false;
-					} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-						&& touchPosition.x < cameraPosition.x && touchPosition.y < cameraPosition.y) {
-						_slide = true;
-					} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
-						_unslide = true;
+				Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
+					
+				if (hitCollider != null && hitCollider.CompareTag("Cop")) {
+
+						// disble touch if cop is tapped
+						} else if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
+							touchPosition.y < cameraPosition.y * _touchExtendFactor && _grounded) { // one tap on the right half of screen
+							_jump = true;
+							_grounded = false;
+						} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+							&& touchPosition.x < cameraPosition.x && touchPosition.y < cameraPosition.y) {
+							_slide = true;
+						} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
+							_unslide = true;
+						}
+				
 					}
-
-				}
+					
 			#endif
 		}
 
@@ -495,6 +506,14 @@ public class PlayerController : MonoBehaviour {
 			yield return new WaitForSeconds (0.1f);
 		}
 		_immortality = false;
+
+	}
+
+	public void Bribe() {
+
+		int charge = Mathf.Min (100, _score);
+		_tax += charge;
+		UpdateScore (-1 * charge);
 
 	}
 

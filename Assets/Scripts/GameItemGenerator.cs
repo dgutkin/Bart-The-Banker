@@ -37,6 +37,7 @@ public class GameItemGenerator : MonoBehaviour {
 	private float _copHeightOffset = 0.2f;
 	private float _obstacleWidthStreetlightScalingFactor = 3f;
 	private float _secondsUntilDestroy = 30f;
+	private float _bribeHeightOffset = 0.5f;
 
 	private float _midObstacleHeightFactor = 1;
 	private float _highObstacleHeightFactor = 4;

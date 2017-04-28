@@ -1078,7 +1078,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Bounce over law enforcement or lose a life
+  m_Text: Bounce over cops or lose a life / Stands still if bribed - tap to bribe
 --- !u!222 &1307763138
 CanvasRenderer:
   m_ObjectHideFlags: 0

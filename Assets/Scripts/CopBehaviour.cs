@@ -3,8 +3,11 @@ using System.Collections;
 
 public class CopBehaviour : MonoBehaviour {
 
-	public float walkingSpeed = 2.3f;
+	public float walkingSpeed = 2.5f;
 	public float leftTurnAroundDelay = 0f;
+
+	public delegate void BribeAction();
+	public static event BribeAction OnBribe;
 
 	private float _leftTurnAroundTime;
 	private bool _walkingLeft;
@@ -21,27 +24,13 @@ public class CopBehaviour : MonoBehaviour {
 		_distanceWalked = 0f;
 		_walkingLeft = true;
 		_leftBound = transform.position.x - 0.8f;
-		_rightBound = transform.position.x + 1.2f;
+		_rightBound = transform.position.x + 1.5f;
 		_copAnimator = GetComponent<Animator> ();
 		UpdateWalkOrientation ();
 
 		// set the right walking speed according to the level
 		playerController = GameObject.FindWithTag ("Player").GetComponent<PlayerController> ();
-		walkingSpeed = playerController.copWalkingSpeed;
-
-	}
-
-	void OnEnable() {
-		GameItemGenerator.OnGameSpeedChange += CopSpeedChange;
-	}
-
-	void OnDisable() {
-		GameItemGenerator.OnGameSpeedChange -= CopSpeedChange;
-	}
-
-	void CopSpeedChange(int level) {
-
-		//walkingSpeed = Mathf.Max(2.3f - 1f * Mathf.Max (level - 2, 0),0);
+		//walkingSpeed = playerController.copWalkingSpeed;
 
 	}
 	
@@ -100,6 +89,16 @@ public class CopBehaviour : MonoBehaviour {
 			otherObj.SendMessage ("HitObstacle", SendMessageOptions.DontRequireReceiver);
 
 		}
+
+	}
+
+	void OnMouseDown() {
+
+		// freeze the cop once bribed
+		walkingSpeed = 0;
+		_copAnimator.Stop();
+
+		OnBribe ();
 
 	}
 

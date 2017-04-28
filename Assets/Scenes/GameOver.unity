@@ -1027,7 +1027,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Cash Lost to Tax:'
+  m_Text: 'Taxes & bribes:'
 --- !u!222 &1119510957
 CanvasRenderer:
   m_ObjectHideFlags: 0
