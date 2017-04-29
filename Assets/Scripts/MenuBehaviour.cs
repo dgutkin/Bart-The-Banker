@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Advertisements;
+
 
 public class MenuBehaviour : MonoBehaviour {
 
@@ -52,6 +54,7 @@ public class MenuBehaviour : MonoBehaviour {
 
 		switch (menuItem.name) {
 		case "PlayButton":
+			ShowAd ();
 			_startActivated = true;
 			break;
 		case "HighScoresButton":
@@ -86,11 +89,20 @@ public class MenuBehaviour : MonoBehaviour {
 
 	public void ShowAd() {
 
-		int randomNumber = Random.Range (1, 4);
+		if (PlayerPrefs.HasKey ("leaderboards")) {
+			
+			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
+			if (leaderboards.Count > 3) {
+				// The ad only appears once the game is played more than three times
+				int randomNumber = Random.Range (1, 4);
 
-		// Make the ad appear typically one in three times
-		if (Advertisement.IsReady() && randomNumber == 1) {
-			Advertisement.Show();
+				// Make the ad appear typically one in three times
+				if (Advertisement.IsReady () && randomNumber == 1) {
+					Advertisement.Show ();
+				}
+			
+			}
+
 		}
 
 	}

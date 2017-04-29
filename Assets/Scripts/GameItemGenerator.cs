@@ -197,7 +197,7 @@ public class GameItemGenerator : MonoBehaviour {
 			if (_level == 1 && _currentObstacleType >= 8) {
 				_currentObstacleType = 0;
 			}
-			_currentObstacleType = 8;
+
 			// Generate obstacle and note down the trivial bill spawn points
 			// Destroy obstacles 30 seconds after they spawn
 			switch (_currentObstacleType) {
