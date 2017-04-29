@@ -2930,7 +2930,6 @@ MonoBehaviour:
   heart: {fileID: 1316042093247696, guid: aeb4e77bc9d07480baaa1b01939ad5db, type: 2}
   streetlight: {fileID: 1643918734009202, guid: 25ea7b8600c72471cb54252de0341483,
     type: 2}
-  bribe: {fileID: 1585810233711474, guid: 79f60df48b6ce4bdfb0640475d6ca26d, type: 2}
 --- !u!82 &2110150596
 AudioSource:
   m_ObjectHideFlags: 0

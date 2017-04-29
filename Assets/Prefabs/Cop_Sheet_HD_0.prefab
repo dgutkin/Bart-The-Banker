@@ -102,6 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkingSpeed: 2.3
   leftTurnAroundDelay: 0
+  bribeLabelText: {fileID: 1778694254575764, guid: e3be5e50e124347229a28ecb44cc3eb4,
+    type: 2}
 --- !u!212 &212000010758439388
 SpriteRenderer:
   m_ObjectHideFlags: 1

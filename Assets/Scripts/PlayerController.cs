@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour {
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
 		case 2:
-			subtitleMsg = "WATCH OUT FOR THE COPS!";
+			subtitleMsg = "WATCH OUT FOR THE COPS! TAP TO BRIBE AND STOP ONE!";
 			break;
 		case 3:
 			jumpXForce = -10;

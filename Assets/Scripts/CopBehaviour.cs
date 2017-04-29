@@ -5,6 +5,7 @@ public class CopBehaviour : MonoBehaviour {
 
 	public float walkingSpeed = 2.5f;
 	public float leftTurnAroundDelay = 0f;
+	public GameObject bribeLabelText;
 
 	public delegate void BribeAction();
 	public static event BribeAction OnBribe;
@@ -16,7 +17,10 @@ public class CopBehaviour : MonoBehaviour {
 	private float _rightBound;
 	private Animator _copAnimator;
 
-	private PlayerController playerController;
+	private PlayerController _playerController;
+
+	private float _secondsUntilDestroy = 30f;
+	private float _bribeLabelHeightOffset = 0.8f;
 
 	// Use this for initialization
 	void Start () {
@@ -29,8 +33,8 @@ public class CopBehaviour : MonoBehaviour {
 		UpdateWalkOrientation ();
 
 		// set the right walking speed according to the level
-		playerController = GameObject.FindWithTag ("Player").GetComponent<PlayerController> ();
-		//walkingSpeed = playerController.copWalkingSpeed;
+		_playerController = GameObject.FindWithTag ("Player").GetComponent<PlayerController> ();
+		walkingSpeed = _playerController.copWalkingSpeed;
 
 	}
 	
@@ -97,6 +101,9 @@ public class CopBehaviour : MonoBehaviour {
 		// freeze the cop once bribed
 		walkingSpeed = 0;
 		_copAnimator.Stop();
+
+		GameObject bribeLabel = Instantiate (bribeLabelText, transform.position + new Vector3(0,_bribeLabelHeightOffset,0), Quaternion.identity);
+		Destroy (bribeLabel, _secondsUntilDestroy);
 
 		OnBribe ();
 
