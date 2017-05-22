@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour {
 
 		_positionOffsetForRaycast = new Vector3 (-1f, 0.5f, 0f);
 		_touchExtendFactor = 1.5f;
+		copWalkingSpeed = 2.5f;
 
 	}
 
@@ -191,29 +192,30 @@ public class PlayerController : MonoBehaviour {
 
 			//for touch input
 			#if UNITY_ANDROID || UNITY_IOS
+
 				if (Input.touchCount > 0) {
+				
 					Touch touch = Input.GetTouch (0);
 					Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
 					Vector3 cameraPosition = Camera.main.gameObject.transform.position;
 					Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
 
-				Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
+					Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
 					
-				if (hitCollider != null && hitCollider.CompareTag("Cop")) {
-
+					if (hitCollider != null && hitCollider.CompareTag("Cop")) {
 						// disble touch if cop is tapped
-						} else if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
-							touchPosition.y < cameraPosition.y * _touchExtendFactor && _grounded) { // one tap on the right half of screen
-							_jump = true;
-							_grounded = false;
-						} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-							&& touchPosition.x < cameraPosition.x && touchPosition.y < cameraPosition.y) {
-							_slide = true;
-						} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
-							_unslide = true;
-						}
-				
+					} else if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
+						touchPosition.y < cameraPosition.y * _touchExtendFactor && _grounded) { // one tap on the right half of screen
+						_jump = true;
+						_grounded = false;
+					} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+						&& touchPosition.x < cameraPosition.x && touchPosition.y < cameraPosition.y) {
+						_slide = true;
+					} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
+						_unslide = true;
 					}
+				
+				}
 					
 			#endif
 		}

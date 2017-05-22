@@ -18,9 +18,11 @@ public class CopBehaviour : MonoBehaviour {
 	private Animator _copAnimator;
 
 	private PlayerController _playerController;
+	private BoxCollider2D _copCollider;
+	private Animation _copAnimation;
 
 	private float _secondsUntilDestroy = 30f;
-	private float _bribeLabelHeightOffset = 0.8f;
+	private float _bribeLabelHeightOffset = 1.2f;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +32,9 @@ public class CopBehaviour : MonoBehaviour {
 		_leftBound = transform.position.x - 0.8f;
 		_rightBound = transform.position.x + 1.5f;
 		_copAnimator = GetComponent<Animator> ();
+
+		_copCollider = GetComponent<BoxCollider2D> ();
+		_copAnimation = GetComponent<Animation> ();
 		UpdateWalkOrientation ();
 
 		// set the right walking speed according to the level
@@ -41,24 +46,60 @@ public class CopBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Time.time > _leftTurnAroundTime) { // start walking right after delay
-			
-			// Just walk in one way, rotation dictates direction
-			transform.Translate (Vector3.left * walkingSpeed * Time.deltaTime);
+		#if UNITY_ANDROID || UNITY_IOS
 
-			if (_copAnimator.speed == 0) {
-				_copAnimator.speed = 1; // resume animation
+			if (Input.touchCount > 1 && walkingSpeed > 0) {
+			
+				Touch touch = Input.GetTouch(0);
+				Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
+				Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
+				Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
+
+				Touch secondTouch = Input.GetTouch(1);
+				Vector3 secondTouchPosition = Camera.main.ScreenToWorldPoint(secondTouch.position);
+				Vector2 secondTouchPosition2D = new Vector2(secondTouchPosition.x, secondTouchPosition.y);
+				Collider2D secondHitCollider = Physics2D.OverlapPoint(secondTouchPosition2D);
+				
+				if ((hitCollider != null && _copCollider.OverlapPoint(touchPosition2D)) ||
+					(secondHitCollider != null && _copCollider.OverlapPoint(secondTouchPosition2D))) {
+					BribeCop();
+				}
+
+			} else if (Input.touchCount > 0 && walkingSpeed > 0) {
+
+				Touch touch = Input.GetTouch(0);
+				Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
+				Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
+				Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
+
+				if (hitCollider != null && _copCollider.OverlapPoint(touchPosition2D)) {
+					BribeCop();
+				}
+
 			}
 
-		}
-		// Swap directions once past bounds
-		if (transform.position.x >= _rightBound || transform.position.x <= _leftBound) {
-			
-			// Snap position back to just behind before swapping directions
-			float newX = transform.position.x >= _rightBound ? _rightBound - 0.001f : _leftBound + 0.001f;
-			transform.position = new Vector3 (newX, transform.position.y, transform.position.z);
-			SwitchDirections ();
+		#endif
 
+		if (walkingSpeed > 0) {
+			if (Time.time > _leftTurnAroundTime) { // start walking right after delay
+				
+				// Just walk in one way, rotation dictates direction
+				transform.Translate (Vector3.left * walkingSpeed * Time.deltaTime);
+
+				if (_copAnimator.speed == 0) {
+					_copAnimator.speed = 1; // resume animation
+				}
+
+			}
+			// Swap directions once past bounds
+			if (transform.position.x >= _rightBound || transform.position.x <= _leftBound) {
+				
+				// Snap position back to just behind before swapping directions
+				float newX = transform.position.x >= _rightBound ? _rightBound - 0.001f : _leftBound + 0.001f;
+				transform.position = new Vector3 (newX, transform.position.y, transform.position.z);
+				SwitchDirections ();
+
+			}
 		}
 
 	}
@@ -96,11 +137,11 @@ public class CopBehaviour : MonoBehaviour {
 
 	}
 
-	void OnMouseDown() {
+	void BribeCop() {
 
 		// freeze the cop once bribed
 		walkingSpeed = 0;
-		_copAnimator.Stop();
+		_copAnimator.speed = 0;
 
 		GameObject bribeLabel = Instantiate (bribeLabelText, transform.position + new Vector3(0,_bribeLabelHeightOffset,0), Quaternion.identity);
 		Destroy (bribeLabel, _secondsUntilDestroy);
