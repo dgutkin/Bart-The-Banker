@@ -68,6 +68,8 @@ public class MenuBehaviour : MonoBehaviour {
 			break;
 		case "RetryButton":
 			ShowAd ();
+			// Don't show instruction overlay if retrying
+			PlayerPrefs.SetInt ("showinstructionoverlay", 0);
 			SceneManager.LoadScene ("BartScene");
 			break;
 		case "CreditsButton":
@@ -96,7 +98,7 @@ public class MenuBehaviour : MonoBehaviour {
 				// The ad only appears once the game is played more than three times
 				int randomNumber = Random.Range (1, 4);
 
-				// Make the ad appear typically one in three times
+				// Make the ad appear one in three times on average
 				if (Advertisement.IsReady () && randomNumber == 1) {
 					Advertisement.Show ();
 				}

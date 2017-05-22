@@ -32,14 +32,14 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		_avoidCageRenderer = avoidCage.GetComponent<SpriteRenderer> ();
 		_avoidCageRenderer.enabled = false;
 		_avoidCopRenderer = avoidCop.GetComponent<SpriteRenderer> ();
-		_avoidCageRenderer.enabled = false;
+		_avoidCopRenderer.enabled = false;
 		_avoidTaxRenderer = avoidTax.GetComponent<SpriteRenderer> ();
 		_avoidTaxRenderer.enabled = false;
 
-		if (PlayerPrefs.HasKey ("leaderboards")) {
-			// Only show the overlay with instructions if less than 4 high scores recorded
+		if (PlayerPrefs.HasKey ("leaderboards") && PlayerPrefs.HasKey("showinstructionoverlay")) {
+			// Only show the overlay with instructions if less than 10 highscores and not retrying
 			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
-			if (leaderboards.Count < 400) {
+			if (leaderboards.Count < 100 && PlayerPrefs.GetInt("showinstructionoverlay") == 1) {
 				_showOverlay = true;
 				_rightSide.enabled = true;
 				_leftSide.enabled = true;
@@ -57,6 +57,8 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			_avoidCopRenderer.enabled = true;
 			_avoidTaxRenderer.enabled = true;
 		}
+
+		PlayerPrefs.SetInt ("showinstructionoverlay", 1);
 
 	}
 	
