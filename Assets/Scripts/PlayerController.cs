@@ -74,10 +74,10 @@ public class PlayerController : MonoBehaviour {
 		slideColliderOffsetY = 0.5f;
 		slideGroundColliderOffsetY = 0f;
 		jumpColliderWidth = 0.5f; //0.8
-		jumpColliderHeight = 1.4f;
+		jumpColliderHeight = 1.6f;
 		jumpColliderOffsetX = -0.5f; //-0.75
-		jumpColliderOffsetY = 1f;
-		jumpGroundColliderOffsetY = 0.3f;
+		jumpColliderOffsetY = 0.9f;
+		jumpGroundColliderOffsetY = 0.1f;
 		levelUpText.enabled = false;
 		levelUpSubtitle.enabled = false;
 
