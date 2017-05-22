@@ -52,12 +52,12 @@ public class PauseBehaviour : MonoBehaviour {
 
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		// Detect if pause screen is tapped and unpause
 		if (Input.GetMouseButtonDown(0) && Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity)) {
 
 			RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-			if (hit.transform.CompareTag ("Pause") && _resumeButtonRenderer.enabled) {
+			if ((hit.transform.CompareTag ("Resume") || hit.transform.CompareTag ("Pause")) &&
+			    _resumeButtonRenderer.enabled) {
 				
 				_isPaused = !_isPaused;
 				UnPauseGame ();
@@ -68,6 +68,11 @@ public class PauseBehaviour : MonoBehaviour {
 				// IEnumerator dependent on game time
 				Time.timeScale = 1f;
 
+			} else if (hit.transform.CompareTag ("Pause")) {
+
+				_isPaused = !_isPaused;
+				PauseGame ();
+
 			}
 
 		}
@@ -76,23 +81,6 @@ public class PauseBehaviour : MonoBehaviour {
 		_audioSource.volume = PlayerPrefs.GetFloat (Constants.SOUND_VOLUME, Constants.DEFAULT_SOUND_VOLUME);
 		_mainCameraAudioSource.volume = PlayerPrefs.GetFloat (Constants.SOUND_VOLUME, Constants.DEFAULT_SOUND_VOLUME);
 		
-	}
-
-	void OnMouseDown() {
-		
-		// attached to pause button game object
-		_isPaused = !_isPaused;
-
-		if (_isPaused) {
-			
-			PauseGame ();
-
-		} else {
-			
-			UnPauseGame ();
-
-		}
-
 	}
 
 	void PauseGame() {

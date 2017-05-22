@@ -8,6 +8,7 @@ TagManager:
   - Cop
   - Pause
   - Quit
+  - Resume
   layers:
   - Default
   - TransparentFX

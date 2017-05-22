@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour {
 		moveSpeed = 3f;
 		jumpYForce = 650f;
 		jumpXForce = 0f;
-		standColliderWidth = 0.25f; //0.25
+		standColliderWidth = 0.45f; //0.25
 		standColliderHeight = 2.2f; //2.2
 		standColliderOffsetX = -0.3f; //-0.3
 		standColliderOffsetY = 1.1f; //1.1
@@ -103,7 +103,6 @@ public class PlayerController : MonoBehaviour {
 		_isPaused = false;
 
 		_positionOffsetForRaycast = new Vector3 (-1f, 0.5f, 0f);
-		_touchExtendFactor = 1.5f;
 		copWalkingSpeed = 2.5f;
 
 	}
@@ -202,14 +201,15 @@ public class PlayerController : MonoBehaviour {
 
 					Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
 					
-					if (hitCollider != null && hitCollider.CompareTag("Cop")) {
-						// disble touch if cop is tapped
+					if (hitCollider != null && 
+						(hitCollider.CompareTag("Cop") || hitCollider.CompareTag("Pause"))) {
+						// disble touch to jump/slide if cop or pause is tapped
 					} else if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
-						touchPosition.y < cameraPosition.y * _touchExtendFactor && _grounded) { // one tap on the right half of screen
+					_grounded) { // one tap on the right half of screen
 						_jump = true;
 						_grounded = false;
 					} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-						&& touchPosition.x < cameraPosition.x && touchPosition.y < cameraPosition.y) {
+						&& touchPosition.x < cameraPosition.x) {
 						_slide = true;
 					} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
 						_unslide = true;
