@@ -46,12 +46,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Foreground
-    uniqueID: 3573507049
-    locked: 0
-  - name: Midgorund
-    uniqueID: 1527564645
-    locked: 0
-  - name: Background
-    uniqueID: 641377963
+  - name: Pause
+    uniqueID: 753685431
     locked: 0
