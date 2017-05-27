@@ -182,7 +182,9 @@ public class PlayerController : MonoBehaviour {
 						_jump = true;
 						_grounded = false;
 
-				} else if (Input.GetKey (KeyCode.DownArrow)) { // while user holds down the key
+			} else if (Input.GetKey (KeyCode.DownArrow) && _grounded &&
+				Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, Vector3.down, 1f,
+					(1 << LayerMask.NameToLayer("Ground")))) { // while user holds down the key
 					_slide = true;
 				} else if (Input.GetKeyUp (KeyCode.DownArrow)) {
 					_unslide = true;
@@ -205,11 +207,15 @@ public class PlayerController : MonoBehaviour {
 						(hitCollider.CompareTag("Cop") || hitCollider.CompareTag("Pause"))) {
 						// disble touch to jump/slide if cop or pause is tapped
 					} else if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
-					_grounded) { // one tap on the right half of screen
+					_grounded && Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, 
+						Vector3.down, 1f,
+						(1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Ground")))) { // one tap on the right half of screen
 						_jump = true;
 						_grounded = false;
 					} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-						&& touchPosition.x < cameraPosition.x) {
+					&& touchPosition.x < cameraPosition.x && _grounded && 
+					Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, Vector3.down, 1f,
+						(1 << LayerMask.NameToLayer("Ground")))) {
 						_slide = true;
 					} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
 						_unslide = true;

@@ -143,8 +143,8 @@ PlayerSettings:
     iOS: com.tankladder.bartthebanker
     tvOS: com.tankladder.bartthebanker
   buildNumber:
-    iOS: 9
-  AndroidBundleVersionCode: 7
+    iOS: 11
+  AndroidBundleVersionCode: 8
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -218,8 +218,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: bartkey.keystore
+  AndroidKeyaliasName: bartkey
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1
