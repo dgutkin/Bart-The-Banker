@@ -23,6 +23,8 @@ public class CopBehaviour : MonoBehaviour {
 
 	private float _secondsUntilDestroy = 30f;
 	private float _bribeLabelHeightOffset = 1.2f;
+	private float _swipeThreshold = 0.5f;
+	private bool touchInitiatedOnCop;
 
 	// Use this for initialization
 	void Start () {
@@ -59,9 +61,14 @@ public class CopBehaviour : MonoBehaviour {
 				Vector3 secondTouchPosition = Camera.main.ScreenToWorldPoint(secondTouch.position);
 				Vector2 secondTouchPosition2D = new Vector2(secondTouchPosition.x, secondTouchPosition.y);
 				Collider2D secondHitCollider = Physics2D.OverlapPoint(secondTouchPosition2D);
-				
-				if ((hitCollider != null && _copCollider.OverlapPoint(touchPosition2D)) ||
-					(secondHitCollider != null && _copCollider.OverlapPoint(secondTouchPosition2D))) {
+
+				Vector2 startingPosition;
+				float touchMovement = 0f;
+
+				if ((touch.deltaPosition.y > _swipeThreshold && hitCollider != null && 
+					_copCollider.OverlapPoint(touchPosition2D)) ||
+					(secondTouch.deltaPosition.y > _swipeThreshold && secondHitCollider != null && 
+					_copCollider.OverlapPoint(secondTouchPosition2D))) {
 					BribeCop();
 				}
 
@@ -70,9 +77,12 @@ public class CopBehaviour : MonoBehaviour {
 				Touch touch = Input.GetTouch(0);
 				Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
 				Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
+				Vector3 cameraPosition = Camera.main.gameObject.transform.position;
 				Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
-
-				if (hitCollider != null && _copCollider.OverlapPoint(touchPosition2D)) {
+				
+				if (touch.deltaPosition.y > _swipeThreshold && hitCollider != null && 
+					_copCollider.OverlapPoint(touchPosition2D) && 
+					touch.position.x > cameraPosition.x - Constants.PLAYER_DISTANCE_FROM_CENTER) {
 					BribeCop();
 				}
 

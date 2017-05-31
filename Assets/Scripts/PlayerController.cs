@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour {
 	private bool _isPaused;
 	private Vector3 _positionOffsetForRaycast;
 	private float _touchExtendFactor;
+	private float _swipeThreshold;
 
 	// Use this for initialization
 	void Start () {
@@ -104,6 +105,7 @@ public class PlayerController : MonoBehaviour {
 
 		_positionOffsetForRaycast = new Vector3 (-1f, 0.5f, 0f);
 		copWalkingSpeed = 2.5f;
+		_swipeThreshold = 0.2f;
 
 	}
 
@@ -204,21 +206,34 @@ public class PlayerController : MonoBehaviour {
 					Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
 					
 					if (hitCollider != null && 
-						(hitCollider.CompareTag("Cop") || hitCollider.CompareTag("Pause"))) {
-						// disble touch to jump/slide if cop or pause is tapped
-					} else if (touch.phase == TouchPhase.Began && touchPosition.x > cameraPosition.x && 
-					_grounded && Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, 
-						Vector3.down, 1f,
-						(1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Ground")))) { // one tap on the right half of screen
+						((hitCollider.CompareTag("Cop") && touch.deltaPosition.y > _swipeThreshold && 
+							touchPosition.x > _playerTransform.position.x) || 
+							hitCollider.CompareTag("Pause"))) {
+					
+						// disable touch to jump/slide if cop or pause is tapped
+
+					} else if (touch.phase == TouchPhase.Ended && touch.deltaPosition.y < _swipeThreshold && 
+						touchPosition.x > cameraPosition.x && 
+						_grounded && Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, 
+							Vector3.down, 1f,
+							(1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Ground")))) { // one tap on the right half of screen
+						
 						_jump = true;
 						_grounded = false;
-					} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-					&& touchPosition.x < cameraPosition.x && _grounded && 
+						_unslide = true;
+
+					} else if ((touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+					&& touch.deltaPosition.y < _swipeThreshold && 
+					touchPosition.x < _playerTransform.position.x && _grounded && 
 					Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, Vector3.down, 1f,
 						(1 << LayerMask.NameToLayer("Ground")))) {
+						
 						_slide = true;
-					} else if (touch.phase == TouchPhase.Ended && touchPosition.x < cameraPosition.x) {
+
+					} else if (touch.phase == TouchPhase.Ended) {
+						
 						_unslide = true;
+
 					}
 				
 				}
