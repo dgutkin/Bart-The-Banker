@@ -149,14 +149,23 @@ public class CopBehaviour : MonoBehaviour {
 
 	void BribeCop() {
 
-		// freeze the cop once bribed
-		walkingSpeed = 0;
-		_copAnimator.speed = 0;
+		if (PlayerPrefs.GetInt ("score") > 100) {
 
-		GameObject bribeLabel = Instantiate (bribeLabelText, transform.position + new Vector3(0,_bribeLabelHeightOffset,0), Quaternion.identity);
-		Destroy (bribeLabel, _secondsUntilDestroy);
+			// freeze the cop once bribed
+			walkingSpeed = 0;
+			_copAnimator.speed = 0;
 
-		OnBribe ();
+			GameObject bribeLabel = Instantiate (bribeLabelText, transform.position + new Vector3 (0, _bribeLabelHeightOffset, 0), Quaternion.identity);
+			Destroy (bribeLabel, _secondsUntilDestroy);
+
+			OnBribe ();
+
+		} else {
+
+			// show message "insufficient funds to bribe"
+			// similar to how the instructions appear and disappear
+
+		}
 
 	}
 
