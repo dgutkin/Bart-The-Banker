@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D _playerRigidbody;
 	private Animator _playerAnimator;
+	private Animation _playerAnimation;
 	private Renderer _playerRenderer;
 	private Transform _playerTransform;
 	private BoxCollider2D _playerCollider;
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour {
 
 		_playerRigidbody = GetComponent<Rigidbody2D> ();
 		_playerAnimator = GetComponent<Animator> ();
+		_playerAnimation = GetComponent<Animation> ();
 		_playerRigidbody.freezeRotation = true;
 		_playerRenderer = GetComponent<Renderer> ();
 		_playerTransform = GetComponent<Transform> ();
