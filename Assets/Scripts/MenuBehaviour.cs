@@ -55,6 +55,7 @@ public class MenuBehaviour : MonoBehaviour {
 		switch (menuItem.name) {
 		case "PlayButton":
 			ShowAd ();
+			PlayerPrefs.SetInt ("showinstructionoverlay", 1);
 			_startActivated = true;
 			break;
 		case "HighScoresButton":

@@ -43,36 +43,37 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 
 		_playerAnimator = playerController.GetComponent<Animator>();
 
-		if (PlayerPrefs.HasKey ("leaderboards") && PlayerPrefs.HasKey ("showinstructionoverlay")) {
-			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
-			if (leaderboards.Count < 100 && PlayerPrefs.GetInt ("showinstructionoverlay") == 1) {
-				playerController.moveSpeed = 1f;
-				_playerAnimator.speed = 1f / 3f;
-				_instructionIndex = 1;
-			} else {
-				_instructionIndex = 0;
-			}
-		} else {
-			playerController.moveSpeed = 1f;
-			_instructionIndex = 1;
-		}
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (PlayerPrefs.HasKey ("leaderboards") && PlayerPrefs.HasKey ("showinstructionoverlay")) {
+			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
+
+			if (leaderboards.Count < 100 && PlayerPrefs.GetInt ("showinstructionoverlay") == 1 && 
+				_instructionIndex == 0) {
+				playerController.moveSpeed = 1f;
+				_playerAnimator.speed = 1f / 3f;
+				_instructionIndex = 1;
+
+			}
+
+		} else {
+
+			playerController.moveSpeed = 1f;
+			_instructionIndex = 1;
+
+		}
 
 		float showDuration = 3f;
 		float fadeDuration = 0.5f;
 
 		// only go to the next instruction once all texts are disabled
 		if (_rightSide.enabled == false && _leftSide.enabled == false && _avoidText.enabled == false
-			&& _instructionIndex < 5) {
+			&& _instructionIndex < 5 && _instructionIndex > 0) {
 
 			switch (_instructionIndex) {
-			case 0:
-				// do nothing
-				break;
 			case 1:
 				// tap the right side to jump
 				_rightSide.enabled = true;
@@ -97,6 +98,8 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			case 4:
 				playerController.moveSpeed = 3f;
 				_playerAnimator.speed = 1f;
+				PlayerPrefs.SetInt ("showinstructionoverlay", 0);
+				_instructionIndex = -1;
 				break;
 			}
 
@@ -104,7 +107,5 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 
 		}
 	}
-
-
 
 }

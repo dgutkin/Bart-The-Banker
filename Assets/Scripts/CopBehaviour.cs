@@ -114,7 +114,6 @@ public class CopBehaviour : MonoBehaviour {
 
 			}
 		}
-
 	}
 
 	public void SwitchDirections() {
@@ -152,7 +151,7 @@ public class CopBehaviour : MonoBehaviour {
 
 	void BribeCop() {
 
-		if (PlayerPrefs.GetInt ("score") > 100) {
+		if (_playerController._score > 100) {
 
 			// freeze the cop once bribed
 			walkingSpeed = 0;
@@ -166,10 +165,13 @@ public class CopBehaviour : MonoBehaviour {
 		} else {
 
 			// insufficient funds to bribe
-			Text insufficientFundsMessage = Instantiate (insufficientFundsText, transform.position, Quaternion.identity) as Text;
+			Vector3 insufficientFundsMessagePosition = new Vector3 (
+															Camera.main.gameObject.transform.position.x,
+				                                           Camera.main.gameObject.transform.position.y, 0);
+			Text insufficientFundsMessage = Instantiate (insufficientFundsText, 
+				insufficientFundsMessagePosition, Quaternion.identity) as Text;
 			insufficientFundsMessage.transform.SetParent (_playerController.canvas.transform, false);
-			insufficientFundsMessage.transform.position = new Vector3(transform.position.x - 3.5f, transform.position.y + 1, 0);
-			StartCoroutine(Utility.FadeTextOut(insufficientFundsMessage, 2f, 0.5f));
+			StartCoroutine(Utility.FadeTextOut(insufficientFundsMessage, 1f, 0.5f));
 
 		}
 

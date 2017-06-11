@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
 	private CircleCollider2D _playerGroundCollider;
 	private Material _mat;
 	private bool _grounded = true;
-	private int _score;
+	public int _score;
 	private int _cash;
 	private int _tax;
 	private bool _jump;
@@ -175,7 +175,9 @@ public class PlayerController : MonoBehaviour {
 	void Update () 	{
 
 		if (_isPaused) {
+			
 			// when paused disable all controls
+
 		} else {
 			
 			#if UNITY_EDITOR
@@ -210,7 +212,8 @@ public class PlayerController : MonoBehaviour {
 					if (hitCollider != null && 
 						((hitCollider.CompareTag("Cop") && touch.deltaPosition.y > _swipeThreshold && 
 							touchPosition.x > _playerTransform.position.x) || 
-							hitCollider.CompareTag("Pause"))) {
+							hitCollider.CompareTag("Pause") || 
+							hitCollider.CompareTag("Resume"))) {
 					
 						// disable touch to jump/slide if cop or pause is tapped
 
