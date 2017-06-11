@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class CopBehaviour : MonoBehaviour {
 
 	public float walkingSpeed = 2.5f;
 	public float leftTurnAroundDelay = 0f;
 	public GameObject bribeLabelText;
+	public Text insufficientFundsText;
 
 	public delegate void BribeAction();
 	public static event BribeAction OnBribe;
@@ -162,8 +165,11 @@ public class CopBehaviour : MonoBehaviour {
 
 		} else {
 
-			// show message "insufficient funds to bribe"
-			// similar to how the instructions appear and disappear
+			// insufficient funds to bribe
+			Text insufficientFundsMessage = Instantiate (insufficientFundsText, transform.position, Quaternion.identity) as Text;
+			insufficientFundsMessage.transform.SetParent (_playerController.canvas.transform, false);
+			insufficientFundsMessage.transform.position = new Vector3(transform.position.x - 3.5f, transform.position.y + 1, 0);
+			StartCoroutine(Utility.FadeTextOut(insufficientFundsMessage, 2f, 0.5f));
 
 		}
 
