@@ -3523,7 +3523,7 @@ MonoBehaviour:
     type: 2}
   cashBriefcase: {fileID: 1000013505712504, guid: 9058826bbca486e4d87a8e831a11402b,
     type: 2}
-  trapCage: {fileID: 1456208340195182, guid: f3663f5d6819a41259bd354efd7f92fb, type: 2}
+  trapCage: {fileID: 1595708034787468, guid: e972c707ac82e44b9a432abfd87fdf6c, type: 2}
   taxPaper: {fileID: 1757644871844432, guid: bd2e2bcc609664988a78603a714ad624, type: 2}
   cop: {fileID: 1000010636661956, guid: bb9963ae90428b84e9fd87476f5816f0, type: 2}
   heart: {fileID: 1316042093247696, guid: aeb4e77bc9d07480baaa1b01939ad5db, type: 2}
