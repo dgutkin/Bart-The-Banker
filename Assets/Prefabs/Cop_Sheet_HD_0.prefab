@@ -117,7 +117,6 @@ MonoBehaviour:
     type: 2}
   insufficientFundsText: {fileID: 114673640988197322, guid: 310a812f9895d4ad59885fbe92045ebb,
     type: 2}
-  canvas: {fileID: 0}
 --- !u!212 &212000010758439388
 SpriteRenderer:
   m_ObjectHideFlags: 1

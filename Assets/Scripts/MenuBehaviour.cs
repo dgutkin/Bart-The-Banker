@@ -50,7 +50,7 @@ public class MenuBehaviour : MonoBehaviour {
 		audioSource.Play();
 
 		// Only the first part of the clip is the required sound
-		yield return new WaitForSeconds(audioSource.clip.length * 0.25f);
+		yield return new WaitForSeconds(audioSource.clip.length * 0.2f);
 
 		switch (menuItem.name) {
 		case "PlayButton":

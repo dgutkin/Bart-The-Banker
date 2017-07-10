@@ -106,13 +106,13 @@ public class PauseBehaviour : MonoBehaviour {
 		// Play button click sound
 		_audioSource.Play ();
 
-		Time.timeScale = 1;
 		_screenRenderer.enabled = false;
 		_textRenderer.enabled = false;
 		_quitButtonRenderer.enabled = false;
 		_quitTextRenderer.enabled = false;
 		_resumeButtonRenderer.enabled = false;
 		_resumeTextRenderer.enabled = false;
+		Time.timeScale = 1;
 		_mainCameraAudioSource.Play();
 
 		OnPauseChange ();

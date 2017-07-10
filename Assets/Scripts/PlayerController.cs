@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject[] greyHearts;
 	public Canvas canvas;
 	public float copWalkingSpeed;
+	public GameObject resumeButton;
 
 	private Rigidbody2D _playerRigidbody;
 	private Animator _playerAnimator;
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour {
 	private bool _isPaused;
 	private Vector3 _positionOffsetForRaycast;
 	private float _touchExtendFactor;
-	private float _swipeThreshold;
+	private bool _afterPause;
 
 	// Use this for initialization
 	void Start () {
@@ -107,7 +108,7 @@ public class PlayerController : MonoBehaviour {
 
 		_positionOffsetForRaycast = new Vector3 (-1f, 0.5f, 0f);
 		copWalkingSpeed = 2.5f;
-		_swipeThreshold = 0.2f;
+		_afterPause = false;
 
 	}
 
@@ -123,6 +124,7 @@ public class PlayerController : MonoBehaviour {
 	}
 	void PauseChange() {
 		_isPaused = !_isPaused;
+		_afterPause = true;
 	}
 	void GameSpeedChange(int level) {
 
@@ -133,12 +135,13 @@ public class PlayerController : MonoBehaviour {
 		jumpYForce = 650;
 		// Slow down the cops
 		// Half the speed every level
-		copWalkingSpeed = 2.5f * Mathf.Pow(0.6f, Mathf.Max(level - 2, 0));
+		//copWalkingSpeed = 2.5f * Mathf.Pow(0.6f, Mathf.Max(level - 2, 0));
+		copWalkingSpeed = 2.5f;
 
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
 		case 2:
-			subtitleMsg = "WATCH OUT FOR THE COPS! TAP TO BRIBE AND STOP ONE!";
+			subtitleMsg = "WATCH OUT FOR THE COPS! TAP THE FEET TO BRIBE AND STOP ONE!";
 			break;
 		case 3:
 			jumpXForce = -10;
@@ -153,12 +156,12 @@ public class PlayerController : MonoBehaviour {
 		case 5:
 			jumpXForce = -30;
 			_playerRigidbody.gravityScale = 2.75f;
-			subtitleMsg = "ARE YOU A RUNNER OR A BANKER?";
+			subtitleMsg = "THEY SHOULD CALL YOU BART THE RUNNER?";
 			break;
 		case 6:
 			jumpXForce = -50;
 			_playerRigidbody.gravityScale = 2.765f;
-			subtitleMsg = "THEY SHOULD CALL YOU BART THE RUNNER, HOW LONG CAN YOU LAST?";
+			subtitleMsg = "HOW LONG CAN YOU LAST?";
 			break;
 		}
 
@@ -188,7 +191,7 @@ public class PlayerController : MonoBehaviour {
 						_jump = true;
 						_grounded = false;
 
-			} else if (Input.GetKey (KeyCode.DownArrow) && _grounded &&
+				} else if (Input.GetKey (KeyCode.DownArrow) && _grounded &&
 				Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, Vector3.down, 1f,
 					(1 << LayerMask.NameToLayer("Ground")))) { // while user holds down the key
 					_slide = true;
@@ -210,15 +213,15 @@ public class PlayerController : MonoBehaviour {
 					Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
 					
 					if (hitCollider != null && 
-						((hitCollider.CompareTag("Cop") && touch.deltaPosition.y > _swipeThreshold && 
-							touchPosition.x > _playerTransform.position.x) || 
+						((touchPosition2D.y < Constants.BRIBE_BOUNDARY && 
+							touchPosition2D.x > _playerTransform.position.x) || 
 							hitCollider.CompareTag("Pause") || 
-							hitCollider.CompareTag("Resume"))) {
+						(hitCollider.CompareTag("Resume") && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Stationary)))) {
 					
-						// disable touch to jump/slide if cop or pause is tapped
+						// disable touch to jump/slide if bottom of cop or pause is tapped
 
-					} else if (touch.phase == TouchPhase.Ended && touch.deltaPosition.y < _swipeThreshold && 
-						touchPosition.x > cameraPosition.x && 
+					} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) && 
+					touchPosition.x > cameraPosition.x && touchPosition2D.y > Constants.BRIBE_BOUNDARY && 
 						_grounded && Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, 
 							Vector3.down, 1f,
 							(1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Ground")))) { // one tap on the right half of screen
@@ -228,14 +231,14 @@ public class PlayerController : MonoBehaviour {
 						_unslide = true;
 
 					} else if ((touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-					&& touch.deltaPosition.y < _swipeThreshold && 
-					touchPosition.x < _playerTransform.position.x && _grounded && 
-					Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, Vector3.down, 1f,
+					&& touchPosition.x < _playerTransform.position.x && 
+					touchPosition2D.y > Constants.BRIBE_BOUNDARY && _grounded && 
+						Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, Vector3.down, 1f,
 						(1 << LayerMask.NameToLayer("Ground")))) {
 						
 						_slide = true;
 
-					} else if (touch.phase == TouchPhase.Ended) {
+				} else if (touch.phase == TouchPhase.Ended && touchPosition2D.y > Constants.BRIBE_BOUNDARY) {
 						
 						_unslide = true;
 

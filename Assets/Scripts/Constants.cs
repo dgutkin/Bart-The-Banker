@@ -8,5 +8,6 @@ public static class Constants {
 	public const string SOUND_VOLUME = "SOUND_VOLUME";
 
 	public const float PLAYER_DISTANCE_FROM_CENTER = 3f;
+	public const float BRIBE_BOUNDARY = -3.5f;
 
 }

@@ -1748,6 +1748,7 @@ MonoBehaviour:
   - {fileID: 972597470}
   canvas: {fileID: 147581622}
   copWalkingSpeed: 0
+  _score: 0
 --- !u!95 &1119655392
 Animator:
   serializedVersion: 3

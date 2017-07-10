@@ -26,7 +26,6 @@ public class CopBehaviour : MonoBehaviour {
 
 	private float _secondsUntilDestroy = 30f;
 	private float _bribeLabelHeightOffset = 1.2f;
-	private float _swipeThreshold = 0.5f;
 	private bool touchInitiatedOnCop;
 
 	// Use this for initialization
@@ -53,43 +52,40 @@ public class CopBehaviour : MonoBehaviour {
 
 		#if UNITY_ANDROID || UNITY_IOS
 
-			if (Input.touchCount > 1 && walkingSpeed > 0) {
-			
-				Touch touch = Input.GetTouch(0);
-				Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
-				Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
-				Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
+		if (Input.touchCount > 1 && walkingSpeed > 0) {
 
-				Touch secondTouch = Input.GetTouch(1);
-				Vector3 secondTouchPosition = Camera.main.ScreenToWorldPoint(secondTouch.position);
-				Vector2 secondTouchPosition2D = new Vector2(secondTouchPosition.x, secondTouchPosition.y);
-				Collider2D secondHitCollider = Physics2D.OverlapPoint(secondTouchPosition2D);
+			Touch touch = Input.GetTouch(0);
+			Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
+			Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
+			Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
 
-				Vector2 startingPosition;
-				float touchMovement = 0f;
+			Touch secondTouch = Input.GetTouch(1);
+			Vector3 secondTouchPosition = Camera.main.ScreenToWorldPoint(secondTouch.position);
+			Vector2 secondTouchPosition2D = new Vector2(secondTouchPosition.x, secondTouchPosition.y);
+			Collider2D secondHitCollider = Physics2D.OverlapPoint(secondTouchPosition2D);
 
-				if ((touch.deltaPosition.y > _swipeThreshold && hitCollider != null && 
-					_copCollider.OverlapPoint(touchPosition2D)) ||
-					(secondTouch.deltaPosition.y > _swipeThreshold && secondHitCollider != null && 
-					_copCollider.OverlapPoint(secondTouchPosition2D))) {
-					BribeCop();
-				}
-
-			} else if (Input.touchCount > 0 && walkingSpeed > 0) {
-
-				Touch touch = Input.GetTouch(0);
-				Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
-				Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
-				Vector3 cameraPosition = Camera.main.gameObject.transform.position;
-				Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
-				
-				if (touch.deltaPosition.y > _swipeThreshold && hitCollider != null && 
-					_copCollider.OverlapPoint(touchPosition2D) && 
-					touch.position.x > cameraPosition.x - Constants.PLAYER_DISTANCE_FROM_CENTER) {
-					BribeCop();
-				}
-
+			if ((hitCollider != null && _copCollider.OverlapPoint(touchPosition2D) && 
+				touchPosition2D.y < Constants.BRIBE_BOUNDARY) ||
+				(secondHitCollider != null && _copCollider.OverlapPoint(secondTouchPosition2D) &&
+					secondTouchPosition2D.y < Constants.BRIBE_BOUNDARY)) {  
+				BribeCop();
 			}
+
+		} else if (Input.touchCount > 0 && walkingSpeed > 0) {
+
+			Touch touch = Input.GetTouch(0);
+			Vector3 touchPosition = Camera.main.ScreenToWorldPoint (touch.position);
+			Vector2 touchPosition2D = new Vector2(touchPosition.x, touchPosition.y);
+			Vector3 cameraPosition = Camera.main.gameObject.transform.position;
+			Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
+
+			if (hitCollider != null && _copCollider.OverlapPoint(touchPosition2D) &&
+				touchPosition2D.y < Constants.BRIBE_BOUNDARY &&
+				touchPosition2D.x > cameraPosition.x) {
+				BribeCop();
+			}
+
+		}
 
 		#endif
 
@@ -141,7 +137,7 @@ public class CopBehaviour : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D otherObj) {
 		
-		if (otherObj.gameObject.CompareTag("Player")) {
+		if (otherObj.gameObject.CompareTag ("Player")) {
 			
 			otherObj.SendMessage ("HitObstacle", SendMessageOptions.DontRequireReceiver);
 
