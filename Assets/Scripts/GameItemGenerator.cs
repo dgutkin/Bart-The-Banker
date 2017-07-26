@@ -36,7 +36,7 @@ public class GameItemGenerator : MonoBehaviour {
 	private float _obstacleWidthCopScalingFactor = 2f;
 	private float _copHeightOffset = 0.2f;
 	private float _obstacleWidthStreetlightScalingFactor = 3f;
-	private float _secondsUntilDestroy = 30f;
+	private float _secondsUntilDestroy = 40f;
 	private float _bribeHeightOffset = 0.5f;
 
 	private float _midObstacleHeightFactor = 1;
@@ -54,7 +54,9 @@ public class GameItemGenerator : MonoBehaviour {
 	private int _heartFrequency = 0;
 	private int _billProgressIndex = 0;
 	private int _level = 1;
-	private int _spaceBeforeGameChange = 5;
+	private int _spaceBeforeGameChange = 15;
+	private float _spawnTileBoundary = 0f;
+	private int _previousLevel = 1;
 
 	void Awake() {
 		
@@ -70,6 +72,8 @@ public class GameItemGenerator : MonoBehaviour {
 		_lastItemPosition = _originPosition;
 		_probTable = LoadProbTable ();
 
+		_spawnTileBoundary = _lastItemPosition.x;
+
 	}
 	
 	// Update is called once per frame
@@ -80,6 +84,11 @@ public class GameItemGenerator : MonoBehaviour {
 		if (_cam.transform.position.x >= _lastItemPosition.x - _offsetXTiling) {
 			
 			SpawnObjects ();
+
+		} else if (_cam.transform.position.x >= _spawnTileBoundary + Constants.PLAYER_DISTANCE_FROM_CENTER + 
+			_obstacleWidth) {
+
+			AdjustProgress ();
 
 		}
 	
@@ -161,7 +170,13 @@ public class GameItemGenerator : MonoBehaviour {
 	void SpawnObjects() {
 
 		// Gradual increase in difficulty
-		AdjustProgress();
+		CheckLevel();
+		if (_level > _previousLevel) {
+			
+			// Create a break in spawned objects to prepare for a game change
+			_lastItemPosition += new Vector2(_obstacleWidth * _spaceBeforeGameChange, 0f);
+
+		}
 
 		Vector2 obstaclePosition = _lastItemPosition;
 
@@ -419,10 +434,8 @@ public class GameItemGenerator : MonoBehaviour {
 
 	}
 
-	void AdjustProgress() {
+	void CheckLevel() {
 
-		int previousLevel = _level;
-		// Make adjustments
 		// 20, 50, 100, 200, 300, 500
 		if (_billProgressIndex < 10) {
 			_billProbabilities [0] = 90;
@@ -474,16 +487,19 @@ public class GameItemGenerator : MonoBehaviour {
 			return;
 		}
 
-		if (_level > previousLevel) {
+	}
 
-			// Create a break in spawned objects to prepare for a game change
-			_lastItemPosition += new Vector2(_obstacleWidth * _spaceBeforeGameChange, 0f);
+	void AdjustProgress() {
+
+		if (_level > _previousLevel) {
+
 			// Adjust player speed and jump for game change
 			OnGameSpeedChange (_level);
+			_previousLevel = _level;
 
 		}
 
-
+		_spawnTileBoundary = _lastItemPosition.x;
 
 	}
 				

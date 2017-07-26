@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour {
 	public Canvas canvas;
 	public float copWalkingSpeed;
 	public GameObject resumeButton;
+	public bool level2Start;
 
 	private Rigidbody2D _playerRigidbody;
 	private Animator _playerAnimator;
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour {
 		_positionOffsetForRaycast = new Vector3 (-1f, 0.5f, 0f);
 		copWalkingSpeed = 2.5f;
 		_afterPause = false;
+		level2Start = false;
 
 	}
 
@@ -141,7 +143,8 @@ public class PlayerController : MonoBehaviour {
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
 		case 2:
-			subtitleMsg = "WATCH OUT FOR THE COPS! TAP THE FEET TO BRIBE AND STOP ONE!";
+			subtitleMsg = "WATCH OUT FOR THE COPS! TAP LEGS TO BRIBE!";
+			level2Start = true;
 			break;
 		case 3:
 			jumpXForce = -10;
@@ -151,7 +154,7 @@ public class PlayerController : MonoBehaviour {
 		case 4:
 			jumpXForce = -20;
 			_playerRigidbody.gravityScale = 2.7f;
-			subtitleMsg = "THE FASTER YOU RUN, THE FASTER YOU EARN.";
+			subtitleMsg = "THE FASTER YOU RUN, THE FASTER YOU EARN!";
 			break;
 		case 5:
 			jumpXForce = -30;
@@ -164,14 +167,17 @@ public class PlayerController : MonoBehaviour {
 			subtitleMsg = "HOW LONG CAN YOU LAST?";
 			break;
 		}
-
+			
 		levelUpText.text = "LEVEL " + level;
 		levelUpSubtitle.text = subtitleMsg;
-		levelUpText.enabled = true;
-		levelUpSubtitle.enabled = true;
 
-		StartCoroutine (Utility.FadeTextOut (levelUpText, 6f, 0.5f));
-		StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, 6f, 0.5f));
+		if (level > 2) {
+			levelUpText.enabled = true;
+			levelUpSubtitle.enabled = true;
+
+			StartCoroutine (Utility.FadeTextOut (levelUpText, 6f, 0.5f));
+			StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, 6f, 0.5f));
+		}
 	}
 		
 	// Update is called once per frame

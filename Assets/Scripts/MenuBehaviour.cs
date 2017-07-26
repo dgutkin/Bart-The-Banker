@@ -27,7 +27,7 @@ public class MenuBehaviour : MonoBehaviour {
 		
 		if (_startActivated) {
 			//start game and change game state to game mode
-			stateManager.presentHowToPlay();
+			stateManager.startGame();
 		}
 
 		// Update volume

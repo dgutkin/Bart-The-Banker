@@ -20,5 +20,12 @@ public static class Utility {
 		renderer.enabled = false;
 
 	}
+
+	public static IEnumerator FadeLineOut(LineRenderer renderer, float showDuration, float fadeDuration) {
+
+		yield return new WaitForSeconds (showDuration);
+		renderer.enabled = false;
+
+	}
 		
 }
