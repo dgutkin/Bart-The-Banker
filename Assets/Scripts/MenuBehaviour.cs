@@ -79,6 +79,9 @@ public class MenuBehaviour : MonoBehaviour {
 		case "SettingsButton":
 			SceneManager.LoadScene ("Settings");
 			break;
+		case "HowToPlayButton":
+			SceneManager.LoadScene ("HowToPlay");
+			break;
 		case "QuitButton":
 			SceneManager.LoadScene ("Menu");
 			break;

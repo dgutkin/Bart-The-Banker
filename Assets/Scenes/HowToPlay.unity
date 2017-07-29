@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 1063545521}
   - component: {fileID: 1063545523}
   m_Layer: 0
-  m_Name: EndGameOverlay
+  m_Name: HowToPlayOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -702,7 +702,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -4}
-  m_SizeDelta: {x: 400, y: 50}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1094837414
 MonoBehaviour:
@@ -736,7 +736,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TAP ANYWHERE TO CONTINUE
+  m_Text: TAP ANYWHERE TO GO TO MAIN MENU
 --- !u!222 &1094837415
 CanvasRenderer:
   m_ObjectHideFlags: 0

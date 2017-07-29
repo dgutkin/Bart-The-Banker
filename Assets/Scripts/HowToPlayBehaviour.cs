@@ -23,17 +23,17 @@ public class HowToPlayBehaviour : MonoBehaviour {
 
 	void OnMouseDown() {
 
-		StartCoroutine ("StartGame");
+		StartCoroutine ("BackToMainMenu");
 
 	}
 
-	IEnumerator StartGame() {
+	IEnumerator BackToMainMenu() {
 
 		_audioSource.Play ();
 
-		yield return new WaitForSeconds (_audioSource.clip.length - 0.5f);
+		yield return new WaitForSeconds (_audioSource.clip.length * 0.2f);
 
-		stateManager.startGame ();
+		SceneManager.LoadScene ("Menu");
 
 	}
 
