@@ -28,14 +28,12 @@ public class PlayerController : MonoBehaviour {
 	public GameObject playerRespawn;
 	public Text scoreText;
 	public Text popUpText;
-	public Text levelUpText;
-	public Text levelUpSubtitle;
 	public GameObject[] redHearts;
 	public GameObject[] greyHearts;
 	public Canvas canvas;
 	public float copWalkingSpeed;
 	public GameObject resumeButton;
-	public bool level2Start;
+	public float gravityScale;
 
 	private Rigidbody2D _playerRigidbody;
 	private Animator _playerAnimator;
@@ -82,8 +80,6 @@ public class PlayerController : MonoBehaviour {
 		jumpColliderOffsetX = -0.5f;
 		jumpColliderOffsetY = 0.9f;
 		jumpGroundColliderOffsetY = 0.1f;
-		levelUpText.enabled = false;
-		levelUpSubtitle.enabled = false;
 
 		_playerRigidbody = GetComponent<Rigidbody2D> ();
 		_playerAnimator = GetComponent<Animator> ();
@@ -110,78 +106,30 @@ public class PlayerController : MonoBehaviour {
 		_positionOffsetForRaycast = new Vector3 (-1f, 0.5f, 0f);
 		copWalkingSpeed = 2.5f;
 		_afterPause = false;
-		level2Start = false;
+		gravityScale = 2.3f;
 
 	}
 
 	void OnEnable() {
 		PauseBehaviour.OnPauseChange += PauseChange;
-		GameItemGenerator.OnGameSpeedChange += GameSpeedChange;
+		//GameItemGenerator.OnGameSpeedChange += GameSpeedChange;
 		CopBehaviour.OnBribe += Bribe;
 	}
 	void OnDisable() {
 		PauseBehaviour.OnPauseChange -= PauseChange;
-		GameItemGenerator.OnGameSpeedChange -= GameSpeedChange;
+		//GameItemGenerator.OnGameSpeedChange -= GameSpeedChange;
 		CopBehaviour.OnBribe -= Bribe;
 	}
 	void PauseChange() {
 		_isPaused = !_isPaused;
 		_afterPause = true;
 	}
-	void GameSpeedChange(int level) {
-
-		string subtitleMsg = "";
-
-		// Begin speeding up the game at Level 3
-		moveSpeed  = 3f + 0.5f * Math.Max(level - 2,0);
-		jumpYForce = 650;
-		// Slow down the cops
-		// Half the speed every level
-		//copWalkingSpeed = 2.5f * Mathf.Pow(0.6f, Mathf.Max(level - 2, 0));
-		copWalkingSpeed = 2.5f;
-
-		// adjust the xForce and gravity to keep the same jump arc
-		switch (level) {
-		case 2:
-			subtitleMsg = "WATCH OUT FOR THE COPS! TAP LEGS TO BRIBE!";
-			level2Start = true;
-			break;
-		case 3:
-			jumpXForce = -10;
-			_playerRigidbody.gravityScale = 2.5f;
-			subtitleMsg = "MORE COPS, START RUNNING FASTER!";
-			break;
-		case 4:
-			jumpXForce = -20;
-			_playerRigidbody.gravityScale = 2.7f;
-			subtitleMsg = "THE FASTER YOU RUN, THE FASTER YOU EARN!";
-			break;
-		case 5:
-			jumpXForce = -30;
-			_playerRigidbody.gravityScale = 2.75f;
-			subtitleMsg = "THEY SHOULD CALL YOU BART THE RUNNER?";
-			break;
-		case 6:
-			jumpXForce = -50;
-			_playerRigidbody.gravityScale = 2.765f;
-			subtitleMsg = "HOW LONG CAN YOU LAST?";
-			break;
-		}
-			
-		levelUpText.text = "LEVEL " + level;
-		levelUpSubtitle.text = subtitleMsg;
-
-		if (level > 2) {
-			levelUpText.enabled = true;
-			levelUpSubtitle.enabled = true;
-
-			StartCoroutine (Utility.FadeTextOut (levelUpText, 6f, 0.5f));
-			StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, 6f, 0.5f));
-		}
-	}
 		
 	// Update is called once per frame
 	void Update () 	{
+
+		// update from level changes
+		_playerRigidbody.gravityScale = gravityScale;
 
 		if (_isPaused) {
 			

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class InstructionOverlayBehaviour : MonoBehaviour {
 
@@ -17,6 +18,9 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 	public GameObject bribeCopInstructions;
 	public GameObject platformJump;
 	public GameObject platformJumpInstructions;
+
+	public Text levelUpText;
+	public Text levelUpSubtitle;
 
 	public PlayerController playerController;
 
@@ -39,8 +43,12 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 	private int _instructionIndex;
 	private Animator _playerAnimator;
 	private bool _showInstructionOverlay;
+	private bool _level2Start;
 
-
+	private float _playerMoveSpeed;
+	private float _playerGravityScale;
+	private float _playerJumpYForce;
+	private float _playerJumpXForce;
 
 	// Use this for initialization
 	void Start () {
@@ -82,6 +90,28 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		_platformJumpRenderer = platformJump.GetComponent<SpriteRenderer> ();
 		_platformJumpRenderer.enabled = false;
 
+		_level2Start = false;
+
+		levelUpText.enabled = false;
+		levelUpSubtitle.enabled = false;
+
+		_playerMoveSpeed = playerController.moveSpeed;
+		_playerGravityScale = playerController.gravityScale;
+		_playerJumpYForce = playerController.jumpYForce;
+		_playerJumpXForce = playerController.jumpXForce;
+
+	}
+
+	void OnEnable() {
+
+		GameItemGenerator.OnLevelChange += LevelChange;
+
+	}
+
+	void OnDisable() {
+
+		GameItemGenerator.OnLevelChange -= LevelChange;
+
 	}
 	
 	// Update is called once per frame
@@ -91,7 +121,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
 
 			if (leaderboards.Count < 100 && _showInstructionOverlay && 
-				(_instructionIndex == 0 || (playerController.level2Start && _instructionIndex == 5))) {
+				(_instructionIndex == 0 || (_level2Start && _instructionIndex == 5))) {
 				playerController.moveSpeed = 1f;
 				_playerAnimator.speed = 1f / 3f;
 				_instructionIndex++;
@@ -147,18 +177,18 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 
 			_instructionIndex++;
 
-		} else if (playerController.levelUpText.enabled == false && playerController.levelUpSubtitle.enabled == false && 
+		} else if (levelUpText.enabled == false && levelUpSubtitle.enabled == false && 
 			_bribeCopText.enabled == false && _bribeCopRenderer.enabled == false && 
 			_platformJumpText.enabled == false && _platformJumpRenderer.enabled == false && 
-			playerController.level2Start && _instructionIndex < 10) {
+			_level2Start && _instructionIndex < 10) {
 			
 			switch (_instructionIndex) {
 			case 6:
 				// show the level 2 intro text
-				playerController.levelUpText.enabled = true;
-				playerController.levelUpSubtitle.enabled = true;
-				StartCoroutine (Utility.FadeTextOut (playerController.levelUpText, 6f, 0.5f));
-				StartCoroutine (Utility.FadeTextOut (playerController.levelUpSubtitle, 6f, 0.5f));
+				levelUpText.enabled = true;
+				levelUpSubtitle.enabled = true;
+				StartCoroutine (Utility.FadeTextOut (levelUpText, 6f, 0.5f));
+				StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, 6f, 0.5f));
 				break;
 			case 7:
 				_bribeCopRenderer.enabled = true;
@@ -181,6 +211,62 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			_instructionIndex++;
 
 		}
+			
+	}
+
+	void LevelChange(int level) {
+
+		string subtitleMsg = "";
+
+		// Begin speeding up the game at Level 3
+		_playerMoveSpeed  = 3f + 0.5f * Math.Max(level - 2,0);
+		_playerJumpYForce = 650;
+
+		// adjust the xForce and gravity to keep the same jump arc
+		switch (level) {
+		case 2:
+			subtitleMsg = "WATCH OUT FOR THE COPS! TAP LEGS TO BRIBE!";
+			_level2Start = true;
+			break;
+		case 3:
+			_playerJumpXForce = -10;
+			_playerGravityScale = 2.5f;
+			subtitleMsg = "MORE COPS, START RUNNING FASTER!";
+			break;
+		case 4:
+			_playerJumpXForce = -20;
+			_playerGravityScale = 2.7f;
+			subtitleMsg = "THE FASTER YOU RUN, THE FASTER YOU EARN!";
+			break;
+		case 5:
+			_playerJumpXForce = -30;
+			_playerGravityScale = 2.75f;
+			subtitleMsg = "THEY SHOULD CALL YOU BART THE RUNNER?";
+			break;
+		case 6:
+			_playerJumpXForce = -50;
+			_playerGravityScale = 2.765f;
+			subtitleMsg = "HOW LONG CAN YOU LAST?";
+			break;
+		}
+
+		levelUpText.text = "LEVEL " + level;
+		levelUpSubtitle.text = subtitleMsg;
+
+		if (level > 2) {
+			levelUpText.enabled = true;
+			levelUpSubtitle.enabled = true;
+
+			StartCoroutine (Utility.FadeTextOut (levelUpText, 6f, 0.5f));
+			StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, 6f, 0.5f));
+		}
+
+		// update variables in PlayerController
+		playerController.moveSpeed = _playerMoveSpeed;
+		playerController.gravityScale = _playerGravityScale;
+		playerController.jumpYForce = _playerJumpYForce;
+		playerController.jumpXForce = _playerJumpXForce;
+
 	}
 
 }

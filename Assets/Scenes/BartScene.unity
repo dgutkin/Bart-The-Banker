@@ -1897,8 +1897,6 @@ MonoBehaviour:
   scoreText: {fileID: 526040543}
   popUpText: {fileID: 114806118599053058, guid: c92a59df22da54a018b1d4dc4e980318,
     type: 2}
-  levelUpText: {fileID: 1218329479}
-  levelUpSubtitle: {fileID: 1324028403}
   redHearts:
   - {fileID: 1745726446}
   - {fileID: 710798572}
@@ -1910,7 +1908,7 @@ MonoBehaviour:
   canvas: {fileID: 147581622}
   copWalkingSpeed: 0
   resumeButton: {fileID: 0}
-  level2Start: 0
+  gravityScale: 0
   _score: 0
 --- !u!95 &1119655392
 Animator:
@@ -4181,4 +4179,6 @@ MonoBehaviour:
   bribeCopInstructions: {fileID: 399377509}
   platformJump: {fileID: 421325755}
   platformJumpInstructions: {fileID: 2047231552}
+  levelUpText: {fileID: 1218329479}
+  levelUpSubtitle: {fileID: 1324028403}
   playerController: {fileID: 1119655391}
