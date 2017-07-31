@@ -215,7 +215,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -2.5, y: 1}
-  m_SizeDelta: {x: 500, y: 100}
+  m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &576641143
 MonoBehaviour:
@@ -249,7 +249,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tap the right side of the screen to jump and hold the left side to slide
+  m_Text: Tap the center-right side of the screen to jump and hold the center-left
+    side to slide
 --- !u!222 &576641144
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -656,7 +657,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1128,7 +1129,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Bounce over cops or lose a life / Freezes if bribed - swipe up to bribe
+  m_Text: Bounce over cops or lose a life / Freezes if bribed - tap legs to bribe
 --- !u!222 &1307763138
 CanvasRenderer:
   m_ObjectHideFlags: 0
