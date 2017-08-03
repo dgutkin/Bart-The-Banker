@@ -170,12 +170,12 @@ public class PlayerController : MonoBehaviour {
 						((touchPosition2D.y < Constants.BRIBE_BOUNDARY && 
 							touchPosition2D.x > _playerTransform.position.x) || 
 							hitCollider.CompareTag("Pause") || 
-						(hitCollider.CompareTag("Resume") && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Stationary)))) {
+						(hitCollider.CompareTag("Resume") && _isPaused))) {
 					
-						// disable touch to jump/slide if bottom of cop or pause is tapped
+						// disable touch to jump/slide if bottom of cop or pause/resume is tapped
 
-					} else if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) && 
-					touchPosition.x > cameraPosition.x && touchPosition2D.y > Constants.BRIBE_BOUNDARY && 
+					} else if (touch.phase == TouchPhase.Began &&
+						touchPosition.x > cameraPosition.x && touchPosition2D.y > Constants.BRIBE_BOUNDARY && 
 						_grounded && Physics2D.Raycast(_playerTransform.position + _positionOffsetForRaycast, 
 							Vector3.down, 1f,
 							(1 << LayerMask.NameToLayer("Platform") | 1 << LayerMask.NameToLayer("Ground")))) { // one tap on the right half of screen

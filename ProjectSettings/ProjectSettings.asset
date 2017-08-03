@@ -143,8 +143,8 @@ PlayerSettings:
     iOS: com.tankladder.bartthebanker
     tvOS: com.tankladder.bartthebanker
   buildNumber:
-    iOS: 12
-  AndroidBundleVersionCode: 10
+    iOS: 15
+  AndroidBundleVersionCode: 11
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

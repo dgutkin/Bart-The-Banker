@@ -752,7 +752,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "tap cop legs to \nbribe and FREEZE"
+  m_Text: "tap cop to \nbribe and FREEZE"
 --- !u!222 &399377513
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3960,6 +3960,7 @@ GameObject:
   - component: {fileID: 2110150595}
   - component: {fileID: 2110150596}
   - component: {fileID: 2110150597}
+  - component: {fileID: 2110150598}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4182,3 +4183,14 @@ MonoBehaviour:
   levelUpText: {fileID: 1218329479}
   levelUpSubtitle: {fileID: 1324028403}
   playerController: {fileID: 1119655391}
+--- !u!114 &2110150598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2110150588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 812a81844694f4041993192fb36c9f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

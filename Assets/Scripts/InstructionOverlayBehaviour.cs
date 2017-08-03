@@ -50,6 +50,10 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 	private float _playerJumpYForce;
 	private float _playerJumpXForce;
 
+	private float _showLevelDuration;
+	private float _showInstructionDuration;
+	private float _fadeDuration;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -100,6 +104,10 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		_playerJumpYForce = playerController.jumpYForce;
 		_playerJumpXForce = playerController.jumpXForce;
 
+		_showLevelDuration = 5f;
+		_showInstructionDuration = 3f;
+		_fadeDuration = 0.5f;
+
 	}
 
 	void OnEnable() {
@@ -120,7 +128,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		if (PlayerPrefs.HasKey ("leaderboards") && PlayerPrefs.HasKey ("showinstructionoverlay")) {
 			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
 
-			if (leaderboards.Count < 100 && _showInstructionOverlay && 
+			if (leaderboards.Count < 2 && _showInstructionOverlay && 
 				(_instructionIndex == 0 || (_level2Start && _instructionIndex == 5))) {
 				playerController.moveSpeed = 1f;
 				_playerAnimator.speed = 1f / 3f;
@@ -136,9 +144,6 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 
 		}
 
-		float showDuration = 3f;
-		float fadeDuration = 0.5f;
-
 		// only go to the next instruction once all texts are disabled
 		if (_rightSide.enabled == false && _leftSide.enabled == false &&
 		    _avoidText.enabled == false && _instructionIndex < 5 && _instructionIndex > 0) {
@@ -148,15 +153,15 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 				// tap the right side to jump
 				_rightSide.enabled = true;
 				_rightSideBoundaryRenderer.enabled = true;
-				StartCoroutine (Utility.FadeTextOut (_rightSide, showDuration, fadeDuration));
-				StartCoroutine (Utility.FadeLineOut (_rightSideBoundaryRenderer, showDuration, fadeDuration));
+				StartCoroutine (Utility.FadeTextOut (_rightSide, _showInstructionDuration, _fadeDuration));
+				StartCoroutine (Utility.FadeLineOut (_rightSideBoundaryRenderer, _showInstructionDuration, _fadeDuration));
 				break;
 			case 2:
 				// hold the left side to slide
 				_leftSide.enabled = true;
 				_leftSideBoundaryRenderer.enabled = true;
-				StartCoroutine (Utility.FadeTextOut (_leftSide, showDuration, fadeDuration));
-				StartCoroutine (Utility.FadeLineOut (_leftSideBoundaryRenderer, showDuration, fadeDuration));
+				StartCoroutine (Utility.FadeTextOut (_leftSide, _showInstructionDuration, _fadeDuration));
+				StartCoroutine (Utility.FadeLineOut (_leftSideBoundaryRenderer, _showInstructionDuration, _fadeDuration));
 				break;
 			case 3:
 				// avoid the cages, taxes and cops
@@ -164,10 +169,10 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 				_avoidCageRenderer.enabled = true;
 				_avoidTaxRenderer.enabled = true;
 				_avoidCopRenderer.enabled = true;
-				StartCoroutine (Utility.FadeTextOut (_avoidText, showDuration, fadeDuration));
-				StartCoroutine (Utility.FadeSpriteOut (_avoidCageRenderer, showDuration, fadeDuration));
-				StartCoroutine (Utility.FadeSpriteOut (_avoidTaxRenderer, showDuration, fadeDuration));
-				StartCoroutine (Utility.FadeSpriteOut (_avoidCopRenderer, showDuration, fadeDuration));
+				StartCoroutine (Utility.FadeTextOut (_avoidText, _showInstructionDuration, _fadeDuration));
+				StartCoroutine (Utility.FadeSpriteOut (_avoidCageRenderer, _showInstructionDuration, _fadeDuration));
+				StartCoroutine (Utility.FadeSpriteOut (_avoidTaxRenderer, _showInstructionDuration, _fadeDuration));
+				StartCoroutine (Utility.FadeSpriteOut (_avoidCopRenderer, _showInstructionDuration, _fadeDuration));
 				break;
 			case 4:
 				playerController.moveSpeed = 3f;
@@ -176,33 +181,41 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			}
 
 			_instructionIndex++;
+		} else if (levelUpText.enabled == false && levelUpSubtitle.enabled == false && 
+			_bribeCopText.enabled == false && _bribeCopRenderer.enabled == false && 
+			_platformJumpText.enabled == false && _platformJumpRenderer.enabled == false && 
+			_level2Start && (_instructionIndex == 0 || _instructionIndex == 5)) {
+
+			// show the level 2 intro text
+			levelUpText.enabled = true;
+			levelUpSubtitle.enabled = true;
+			StartCoroutine (Utility.FadeTextOut (levelUpText, _showLevelDuration, _fadeDuration));
+			StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, _showLevelDuration, _fadeDuration));
+			if (_instructionIndex == 5) {
+				_instructionIndex++;
+			} else if (_instructionIndex == 0) {
+				_instructionIndex = 9;
+			}
 
 		} else if (levelUpText.enabled == false && levelUpSubtitle.enabled == false && 
 			_bribeCopText.enabled == false && _bribeCopRenderer.enabled == false && 
 			_platformJumpText.enabled == false && _platformJumpRenderer.enabled == false && 
-			_level2Start && _instructionIndex < 10) {
+			_level2Start && _instructionIndex < 9 && _instructionIndex > 5) {
 			
 			switch (_instructionIndex) {
 			case 6:
-				// show the level 2 intro text
-				levelUpText.enabled = true;
-				levelUpSubtitle.enabled = true;
-				StartCoroutine (Utility.FadeTextOut (levelUpText, 6f, 0.5f));
-				StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, 6f, 0.5f));
-				break;
-			case 7:
 				_bribeCopRenderer.enabled = true;
 				_bribeCopText.enabled = true;
-				StartCoroutine (Utility.FadeTextOut (_bribeCopText, showDuration, fadeDuration));
-				StartCoroutine (Utility.FadeSpriteOut (_bribeCopRenderer, showDuration, fadeDuration));
+				StartCoroutine (Utility.FadeTextOut (_bribeCopText, _showInstructionDuration, _fadeDuration));
+				StartCoroutine (Utility.FadeSpriteOut (_bribeCopRenderer, _showInstructionDuration, _fadeDuration));
 				break;
-			case 8:
+			case 7:
 				_platformJumpRenderer.enabled = true;
 				_platformJumpText.enabled = true;
-				StartCoroutine (Utility.FadeTextOut (_platformJumpText, showDuration, fadeDuration));
-				StartCoroutine (Utility.FadeSpriteOut (_platformJumpRenderer, showDuration, fadeDuration));
+				StartCoroutine (Utility.FadeTextOut (_platformJumpText, _showInstructionDuration, _fadeDuration));
+				StartCoroutine (Utility.FadeSpriteOut (_platformJumpRenderer, _showInstructionDuration, _fadeDuration));
 				break;
-			case 9:
+			case 8:
 				playerController.moveSpeed = 3f;
 				_playerAnimator.speed = 1f;
 				break;
@@ -225,7 +238,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
 		case 2:
-			subtitleMsg = "WATCH OUT FOR THE COPS! TAP LEGS TO BRIBE!";
+			subtitleMsg = "WATCH OUT FOR THE COPS! TAP TO BRIBE!";
 			_level2Start = true;
 			break;
 		case 3:
@@ -257,8 +270,8 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			levelUpText.enabled = true;
 			levelUpSubtitle.enabled = true;
 
-			StartCoroutine (Utility.FadeTextOut (levelUpText, 6f, 0.5f));
-			StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, 6f, 0.5f));
+			StartCoroutine (Utility.FadeTextOut (levelUpText, _showLevelDuration, _fadeDuration));
+			StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, _showLevelDuration, _fadeDuration));
 		}
 
 		// update variables in PlayerController
