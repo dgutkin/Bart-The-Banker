@@ -5,14 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class HowToPlayBehaviour : MonoBehaviour {
 
-	public GameStates stateManager;
-
-	private AudioSource _audioSource;
-
 	// Use this for initialization
 	void Start () {
-
-		_audioSource = GetComponent<AudioSource> ();
 
 	}
 	
@@ -22,16 +16,6 @@ public class HowToPlayBehaviour : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-
-		StartCoroutine ("BackToMainMenu");
-
-	}
-
-	IEnumerator BackToMainMenu() {
-
-		_audioSource.Play ();
-
-		yield return new WaitForSeconds (_audioSource.clip.length * 0.2f);
 
 		SceneManager.LoadScene ("Menu");
 

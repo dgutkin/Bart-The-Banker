@@ -47,10 +47,16 @@ public class MenuBehaviour : MonoBehaviour {
 
 	IEnumerator ActivateButton() {
 
+		// darken the sprite
+		menuItemRenderer.material.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+
 		audioSource.Play();
 
 		// Only the first part of the clip is the required sound
-		yield return new WaitForSeconds(audioSource.clip.length * 0.5f);
+		yield return new WaitForSeconds(audioSource.clip.length * 0.3f);
+
+		// set the sprite back to normal
+		menuItemRenderer.material.color = new Color(1f, 1f, 1f, 1f);
 
 		switch (menuItem.name) {
 		case "PlayButton":

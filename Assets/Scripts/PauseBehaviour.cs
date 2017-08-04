@@ -56,11 +56,11 @@ public class PauseBehaviour : MonoBehaviour {
 
 			RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-			if ((hit.transform.CompareTag ("Resume") || hit.transform.CompareTag ("Pause")) &&
+			if ((hit.transform.CompareTag ("Resume")) &&
 			    _resumeButtonRenderer.enabled) {
-				
-				_isPaused = !_isPaused;
-				UnPauseGame ();
+
+				Time.timeScale = 1f;
+				StartCoroutine("ActivateResume");
 
 			} else if (hit.transform.CompareTag ("Quit") && _quitButtonRenderer.enabled) {
 
@@ -112,10 +112,27 @@ public class PauseBehaviour : MonoBehaviour {
 		_quitTextRenderer.enabled = false;
 		_resumeButtonRenderer.enabled = false;
 		_resumeTextRenderer.enabled = false;
-		Time.timeScale = 1;
+		//Time.timeScale = 1;
 		_mainCameraAudioSource.Play();
 
 		OnPauseChange ();
+
+	}
+
+	IEnumerator ActivateResume() {
+
+		_resumeButtonRenderer.material.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+
+		_audioSource.Play();
+
+		// Only the first part of the clip is the required sound
+		yield return new WaitForSeconds(_audioSource.clip.length * 0.3f);
+
+		// set the sprite back to normal
+		_resumeButtonRenderer.material.color = new Color(1f, 1f, 1f, 1f);
+
+		_isPaused = !_isPaused;
+		UnPauseGame ();
 
 	}
 
