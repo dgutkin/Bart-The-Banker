@@ -167,8 +167,7 @@ public class PlayerController : MonoBehaviour {
 					Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
 					
 					if (hitCollider != null && 
-						((touchPosition2D.y < Constants.BRIBE_BOUNDARY && 
-							touchPosition2D.x > _playerTransform.position.x) || 
+						(touchPosition2D.y < Constants.BRIBE_BOUNDARY || 
 							hitCollider.CompareTag("Pause") || 
 						(hitCollider.CompareTag("Resume") && _isPaused))) {
 					

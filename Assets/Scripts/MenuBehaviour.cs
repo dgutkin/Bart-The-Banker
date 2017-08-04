@@ -50,12 +50,11 @@ public class MenuBehaviour : MonoBehaviour {
 		audioSource.Play();
 
 		// Only the first part of the clip is the required sound
-		yield return new WaitForSeconds(audioSource.clip.length * 0.2f);
+		yield return new WaitForSeconds(audioSource.clip.length * 0.5f);
 
 		switch (menuItem.name) {
 		case "PlayButton":
 			ShowAd ();
-			PlayerPrefs.SetInt ("showinstructionoverlay", 1);
 			_startActivated = true;
 			break;
 		case "HighScoresButton":
@@ -69,8 +68,6 @@ public class MenuBehaviour : MonoBehaviour {
 			break;
 		case "RetryButton":
 			ShowAd ();
-			// Don't show instruction overlay if retrying
-			PlayerPrefs.SetInt ("showinstructionoverlay", 0);
 			SceneManager.LoadScene ("BartScene");
 			break;
 		case "CreditsButton":
@@ -98,7 +95,7 @@ public class MenuBehaviour : MonoBehaviour {
 		if (PlayerPrefs.HasKey ("leaderboards")) {
 			
 			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
-			if (leaderboards.Count > 3) {
+			if (leaderboards.Count > 6) {
 				// The ad only appears once the game is played more than three times
 				int randomNumber = Random.Range (1, 4);
 

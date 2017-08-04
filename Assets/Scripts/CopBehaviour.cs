@@ -80,8 +80,7 @@ public class CopBehaviour : MonoBehaviour {
 			Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition2D);
 
 			if (hitCollider != null && _copCollider.OverlapPoint(touchPosition2D) &&
-				touchPosition2D.y < Constants.BRIBE_BOUNDARY &&
-				touchPosition2D.x > cameraPosition.x) {
+				touchPosition2D.y < Constants.BRIBE_BOUNDARY) {
 				BribeCop();
 			}
 

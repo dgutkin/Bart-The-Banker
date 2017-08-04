@@ -72,10 +72,6 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		_avoidTaxRenderer.enabled = false;
 
 		_playerAnimator = playerController.GetComponent<Animator>();
-		// check has key
-		_showInstructionOverlay = PlayerPrefs.GetInt ("showinstructionoverlay") == 1;
-		//immediately revert the pref back to 0
-		PlayerPrefs.SetInt ("showinstructionoverlay", 0);
 
 		_rightSideBoundaryRenderer = rightSideBoundary.GetComponent<LineRenderer> ();
 		_rightSideBoundaryRenderer.sortingOrder = 2;
@@ -125,10 +121,10 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (PlayerPrefs.HasKey ("leaderboards") && PlayerPrefs.HasKey ("showinstructionoverlay")) {
+		if (PlayerPrefs.HasKey ("leaderboards")) {
 			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
 
-			if (leaderboards.Count < 2 && _showInstructionOverlay && 
+			if (leaderboards.Count < 4 && 
 				(_instructionIndex == 0 || (_level2Start && _instructionIndex == 5))) {
 				playerController.moveSpeed = 1f;
 				_playerAnimator.speed = 1f / 3f;
@@ -136,11 +132,13 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 
 			}
 
-		} else {
+		} else { // playing for the first time where leaderboard is empty
 
-			playerController.moveSpeed = 1f;
-			_playerAnimator.speed = 1f / 3f;
-			_instructionIndex = 1;
+			if (_instructionIndex == 0 || (_level2Start && _instructionIndex == 5)) {
+				playerController.moveSpeed = 1f;
+				_playerAnimator.speed = 1f / 3f;
+				_instructionIndex++;
+			}
 
 		}
 
@@ -181,41 +179,42 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			}
 
 			_instructionIndex++;
+
 		} else if (levelUpText.enabled == false && levelUpSubtitle.enabled == false && 
 			_bribeCopText.enabled == false && _bribeCopRenderer.enabled == false && 
 			_platformJumpText.enabled == false && _platformJumpRenderer.enabled == false && 
-			_level2Start && (_instructionIndex == 0 || _instructionIndex == 5)) {
+			_level2Start && (_instructionIndex == 0 || _instructionIndex == 6)) {
 
 			// show the level 2 intro text
 			levelUpText.enabled = true;
 			levelUpSubtitle.enabled = true;
 			StartCoroutine (Utility.FadeTextOut (levelUpText, _showLevelDuration, _fadeDuration));
 			StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, _showLevelDuration, _fadeDuration));
-			if (_instructionIndex == 5) {
+			if (_instructionIndex == 6) {
 				_instructionIndex++;
 			} else if (_instructionIndex == 0) {
-				_instructionIndex = 9;
+				_instructionIndex = 10;
 			}
 
 		} else if (levelUpText.enabled == false && levelUpSubtitle.enabled == false && 
 			_bribeCopText.enabled == false && _bribeCopRenderer.enabled == false && 
 			_platformJumpText.enabled == false && _platformJumpRenderer.enabled == false && 
-			_level2Start && _instructionIndex < 9 && _instructionIndex > 5) {
+			_level2Start && _instructionIndex < 10 && _instructionIndex > 5) {
 			
 			switch (_instructionIndex) {
-			case 6:
+			case 7:
 				_bribeCopRenderer.enabled = true;
 				_bribeCopText.enabled = true;
 				StartCoroutine (Utility.FadeTextOut (_bribeCopText, _showInstructionDuration, _fadeDuration));
 				StartCoroutine (Utility.FadeSpriteOut (_bribeCopRenderer, _showInstructionDuration, _fadeDuration));
 				break;
-			case 7:
+			case 8:
 				_platformJumpRenderer.enabled = true;
 				_platformJumpText.enabled = true;
 				StartCoroutine (Utility.FadeTextOut (_platformJumpText, _showInstructionDuration, _fadeDuration));
 				StartCoroutine (Utility.FadeSpriteOut (_platformJumpRenderer, _showInstructionDuration, _fadeDuration));
 				break;
-			case 8:
+			case 9:
 				playerController.moveSpeed = 3f;
 				_playerAnimator.speed = 1f;
 				break;
@@ -238,7 +237,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
 		case 2:
-			subtitleMsg = "WATCH OUT FOR THE COPS! TAP TO BRIBE!";
+			subtitleMsg = "WATCH OUT FOR THE COPS! TAP TO BRIBE FOR $100!";
 			_level2Start = true;
 			break;
 		case 3:

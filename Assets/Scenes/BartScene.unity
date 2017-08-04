@@ -752,7 +752,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "tap cop to \nbribe and FREEZE"
+  m_Text: "tap cop to bribe \nand FREEZE"
 --- !u!222 &399377513
 CanvasRenderer:
   m_ObjectHideFlags: 0
