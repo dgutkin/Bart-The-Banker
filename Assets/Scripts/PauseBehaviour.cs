@@ -85,9 +85,6 @@ public class PauseBehaviour : MonoBehaviour {
 
 	void PauseGame() {
 
-		// Play button click sound
-		_audioSource.Play ();
-
 		_screenRenderer.enabled = true;
 		_textRenderer.enabled = true;
 		_quitButtonRenderer.enabled = true;
@@ -102,9 +99,6 @@ public class PauseBehaviour : MonoBehaviour {
 	}
 
 	void UnPauseGame() {
-
-		// Play button click sound
-		_audioSource.Play ();
 
 		_screenRenderer.enabled = false;
 		_textRenderer.enabled = false;
