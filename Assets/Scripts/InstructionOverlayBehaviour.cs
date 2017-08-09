@@ -124,8 +124,8 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		if (PlayerPrefs.HasKey ("leaderboards")) {
 			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
 
-			if (leaderboards.Count < 4 && 
-				(_instructionIndex == 0 || (_level2Start && _instructionIndex == 5))) {
+			if ((leaderboards.Count < 4 && _instructionIndex == 0) || 
+				(_level2Start && _instructionIndex == 5 && !PlayerPrefs.HasKey("level2played"))) {
 				playerController.moveSpeed = 1f;
 				_playerAnimator.speed = 1f / 3f;
 				_instructionIndex++;
@@ -183,7 +183,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		} else if (levelUpText.enabled == false && levelUpSubtitle.enabled == false && 
 			_bribeCopText.enabled == false && _bribeCopRenderer.enabled == false && 
 			_platformJumpText.enabled == false && _platformJumpRenderer.enabled == false && 
-			_level2Start && (_instructionIndex == 0 || _instructionIndex == 6)) {
+			_level2Start && (_instructionIndex == 0 || _instructionIndex == 6 || _instructionIndex == 5)) {
 
 			// show the level 2 intro text
 			levelUpText.enabled = true;
@@ -192,14 +192,15 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			StartCoroutine (Utility.FadeTextOut (levelUpSubtitle, _showLevelDuration, _fadeDuration));
 			if (_instructionIndex == 6) {
 				_instructionIndex++;
-			} else if (_instructionIndex == 0) {
+			} else if (_instructionIndex == 0 || PlayerPrefs.HasKey("level2played")) {
 				_instructionIndex = 10;
 			}
+			PlayerPrefs.SetInt ("level2played", 1);
 
 		} else if (levelUpText.enabled == false && levelUpSubtitle.enabled == false && 
 			_bribeCopText.enabled == false && _bribeCopRenderer.enabled == false && 
 			_platformJumpText.enabled == false && _platformJumpRenderer.enabled == false && 
-			_level2Start && _instructionIndex < 10 && _instructionIndex > 5) {
+			_level2Start && _instructionIndex < 10 && _instructionIndex > 6) {
 			
 			switch (_instructionIndex) {
 			case 7:
