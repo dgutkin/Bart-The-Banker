@@ -263,7 +263,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			break;
 		}
 
-		levelUpText.text = "LEVEL " + level;
+		levelUpText.text = "STAGE " + level;
 		levelUpSubtitle.text = subtitleMsg;
 
 		if (level > 2) {
