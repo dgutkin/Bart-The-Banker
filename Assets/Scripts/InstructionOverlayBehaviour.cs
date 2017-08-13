@@ -232,7 +232,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		string subtitleMsg = "";
 
 		// Begin speeding up the game at Level 3
-		_playerMoveSpeed  = 3f + 0.5f * Math.Max(level - 2,0);
+		_playerMoveSpeed  = 3f + 0.7f * Math.Max(level - 2,0);
 		_playerJumpYForce = 650;
 
 		// adjust the xForce and gravity to keep the same jump arc
@@ -247,18 +247,18 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 			subtitleMsg = "MORE COPS, START RUNNING FASTER!";
 			break;
 		case 4:
-			_playerJumpXForce = -20;
-			_playerGravityScale = 2.7f;
+			_playerJumpXForce = -30;
+			_playerGravityScale = 2.55f;
 			subtitleMsg = "THE FASTER YOU RUN, THE FASTER YOU EARN!";
 			break;
 		case 5:
-			_playerJumpXForce = -30;
-			_playerGravityScale = 2.75f;
+			_playerJumpXForce = -60;
+			_playerGravityScale = 2.6f;
 			subtitleMsg = "THEY SHOULD CALL YOU BART THE RUNNER?";
 			break;
 		case 6:
-			_playerJumpXForce = -50;
-			_playerGravityScale = 2.765f;
+			_playerJumpXForce = -100;
+			_playerGravityScale = 2.63f;
 			subtitleMsg = "HOW LONG CAN YOU LAST?";
 			break;
 		}

@@ -436,14 +436,14 @@ public class GameItemGenerator : MonoBehaviour {
 
 	void CheckLevel() {
 
-		// 10, 25, 50, 100, 200, 500
+		// 10, 20, 40, 80, 160, 320
 		if (_billProgressIndex < 10) {
 			_billProbabilities [0] = 90;
 			_billProbabilities [1] = 10;
 			_billProbabilities [2] = 0;
 			_billProbabilities [3] = 0;
 			_billProbabilities [4] = 0;
-		} else if (_billProgressIndex < 25) {
+		} else if (_billProgressIndex < 20) {
 			_billProbabilities [0] = 60;
 			_billProbabilities [1] = 30;
 			_billProbabilities [2] = 10;
@@ -451,15 +451,15 @@ public class GameItemGenerator : MonoBehaviour {
 			_billProbabilities [4] = 0;
 			_level = 2;
 			_heartFrequency = 1;
-		} else if (_billProgressIndex < 50) {
+		} else if (_billProgressIndex < 40) {
 			_billProbabilities [0] = 35;
 			_billProbabilities [1] = 35;
 			_billProbabilities [2] = 20;
 			_billProbabilities [3] = 10;
 			_billProbabilities [4] = 0;
-			_heartFrequency = 2;
+			_heartFrequency = 1;
 			_level = 3;
-		} else if (_billProgressIndex < 100) {
+		} else if (_billProgressIndex < 80) {
 			_billProbabilities [0] = 25;
 			_billProbabilities [1] = 30;
 			_billProbabilities [2] = 25;
@@ -467,7 +467,7 @@ public class GameItemGenerator : MonoBehaviour {
 			_billProbabilities [4] = 5;
 			_heartFrequency = 2;
 			_level = 4;
-		} else if (_billProgressIndex < 200) {
+		} else if (_billProgressIndex < 160) {
 			_billProbabilities [0] = 15;
 			_billProbabilities [1] = 20;
 			_billProbabilities [2] = 35;
@@ -475,7 +475,7 @@ public class GameItemGenerator : MonoBehaviour {
 			_billProbabilities [4] = 10;
 			_heartFrequency = 2;
 			_level = 5;
-		} else if (_billProgressIndex < 500) {
+		} else if (_billProgressIndex < 320) {
 			_billProbabilities [0] = 10;
 			_billProbabilities [1] = 15;
 			_billProbabilities [2] = 30;
