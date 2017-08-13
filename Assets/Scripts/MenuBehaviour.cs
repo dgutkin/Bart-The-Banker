@@ -103,9 +103,9 @@ public class MenuBehaviour : MonoBehaviour {
 			List<string> leaderboards = new List<string> (PlayerPrefs.GetString ("leaderboards").Split (';'));
 			if (leaderboards.Count > 6) {
 				// The ad only appears once the game is played more than three times
-				int randomNumber = Random.Range (1, 4);
+				int randomNumber = Random.Range (1, 5);
 
-				// Make the ad appear one in three times on average
+				// Make the ad appear one in four times on average
 				if (Advertisement.IsReady () && randomNumber == 1) {
 					Advertisement.Show ();
 				}
