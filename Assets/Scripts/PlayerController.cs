@@ -172,6 +172,7 @@ public class PlayerController : MonoBehaviour {
 						(hitCollider.CompareTag("Resume") && _isPaused))) {
 					
 						// disable touch to jump/slide if bottom of cop or pause/resume is tapped
+						_unslide = true;
 
 					} else if (touch.phase == TouchPhase.Began &&
 						touchPosition.x > cameraPosition.x && touchPosition2D.y > Constants.BRIBE_BOUNDARY && 
@@ -191,7 +192,7 @@ public class PlayerController : MonoBehaviour {
 						
 						_slide = true;
 
-				} else if (touch.phase == TouchPhase.Ended && touchPosition2D.y > Constants.BRIBE_BOUNDARY) {
+				} else if ((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Moved)) {
 						
 						_unslide = true;
 
