@@ -57,6 +57,7 @@ public class GameItemGenerator : MonoBehaviour {
 	private int _spaceBeforeGameChange = 15;
 	private float _spawnTileBoundary = 0f;
 	private int _previousLevel = 1;
+	private int[] _levelBreaks = { 7, 15, 30, 75, 150, 300 };
 
 	void Awake() {
 		
@@ -437,13 +438,13 @@ public class GameItemGenerator : MonoBehaviour {
 	void CheckLevel() {
 
 		// 10, 20, 40, 80, 160, 320
-		if (_billProgressIndex < 10) {
+		if (_billProgressIndex < _levelBreaks[0]) {
 			_billProbabilities [0] = 90;
 			_billProbabilities [1] = 10;
 			_billProbabilities [2] = 0;
 			_billProbabilities [3] = 0;
 			_billProbabilities [4] = 0;
-		} else if (_billProgressIndex < 20) {
+		} else if (_billProgressIndex < _levelBreaks[1]) {
 			_billProbabilities [0] = 60;
 			_billProbabilities [1] = 30;
 			_billProbabilities [2] = 10;
@@ -451,7 +452,7 @@ public class GameItemGenerator : MonoBehaviour {
 			_billProbabilities [4] = 0;
 			_level = 2;
 			_heartFrequency = 1;
-		} else if (_billProgressIndex < 40) {
+		} else if (_billProgressIndex < _levelBreaks[2]) {
 			_billProbabilities [0] = 35;
 			_billProbabilities [1] = 35;
 			_billProbabilities [2] = 20;
@@ -459,7 +460,7 @@ public class GameItemGenerator : MonoBehaviour {
 			_billProbabilities [4] = 0;
 			_heartFrequency = 1;
 			_level = 3;
-		} else if (_billProgressIndex < 80) {
+		} else if (_billProgressIndex < _levelBreaks[3]) {
 			_billProbabilities [0] = 25;
 			_billProbabilities [1] = 30;
 			_billProbabilities [2] = 25;
@@ -467,7 +468,7 @@ public class GameItemGenerator : MonoBehaviour {
 			_billProbabilities [4] = 5;
 			_heartFrequency = 2;
 			_level = 4;
-		} else if (_billProgressIndex < 160) {
+		} else if (_billProgressIndex < _levelBreaks[4]) {
 			_billProbabilities [0] = 15;
 			_billProbabilities [1] = 20;
 			_billProbabilities [2] = 35;
@@ -475,7 +476,7 @@ public class GameItemGenerator : MonoBehaviour {
 			_billProbabilities [4] = 10;
 			_heartFrequency = 2;
 			_level = 5;
-		} else if (_billProgressIndex < 320) {
+		} else if (_billProgressIndex < _levelBreaks[5]) {
 			_billProbabilities [0] = 10;
 			_billProbabilities [1] = 15;
 			_billProbabilities [2] = 30;
@@ -493,10 +494,12 @@ public class GameItemGenerator : MonoBehaviour {
 
 		if (_level > _previousLevel) {
 
+			_billProgressIndex = _levelBreaks [_previousLevel - 1];
+
 			// Adjust player speed and jump for game change
 			OnLevelChange(_level);
 			_previousLevel = _level;
-
+			Debug.Log (_billProgressIndex.ToString ());
 		}
 
 		_spawnTileBoundary = _lastItemPosition.x;
