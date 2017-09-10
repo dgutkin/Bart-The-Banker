@@ -1538,7 +1538,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1514987997}
   - component: {fileID: 1514988001}
-  - component: {fileID: 1514988000}
   - component: {fileID: 1514987999}
   - component: {fileID: 1514987998}
   - component: {fileID: 1514988002}
@@ -1668,20 +1667,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.8799999, y: 0.71999997}
   m_EdgeRadius: 0
---- !u!114 &1514988000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1514987996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01dba15ca8e224457a601ba29b1f1183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stateManager: {fileID: 0}
-  menuItem: {fileID: 1514987996}
-  audioSource: {fileID: 1514987998}
 --- !u!212 &1514988001
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -206,8 +206,7 @@ public class PlayerController : MonoBehaviour {
 					}
 				
 				}
-				// if player velocity is zero then translate up and to the right by a small amount
-				// apply a small force (mini jump/nudge) to get the player back on track
+				
 			#endif
 		}
 
