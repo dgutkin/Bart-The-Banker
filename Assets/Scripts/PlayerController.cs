@@ -131,6 +131,13 @@ public class PlayerController : MonoBehaviour {
 		// update from level changes
 		_playerRigidbody.gravityScale = gravityScale;
 
+		// if the player gets stuck due to a corner collision then apply small force
+		if (_playerRigidbody.velocity.x == 0) {
+
+			_playerRigidbody.AddForce (new Vector2 (10f, 10f));
+
+		}
+
 		if (_isPaused) {
 			
 			// when paused disable all controls
