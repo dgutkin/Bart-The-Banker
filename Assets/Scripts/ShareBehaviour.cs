@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Runtime.InteropServices;
 
 public class ShareBehaviour : MonoBehaviour {
+
+	[DllImport("__Internal")]
+	private static extern void shareImageWithTextOnIOS (string iosPath, string message);
 
 	private Renderer _shareButtonRenderer;
 	private AudioSource _audioClip;
@@ -84,19 +88,17 @@ public class ShareBehaviour : MonoBehaviour {
 
 		#elif UNITY_IOS
 
-			
+			string path = Application.persistentDataPath + "/HighScoreScreenshot.png";
+			File.WriteAllBytes (path, screenshot);
+
+			string path_ = "HighScoreScreenshot.png";
+
+			string shareMessage = "Bart the Banker Highscore";
+
+			shareImageWithTextOnIOS(path, shareMessage);
 
 		#endif
 
 	}
 
-	private void OnHideUnity(bool isGameShown) {
-
-		if (!isGameShown) {
-			Time.timeScale = 0;
-		} else {
-			Time.timeScale = 1;
-		}
-
-	}
 }
