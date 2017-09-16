@@ -499,7 +499,7 @@ public class GameItemGenerator : MonoBehaviour {
 			// Adjust player speed and jump for game change
 			OnLevelChange(_level);
 			_previousLevel = _level;
-			Debug.Log (_billProgressIndex.ToString ());
+
 		}
 
 		_spawnTileBoundary = _lastItemPosition.x;

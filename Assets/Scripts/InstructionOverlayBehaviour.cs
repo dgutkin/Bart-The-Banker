@@ -238,7 +238,7 @@ public class InstructionOverlayBehaviour : MonoBehaviour {
 		// adjust the xForce and gravity to keep the same jump arc
 		switch (level) {
 		case 2:
-			subtitleMsg = "WATCH OUT FOR THE COPS! TAP TO BRIBE FOR $100!";
+			subtitleMsg = "WATCH OUT FOR COPS! TAP TO STOP - $100 BRIBE";
 			_level2Start = true;
 			break;
 		case 3:
