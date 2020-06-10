@@ -360,6 +360,7 @@ public class GameItemGenerator : MonoBehaviour {
 					billPosition += new Vector2 (_obstacleWidth, (_highObstacleHeightFactor - 1) * _obstacleHeight);
 					break;
 				}
+
 				Instantiate (heart, billPosition, Quaternion.identity);
 
 				continue;

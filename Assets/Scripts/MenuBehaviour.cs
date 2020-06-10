@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using UnityEngine.Advertisements;
+//using UnityEngine.Advertisements;
 
 
 public class MenuBehaviour : MonoBehaviour {
@@ -106,9 +106,9 @@ public class MenuBehaviour : MonoBehaviour {
 				int randomNumber = Random.Range (1, 5);
 
 				// Make the ad appear one in four times on average
-				if (Advertisement.IsReady () && randomNumber == 1) {
-					Advertisement.Show ();
-				}
+				// if (Advertisement.IsReady () && randomNumber == 1) {
+				// 	Advertisement.Show ();
+				// }
 			
 			}
 
