@@ -18,6 +18,7 @@ public class DeathBlockBehavior : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("Player")) {
 			
+			Destroy (gameObject);
 			other.SendMessage ("HitObstacle", SendMessageOptions.DontRequireReceiver);
 
 		}
